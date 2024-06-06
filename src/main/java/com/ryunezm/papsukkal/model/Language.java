@@ -30,5 +30,5 @@ public enum Language {
     SPANISH,
     URDU,
     YUE_CHINESE,
-    YORUBA;
+    YORUBA
 }
