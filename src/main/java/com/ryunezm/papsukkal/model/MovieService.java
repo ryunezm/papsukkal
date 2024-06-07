@@ -30,4 +30,12 @@ public class MovieService {
         movieRepository.deleteById(id);
     }
 
+    public List<Movie> findMovieByAnyTitle(String title){
+        return movieRepository.findMovieByAnyTitle(title);
+    }
+
+    public List<Movie> findMovieByAnyPerson(String keyword){
+        return movieRepository.findMovieByAnyPerson(keyword);
+    }
+
 }

@@ -16,12 +16,12 @@ public interface MovieRepository extends MongoRepository<Movie, String> {
             "{'editedBy':  {$regex: ?0, $options:  'i'}}," +
             "{'musicBy':  {$regex: ?0, $options:  'i'}}," +
             "]}")
-    List<Movie> findPersonByAnyRol(String keyword);
+    List<Movie> findMovieByAnyPerson(String keyword);
 
     @Query("{$or:[" +
             "{'title': {$regex: ?0, $options: 'i'}}," +
             "{'titleEN': {$regex: ?0, $options: 'i'}}," +
             "{'titleES': {$regex: ?0, $options: 'i'}}" +
             "]}")
-    List<Movie> findByAnyTitle(String title);
+    List<Movie> findMovieByAnyTitle(String title);
 }
