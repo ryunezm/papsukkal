@@ -19,7 +19,7 @@ public interface MovieRepository extends MongoRepository<Movie, String> {
     List<Movie> findPersonByAnyRol(String keyword);
 
     @Query("{$or:[" +
-            "{'titleOriginal': {$regex: ?0, $options: 'i'}}," +
+            "{'title': {$regex: ?0, $options: 'i'}}," +
             "{'titleEN': {$regex: ?0, $options: 'i'}}," +
             "{'titleES': {$regex: ?0, $options: 'i'}}" +
             "]}")
