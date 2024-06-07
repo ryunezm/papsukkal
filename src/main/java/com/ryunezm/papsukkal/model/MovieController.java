@@ -15,6 +15,16 @@ public class MovieController {
         this.movieService = movieService;
     }
 
+    @GetMapping("/searchByPerson/{keyword}")
+    public List<Movie> findMovieByAnyPerson(@PathVariable String keyword) {
+        return movieService.findMovieByAnyPerson(keyword);
+    }
+
+    @GetMapping("/searchByTitle/{title}")
+    public List<Movie> findMovieByAnyTitle(@PathVariable String title) {
+        return movieService.findMovieByAnyTitle(title);
+    }
+
     @GetMapping
     public List<Movie> getAllMovies() {
         return movieService.findAll();
