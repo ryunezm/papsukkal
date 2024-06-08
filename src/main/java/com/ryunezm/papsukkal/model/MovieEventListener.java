@@ -16,15 +16,15 @@ import java.util.List;
 @Component
 public class MovieEventListener extends AbstractMongoEventListener<Movie> {
     private final MongoClient mongoClient;
-    private final String mongoDataBaseName;
+    private final String mongoDatabaseName;
     private final MovieRepository movieRepository;
 
     @Autowired
     public MovieEventListener(MongoClient mongoClient,
-                              @Value("${MONGO_DATABASE}") String mongoDatabaseName,
+                              @Value("${spring.data.mongodb.database}") String mongoDatabaseName,
                               MovieRepository movieRepository) {
         this.mongoClient = mongoClient;
-        this.mongoDataBaseName = mongoDatabaseName;
+        this.mongoDatabaseName = mongoDatabaseName;
         this.movieRepository = movieRepository;
     }
 
@@ -40,7 +40,7 @@ public class MovieEventListener extends AbstractMongoEventListener<Movie> {
     }
 
     private void updatePeopleCollection(Movie movie, boolean increment) {
-        MongoDatabase database = mongoClient.getDatabase(mongoDataBaseName);
+        MongoDatabase database = mongoClient.getDatabase(mongoDatabaseName);
         MongoCollection<Document> peopleCollection = database.getCollection("people");
 
         updateFieldCount(peopleCollection, movie.getDirectedBy(), "directedByCount", increment);
@@ -56,9 +56,9 @@ public class MovieEventListener extends AbstractMongoEventListener<Movie> {
                                   List<String> people,
                                   String field,
                                   boolean increment) {
-        for (String person: people){
+        for (String person : people) {
             Document query = new Document("name", person);
-            Document update = new Document("$inc", new Document(field, increment?1:-1));
+            Document update = new Document("$inc", new Document(field, increment ? 1 : -1));
             peopleCollection.updateOne(query, update, new com.mongodb.client.model.UpdateOptions().upsert(true));
         }
     }
