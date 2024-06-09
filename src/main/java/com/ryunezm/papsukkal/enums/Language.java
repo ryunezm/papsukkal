@@ -1,4 +1,4 @@
-package com.ryunezm.papsukkal.model;
+package com.ryunezm.papsukkal.enums;
 
 public enum Language {
     ARABIC,
