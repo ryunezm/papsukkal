@@ -1,6 +1,9 @@
 package com.ryunezm.papsukkal.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ryunezm.papsukkal.enums.Genre;
+import com.ryunezm.papsukkal.enums.Language;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -27,7 +30,8 @@ public class Movie {
     private List<String> productionCompany;
     private LocalDate releaseDate;
     private List<Genre> genre;
-    private List<SubGenre> subgenre;
+    @JsonProperty("subgenres")
+    private List<Genre.SubGenre> subgenres;
     private int runningTime;
     private List<Language> language;
     private PersonalRating personalRating;
@@ -80,6 +84,11 @@ public class Movie {
     public void setMusicBy(List<String> musicBy) {
         if (musicBy.size() <= 10) { this.musicBy = musicBy; }
         else { throw new IllegalArgumentException("The list of music composers cannot exceed 10."); }
+    }
+
+    @JsonProperty("subgenre")
+    public List<Genre.SubGenre> getSubgenres() {
+        return subgenres;
     }
 
     @Data
