@@ -3,6 +3,7 @@ package com.ryunezm.papsukkal.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.ryunezm.papsukkal.enums.Country;
 import com.ryunezm.papsukkal.enums.Genre;
 import com.ryunezm.papsukkal.enums.Language;
 import jakarta.validation.constraints.Max;
@@ -55,8 +56,9 @@ public class Movie {
     @NotNull
     private int runningTime;
     @NotNull
+    private List<Country> country;
+    @NotNull
     private List<Language> language;
-
     private PersonalRating personalRating;
 
     @JsonCreator
@@ -76,6 +78,7 @@ public class Movie {
                  @JsonProperty("genre") List<Genre> genre,
                  @JsonProperty("subgenres") List<Genre.SubGenre> subgenres,
                  @JsonProperty("runningTime") int runningTime,
+                 @JsonProperty("country") List<Country> country,
                  @JsonProperty("language") List<Language> language,
                  @JsonProperty("personalRating") PersonalRating personalRating) {
         this.id = id;
