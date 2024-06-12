@@ -27,7 +27,7 @@ public class MovieService {
         return movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
     }
 
-    public Movie save(MovieDTO movieDTO) throws AttributeException {
+    public Movie save(@NotNull MovieDTO movieDTO) throws AttributeException {
         if (movieRepository.existsByTitleAndDirectedByAndReleaseDate(
                 movieDTO.getTitle(),
                 movieDTO.getDirectedBy(),
@@ -58,7 +58,7 @@ public class MovieService {
         return movieRepository.save(movie);
     }
 
-    public Movie update(String id, MovieDTO movieDTO) throws ResourceNotFoundException, AttributeException {
+    public Movie update(String id, @NotNull MovieDTO movieDTO) throws ResourceNotFoundException, AttributeException {
         Movie movie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
 
 
@@ -68,7 +68,7 @@ public class MovieService {
                 movieDTO.getReleaseDate())
                 &&
                 !movie.getId().equals(id)) {
-            throw new AttributeException("Movie already in database");
+            throw new AttributeException("Movie is already in database");
         }
 
         movie.setTitle(movieDTO.getTitle());
@@ -98,8 +98,8 @@ public class MovieService {
         return String.valueOf(idCounter.incrementAndGet());
     }
 
-    public Movie deleteById(String id) {
-        Movie movie = movieRepository.findById(id).get();
+    public Movie deleteById(String id) throws ResourceNotFoundException {
+        Movie movie = movieRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found"));
         movieRepository.delete(movie);
         return movie;
     }
