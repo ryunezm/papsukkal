@@ -17,7 +17,7 @@ public class MovieController {
 
     private final MovieService movieService;
 
-    public MovieController(MovieService movieService) {
+    public MovieController(MovieService movieService, MovieRepository movieRepository) {
         this.movieService = movieService;
     }
 
@@ -44,20 +44,21 @@ public class MovieController {
     @PostMapping
     public ResponseEntity<MessageDTO> saveMovie(@Valid @RequestBody MovieDTO movieDTO) throws AttributeException {
         ResponseEntity.ok(movieService.save(movieDTO));
-        String message = "Movie " + movieDTO.getTitle() + " (" + movieDTO.getDirectedBy() +  ") have been saved";
+        String message = "Movie " + movieDTO.getTitle() + " " + movieDTO.getDirectedBy() + " have been saved";
         return ResponseEntity.ok(new MessageDTO(HttpStatus.OK, message));
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<MessageDTO> updateMovie(@PathVariable("id") String id, @Valid @RequestBody MovieDTO movieDTO) throws ResourceNotFoundException, AttributeException {
         ResponseEntity.ok(movieService.update(id, movieDTO));
-        String message = "Movie " + movieDTO.getTitle() + " (" + movieDTO.getDirectedBy() +  ") have been updated";
+        String message = "Movie " + movieDTO.getTitle() + " " + movieDTO.getDirectedBy() + " have been updated";
         return ResponseEntity.ok(new MessageDTO(HttpStatus.OK, message));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Movie> deleteMovieById(@PathVariable("id") String id) {
-        return ResponseEntity.ok(movieService.deleteById(id));
+    public ResponseEntity<MessageDTO> deleteMovieById(@PathVariable("id") String id) throws ResourceNotFoundException {
+        String message = "Movie " + movieService.findById(id).getTitle() + " has been deleted";
+        ResponseEntity.ok(movieService.deleteById(id));
+        return ResponseEntity.ok(new MessageDTO(HttpStatus.OK, message));
     }
-
 }
