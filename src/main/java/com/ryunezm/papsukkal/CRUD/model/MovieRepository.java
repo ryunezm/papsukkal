@@ -27,7 +27,7 @@ public interface MovieRepository extends MongoRepository<Movie, String> {
             "{'titleES': {$regex: ?0, $options: 'i'}}" +
             "]}")
     List<Movie> findMovieByAnyTitle(String title);
-    
+
     boolean existsByTitleAndDirectedByAndReleaseDate(@NotNull @Size(max = 100, message = "The original title cannot exceed 100 characters.") String title, @Size(max = 5, message = "The list of directors cannot exceed 5.") List<String> directedBy, @NotNull LocalDate releaseDate);
 
 }

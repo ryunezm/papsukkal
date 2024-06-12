@@ -99,7 +99,7 @@ public class MovieService {
     }
 
     public Movie deleteById(String id) throws ResourceNotFoundException {
-        Movie movie = movieRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found"));
+        Movie movie = movieRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found"));
         movieRepository.delete(movie);
         return movie;
     }
