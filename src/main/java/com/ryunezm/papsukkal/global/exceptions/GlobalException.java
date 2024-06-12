@@ -29,9 +29,7 @@ public class GlobalException {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<MessageDTO> validationException(MethodArgumentNotValidException e){
         List<String> messages = new ArrayList<>();
-        e.getBindingResult().getAllErrors().forEach((err)->{
-            messages.add(err.getDefaultMessage());
-        });
+        e.getBindingResult().getAllErrors().forEach((err)-> messages.add(err.getDefaultMessage()));
         return ResponseEntity
                 .badRequest()
                 .body(new MessageDTO(HttpStatus.BAD_REQUEST, messages.toString()));
