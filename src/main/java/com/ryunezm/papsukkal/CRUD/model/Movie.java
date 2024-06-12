@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ryunezm.papsukkal.CRUD.enums.Country;
 import com.ryunezm.papsukkal.CRUD.enums.Genre;
 import com.ryunezm.papsukkal.CRUD.enums.Language;
+import com.ryunezm.papsukkal.CRUD.utils.SubgenreValidator;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -28,10 +29,13 @@ public class Movie {
     @NotNull
     @Size(max = 100, message = "The original title cannot exceed 100 characters.")
     private String title;
+    @NotNull
     @Size(max = 100, message = "The English title cannot exceed 100 characters.")
     private String titleEN;
+    @NotNull
     @Size(max = 100, message = "The Spanish title cannot exceed 100 characters.")
     private String titleES;
+    @NotNull
     @Size(max = 10, message = "The list of directors cannot exceed 10.")
     private List<String> directedBy;
     @Size(max = 10, message = "The list of screenwriters cannot exceed 10.")
@@ -101,41 +105,13 @@ public class Movie {
         this.language = language;
         this.personalRating = personalRating;
 
-        validateSubgenres(subgenres, genre);
+        SubgenreValidator.validateSubgenres(subgenres, genre);
         this.subgenres = subgenres;
     }
 
     @JsonProperty("subgenres")
     public List<Genre.SubGenre> getSubgenres() {
         return subgenres;
-    }
-
-
-    private void validateSubgenres(List<Genre.SubGenre> subgenres, List<Genre> genres) {
-        List<Genre.SubGenre> allowedSubgenres = genres.stream()
-                .flatMap(g -> g.getSubGenres().stream())
-                .toList();
-
-        if (!new HashSet<>(allowedSubgenres).containsAll(subgenres)) {
-            throw new IllegalArgumentException("The subgenres provided are not valid for the given genres.");
-        }
-
-        List<Genre> subgenreGenres = subgenres.stream()
-                .map(this::getGenreFromSubgenre)
-                .toList();
-
-        if (Collections.disjoint(genres, subgenreGenres)) {
-            throw new IllegalArgumentException("The subgenres provided are not valid for the given genres.");
-        }
-    }
-
-    private Genre getGenreFromSubgenre(Genre.SubGenre subgenre) {
-        for (Genre genre : Genre.values()) {
-            if (genre.getSubGenres().contains(subgenre)) {
-                return genre;
-            }
-        }
-        throw new IllegalArgumentException("A genre could not be found for the subgenre provided.");
     }
 
     @Data
@@ -155,9 +131,5 @@ public class Movie {
         @Min(value = 0, message = "The rating should be between 0 and 10.")
         @Max(value = 10, message = "The rating should be between 0 and 10.")
         private int recommended;
-
-        public double getFinalRating() {
-            return (screenplay + acting + photography + entertainment + recommended) / 5.0;
-        }
     }
 }
