@@ -1,0 +1,7 @@
+<h2>{{ movie.title }}</h2>
+<p><strong>Release Date:</strong> {{ movie.releaseDate }}</p>
+<p><strong>Genres:</strong> {{ movie.genre.join(', ') }}</p>
+<p><strong>Running Time:</strong> {{ movie.runningTime }} minutes</p>
+<p><strong>Languages:</strong> {{ movie.language.join(', ') }}</p>
+<button routerLink="/movies/edit/{{ movie.id }}">Edit</button>
+<button (click)="deleteMovie()">Delete</button>

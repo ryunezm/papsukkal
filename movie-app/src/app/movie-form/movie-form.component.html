@@ -1,0 +1,24 @@
+<h2>{{ movie.id ? 'Edit Movie' : 'New Movie' }}</h2>
+<form (ngSubmit)="saveMovie()">
+  <div>
+    <label>Title:</label>
+    <input [(ngModel)]="movie.title" name="title" required>
+  </div>
+  <div>
+    <label>Release Date:</label>
+    <input [(ngModel)]="movie.releaseDate" name="releaseDate" type="date" required>
+  </div>
+  <div>
+    <label>Running Time:</label>
+    <input [(ngModel)]="movie.runningTime" name="runningTime" type="number" required>
+  </div>
+  <div>
+    <label>Genres:</label>
+    <input [(ngModel)]="movie.genre" name="genre" required>
+  </div>
+  <div>
+    <label>Languages:</label>
+    <input [(ngModel)]="movie.language" name="language" required>
+  </div>
+  <button type="submit">Save</button>
+</form>
