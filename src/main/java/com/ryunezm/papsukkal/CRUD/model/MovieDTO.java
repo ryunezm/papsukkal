@@ -106,7 +106,6 @@ public class MovieDTO {
         return subgenres;
     }
 
-
     @Data
     public static class PersonalRating {
         @Min(value = 0, message = "The rating should be between 0 and 10.")
