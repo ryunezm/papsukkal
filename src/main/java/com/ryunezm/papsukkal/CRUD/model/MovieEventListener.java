@@ -57,6 +57,13 @@ public class MovieEventListener extends AbstractMongoEventListener<Movie> {
         updateFieldCount(peopleCollection, movie.getMusicBy(), "musicByCount", increment);
     }
 
+    private void updateProductionCompanyCollection(@NotNull Movie movie, boolean increment) {
+        MongoDatabase database = mongoClient.getDatabase(mongoDatabaseName);
+        MongoCollection<Document> productionCompanyCollection = database.getCollection("productionCompanies");
+
+        updateFieldCount(productionCompanyCollection, movie.getProductionCompany(), "productionCompanyCount", increment);
+    }
+
     private void updateFieldCount(MongoCollection<Document> collection,
                                   @NotNull List<String> items,
                                   String field,
@@ -68,11 +75,6 @@ public class MovieEventListener extends AbstractMongoEventListener<Movie> {
         }
     }
 
-    private void updateProductionCompanyCollection(@NotNull Movie movie, boolean increment) {
-        MongoDatabase database = mongoClient.getDatabase(mongoDatabaseName);
-        MongoCollection<Document> productionCompanyCollection = database.getCollection("productionCompanies");
 
-        updateFieldCount(productionCompanyCollection, movie.getProductionCompany(), "productionCompanyCount", increment);
-    }
 }
 
