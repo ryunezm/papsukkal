@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
@@ -29,17 +30,21 @@ public class MovieEventListener extends AbstractMongoEventListener<Movie> {
     }
 
     @Override
-    public void onAfterSave(AfterSaveEvent<Movie> event) {
+    public void onAfterSave(@NotNull AfterSaveEvent<Movie> event) {
         updatePeopleCollection(event.getSource(), true);
+        updateProductionCompanyCollection(event.getSource(), true);
     }
 
     @Override
-    public void onBeforeDelete(BeforeDeleteEvent<Movie> event) {
+    public void onBeforeDelete(@NotNull BeforeDeleteEvent<Movie> event) {
         String movieId = event.getSource().get("_id").toString();
-        movieRepository.findById(movieId).ifPresent(movie -> updatePeopleCollection(movie, false));
+        movieRepository.findById(movieId).ifPresent(movie -> {
+            updatePeopleCollection(movie, false);
+            updateProductionCompanyCollection(movie, false);
+        });
     }
 
-    private void updatePeopleCollection(Movie movie, boolean increment) {
+    private void updatePeopleCollection(@NotNull Movie movie, boolean increment) {
         MongoDatabase database = mongoClient.getDatabase(mongoDatabaseName);
         MongoCollection<Document> peopleCollection = database.getCollection("people");
 
@@ -52,14 +57,22 @@ public class MovieEventListener extends AbstractMongoEventListener<Movie> {
         updateFieldCount(peopleCollection, movie.getMusicBy(), "musicByCount", increment);
     }
 
-    private void updateFieldCount(MongoCollection<Document> peopleCollection,
-                                  List<String> people,
+    private void updateFieldCount(MongoCollection<Document> collection,
+                                  @NotNull List<String> items,
                                   String field,
                                   boolean increment) {
-        for (String person : people) {
-            Document query = new Document("name", person);
+        for (String item : items) {
+            Document query = new Document("name", item);
             Document update = new Document("$inc", new Document(field, increment ? 1 : -1));
-            peopleCollection.updateOne(query, update, new com.mongodb.client.model.UpdateOptions().upsert(true));
+            collection.updateOne(query, update, new com.mongodb.client.model.UpdateOptions().upsert(true));
         }
     }
+
+    private void updateProductionCompanyCollection(@NotNull Movie movie, boolean increment) {
+        MongoDatabase database = mongoClient.getDatabase(mongoDatabaseName);
+        MongoCollection<Document> productionCompanyCollection = database.getCollection("productionCompanies");
+
+        updateFieldCount(productionCompanyCollection, movie.getProductionCompany(), "productionCompanyCount", increment);
+    }
 }
+
