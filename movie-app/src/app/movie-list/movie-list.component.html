@@ -1,7 +1,12 @@
-<h2>Movies</h2>
-<ul>
-  @for (movie of movies; track $index){
-    <a [routerLink]="['/movies', movie.id]">{{ movie.title }}</a>
-  }
-</ul>
+<div>
+  <h2>Movies</h2>
+</div>
+<div>
+  <ul>
+    @for (movie of movies; track $index){
+      <a [routerLink]="['/movies', movie.id]">{{ movie.title }}</a>
+    }
+  </ul>
+</div>
+
 <button routerLink="/movies/new">Add Movie</button>
