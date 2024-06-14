@@ -1,12 +1,14 @@
 import {Component} from '@angular/core';
 import {MovieService} from "../movie.service";
 import {RouterLink} from "@angular/router";
+import {MatButton} from "@angular/material/button";
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    MatButton
   ],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss'
