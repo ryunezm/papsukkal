@@ -20,6 +20,10 @@
   justify-content: center;
 }
 
+h1 {
+  color: #A35353;
+}
+
 #container-form {
   display: flex;
   flex-direction: column;
@@ -57,7 +61,7 @@
 
 
 .sub-form {
-  border: 0.1vw solid black;
+  border: 0.1vw solid #A35353;
   margin-bottom: 0.1vw;
   margin-top: 0.1vw;
 }
@@ -73,8 +77,15 @@
   width: 100%;
 }
 
-.sub-form-input-text {
+.sub-form-input-text,
+.sub-form-input-number{
   width: 100%;
+  border-radius: 0;
+  border: 0;
+  font-family: "Source Sans 3", sans-serif;
 }
 
-
+.sub-form-input-text:focus,
+.sub-form-input-number:focus {
+  outline: none;
+}

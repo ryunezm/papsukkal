@@ -1,6 +1,6 @@
 <div id="container">
   <div id="container-title">
-    <h2>{{ movie.id ? 'Edit Movie' : 'New Movie' }}</h2>
+    <h1>{{ movie.id ? 'Edit Movie' : 'New Movie' }}</h1>
   </div>
   <div id="container-form">
     <form #ngForm="ngForm" (ngSubmit)="saveMovie()" novalidate>
@@ -132,7 +132,10 @@
                class="sub-form-input-text"
                name="runningTime"
                required
-               type="number">
+               type="text"
+               pattern="[0-9]*"
+        title="Please enter only numbers"
+        (keypress)="validateNumberInput($event)">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Country:</label>
@@ -164,6 +167,7 @@
         <label class="sub-form-label">Screenplay Rating:</label>
         <input #screenplayRating="ngModel"
                [(ngModel)]="movie.personalRating.screenplay"
+               class="sub-form-input-number"
                max="10" min="0"
                name="screenplay"
                type="number">
@@ -172,6 +176,7 @@
         <label class="sub-form-label">Acting Rating:</label>
         <input #actingRating="ngModel"
                [(ngModel)]="movie.personalRating.acting"
+               class="sub-form-input-number"
                max="10" min="0"
                name="acting"
                type="number">
@@ -180,6 +185,7 @@
         <label class="sub-form-label">Photography Rating:</label>
         <input #photographyRating="ngModel"
                [(ngModel)]="movie.personalRating.photography"
+               class="sub-form-input-number"
                max="10" min="0"
                name="photography"
                type="number">
@@ -188,6 +194,7 @@
         <label class="sub-form-label">Entertainment Rating:</label>
         <input #entertainmentRating="ngModel"
                [(ngModel)]="movie.personalRating.entertainment"
+               class="sub-form-input-number"
                max="10" min="0"
                name="entertainment"
                type="number">
@@ -196,6 +203,7 @@
         <label class="sub-form-label">Recommended Rating:</label>
         <input #recommendedRating="ngModel"
                [(ngModel)]="movie.personalRating.recommended"
+               class="sub-form-input-number"
                max="10" min="0"
                name="recommended"
                type="number">
@@ -204,5 +212,3 @@
   </div>
   <button type="submit">Save</button>
 </div>
-
-
