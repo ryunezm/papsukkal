@@ -5,8 +5,8 @@ import {MovieService} from "../movie.service";
 import {Genre, SubGenre} from '../enums/genre.enum';
 import {Country} from '../enums/country.enum';
 import {SubgenreValidatorService} from '../subgenre-validator.service';
-import {NgForOf} from "@angular/common";
-import { Language } from '../enums/language.enum';
+import {NgForOf, NgIf} from "@angular/common";
+import {Language} from '../enums/language.enum';
 
 
 @Component({
@@ -14,7 +14,8 @@ import { Language } from '../enums/language.enum';
   standalone: true,
   imports: [
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './movie-form.component.html',
   styleUrls: ['./movie-form.component.scss']
@@ -37,7 +38,8 @@ export class MovieFormComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
               private router: Router,
-              private subgenreValidatorService: SubgenreValidatorService) {}
+              private subgenreValidatorService: SubgenreValidatorService) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -47,33 +49,21 @@ export class MovieFormComponent implements OnInit {
         this.initializePersonalRating();
         this.onGenresChange();
       });
+    } else {
+      this.initializePersonalRating();
     }
-    else { this.initializePersonalRating(); }
   }
 
   saveMovie(): void {
     this.subgenreValidatorService.validateSubgenres(this.movie.subgenres, this.movie.genres);
     if (this.movie.id) {
       this.movieService.updateMovie(this.movie.id, this.movie).subscribe(() => {
-        this.router.navigate(['/movies']).then(r => {});
+        this.router.navigate(['/movies']).then(r => {console.log("nothing")});
       });
-    }
-    else {
+    } else {
       this.movieService.createMovie(this.movie).subscribe(() => {
-        this.router.navigate(['/movies']).then(r => {});
+        this.router.navigate(['/movies']).then(r => {console.log("nothing")});
       });
-    }
-  }
-
-  private initializePersonalRating(): void {
-    if (!this.movie.personalRating) {
-      this.movie.personalRating = {
-        screenplay: 0,
-        acting: 0,
-        photography: 0,
-        entertainment: 0,
-        recommended: 0
-      };
     }
   }
 
@@ -82,8 +72,9 @@ export class MovieFormComponent implements OnInit {
       this.filteredSubgenres = this.subgenres.filter(subgenre => {
         return this.movie.genres.some((genre: any) => this.subgenreValidatorService.getGenreFromSubgenre(subgenre) === genre);
       });
+    } else {
+      this.filteredSubgenres = [];
     }
-    else { this.filteredSubgenres = []; }
   }
 
   onCheckboxChange(event: Event, type: string): void {
@@ -99,6 +90,28 @@ export class MovieFormComponent implements OnInit {
       }
     }
 
-    if (type === 'genres') { this.onGenresChange(); }
+    if (type === 'genres') {
+      this.onGenresChange();
+    }
+  }
+
+  validateNumberInput(event: KeyboardEvent): void {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  private initializePersonalRating(): void {
+    if (!this.movie.personalRating) {
+      this.movie.personalRating = {
+        screenplay: 0,
+        acting: 0,
+        photography: 0,
+        entertainment: 0,
+        recommended: 0
+      };
+    }
   }
 }
