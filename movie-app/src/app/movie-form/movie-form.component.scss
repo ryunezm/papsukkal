@@ -1,4 +1,4 @@
-#new-movie{
+#container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +10,17 @@
   box-shadow: 1vw 1vw #666666;
 }
 
-#form{
+#container-title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+#container-form {
   display: flex;
   flex-direction: column;
   margin: 2vw 10vw;
@@ -19,33 +29,52 @@
   justify-content: center;
 }
 
-#form div {
+#container-form div {
   display: flex;
   justify-items: center;
   align-items: center;
   align-content: center;
   justify-content: center;
-  padding: 0.1vw;
+  padding: 0.2vw;
 }
 
-.checkbox-container{
+.checkbox-container {
   display: flex;
-  flex: 1 0 70%;
+  flex: 1 0 80%;
   align-items: center;
-  outline: 1px solid black;
   flex-direction: row;
   flex-wrap: wrap;
 }
 
 .checkbox-item {
-  //outline: 0.1vw green solid;
   margin-right: 10px;
+  margin-top: 0.1vw;
   width: 15vw;
+  align-items: center;
+  align-content: center;
+  display: flex;
 }
 
-.field-label {
-  color: purple;
-  width: 100%;
-  outline: 1px solid red;
+
+.sub-form {
+  border: 0.1vw solid black;
+  margin-bottom: 0.1vw;
+  margin-top: 0.1vw;
 }
+
+.sub-form:hover .sub-form-label {
+  background-color: #A35353;
+  color: #C5C9C7;
+}
+
+.sub-form-label {
+  color: #A35353;
+  font-weight: bold;
+  width: 100%;
+}
+
+.sub-form-input-text {
+  width: 100%;
+}
+
 
