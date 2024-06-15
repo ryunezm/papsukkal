@@ -58,11 +58,11 @@ export class MovieFormComponent implements OnInit {
     this.subgenreValidatorService.validateSubgenres(this.movie.subgenres, this.movie.genres);
     if (this.movie.id) {
       this.movieService.updateMovie(this.movie.id, this.movie).subscribe(() => {
-        this.router.navigate(['/movies']).then(r => {console.log("nothing")});
+        this.router.navigate(['/movies']).then(r => {});
       });
     } else {
       this.movieService.createMovie(this.movie).subscribe(() => {
-        this.router.navigate(['/movies']).then(r => {console.log("nothing")});
+        this.router.navigate(['/movies']).then(r => {});
       });
     }
   }
