@@ -37,6 +37,7 @@ export enum Genre {
   SATIRE = 'Satire',
   SPY_FILM = 'Spy Film',
   SUPERHERO = 'Superhero',
+  SURVIVAL = 'Survival',
   SUSPENSE = 'Suspense',
   TEEN_FILM = 'Teen Film',
   TERROR = 'Terror',
@@ -52,7 +53,6 @@ export enum SubGenre {
 
   // ADVENTURE subgenres
   ADVENTURE_PIRATE = 'Pirate',
-  ADVENTURE_SURVIVAL = 'Survival',
   ADVENTURE_SWASHBUCKLER = 'Swashbuckler',
 
   // ANIMAL_FILM subgenres
@@ -130,7 +130,6 @@ export enum SubGenre {
   HORROR_MONSTER = 'Monster',
   HORROR_PARANORMAL = 'Paranormal',
   HORROR_SLASHER = 'Slasher',
-  HORROR_SURVIVAL = 'Survival',
   HORROR_WITCHCRAFT = 'Witchcraft',
 
   // MUSIC subgenres
