@@ -6,122 +6,132 @@
 
   <div id="form">
     <form #ngForm="ngForm" (ngSubmit)="saveMovie()" novalidate>
-      <div>
-        <label>Title:</label>
+      <div class="title">
+        <label class="field-label">Title:</label>
         <input #title="ngModel" [(ngModel)]="movie.title" maxlength="100" name="title" required>
       </div>
-      <div>
-        <label>Title (EN):</label>
+      <div class="title">
+        <label class="field-label">Title (EN):</label>
         <input #titleEN="ngModel" [(ngModel)]="movie.titleEN" maxlength="100" name="titleEN" required>
       </div>
-      <div>
-        <label>Title (ES):</label>
+      <div class="title">
+        <label class="field-label">Title (ES):</label>
         <input #titleES="ngModel" [(ngModel)]="movie.titleES" maxlength="100" name="titleES" required>
       </div>
-      <div>
-        <label>Directors:</label>
+      <div class="people">
+        <label class="field-label">Directors:</label>
         <input #directedBy="ngModel" [(ngModel)]="movie.directedBy" name="directedBy" required>
       </div>
-      <div>
-        <label>Screenwriters:</label>
+      <div class="people">
+        <label class="field-label">Screenwriters:</label>
         <input #screenplayBy="ngModel" [(ngModel)]="movie.screenplayBy" name="screenplayBy">
       </div>
-      <div>
-        <label>Producers:</label>
+      <div class="people">
+        <label class="field-label">Producers:</label>
         <input #producedBy="ngModel" [(ngModel)]="movie.producedBy" name="producedBy">
       </div>
-      <div>
-        <label>Starring:</label>
+      <div class="people">
+        <label class="field-label">Starring:</label>
         <input #starring="ngModel" [(ngModel)]="movie.starring" name="starring">
       </div>
-      <div>
-        <label>Cinematography:</label>
+      <div class="people">
+        <label class="field-label">Cinematography:</label>
         <input #cinematography="ngModel" [(ngModel)]="movie.cinematography" name="cinematography">
       </div>
-      <div>
-        <label>Edited By:</label>
+      <div class="people">
+        <label class="field-label">Edited By:</label>
         <input #editedBy="ngModel" [(ngModel)]="movie.editedBy" name="editedBy">
       </div>
-      <div>
-        <label>Music By:</label>
+      <div class="people">
+        <label class="field-label">Music By:</label>
         <input #musicBy="ngModel" [(ngModel)]="movie.musicBy" name="musicBy">
       </div>
       <div>
-        <label>Production Company:</label>
+        <label class="field-label">Production Company:</label>
         <input #productionCompany="ngModel" [(ngModel)]="movie.productionCompany" name="productionCompany">
       </div>
       <div>
-        <label>Release Date:</label>
+        <label class="field-label">Release Date:</label>
         <input #releaseDate="ngModel" [(ngModel)]="movie.releaseDate" name="releaseDate" required type="date">
       </div>
       <div>
-        <label>Genres:</label>
-        @for (genre of genres; track $index) {
-          <label>
-            <input (change)="onCheckboxChange($event, 'genres')" [value]="genre" type="checkbox">
-            {{ genre }}
-          </label>
-        }
+        <label class="field-label">Genres:</label>
+        <div class="checkbox-container">
+          @for (genre of genres; track $index) {
+            <label class="checkbox-item">
+              <input (change)="onCheckboxChange($event, 'genres')" [value]="genre" type="checkbox">
+              {{ genre }}
+            </label>
+          }
+        </div>
       </div>
 
       <div>
-        <label>Subgenres:</label>
-        @for (subgenre of filteredSubgenres; track $index) {
-          <label>
-            <input (change)="onCheckboxChange($event, 'subgenres')" [value]="subgenre" type="checkbox">
-            {{ subgenre }}
-          </label>
-        }
+        <label class="field-label">Subgenres:</label>
+        <div class="checkbox-container">
+          @for (subgenre of filteredSubgenres; track $index) {
+            <label class="checkbox-item">
+              <input (change)="onCheckboxChange($event, 'subgenres')" [value]="subgenre" type="checkbox">
+              {{ subgenre }}
+            </label>
+          }
+        </div>
+
       </div>
 
       <div>
-        <label>Running Time:</label>
+        <label class="field-label">Running Time:</label>
         <input #runningTime="ngModel" [(ngModel)]="movie.runningTime" name="runningTime" required type="number">
       </div>
 
       <div>
-        <label>Country:</label>
-        @for (country of countries; track $index) {
-          <label>
-            <input (change)="onCheckboxChange($event, 'countries')" [value]="country" type="checkbox">
-            {{ country }}
-          </label>
-        }
+        <label class="field-label">Country:</label>
+        <div class="checkbox-container">
+          @for (country of countries; track $index) {
+            <label class="checkbox-item">
+              <input (change)="onCheckboxChange($event, 'countries')" [value]="country" type="checkbox">
+              {{ country }}
+            </label>
+          }
+        </div>
+      </div>
+
+      <div>
+        <label class="field-label">Language:</label>
+        <div class="checkbox-container">
+          @for (language of languages; track $index) {
+            <label class="checkbox-item">
+              <input (change)="onCheckboxChange($event, 'languages')" [value]="language" type="checkbox">
+              {{ language }}
+            </label>
+          }
+        </div>
       </div>
       <div>
-        <label>Language:</label>
-        @for (language of languages; track $index) {
-          <label>
-            <input (change)="onCheckboxChange($event, 'languages')" [value]="language" type="checkbox">
-            {{ language }}
-          </label>
-        }
-      </div>
-      <div>
-        <label>Screenplay Rating:</label>
+        <label class="field-label">Screenplay Rating:</label>
         <input #screenplayRating="ngModel" [(ngModel)]="movie.personalRating.screenplay" max="10" min="0"
                name="screenplay"
                type="number">
       </div>
       <div>
-        <label>Acting Rating:</label>
+        <label class="field-label">Acting Rating:</label>
         <input #actingRating="ngModel" [(ngModel)]="movie.personalRating.acting" max="10" min="0" name="acting"
                type="number">
       </div>
       <div>
-        <label>Photography Rating:</label>
+        <label class="field-label">Photography Rating:</label>
         <input #photographyRating="ngModel" [(ngModel)]="movie.personalRating.photography" max="10" min="0"
                name="photography"
                type="number">
       </div>
       <div>
-        <label>Entertainment Rating:</label>
+        <label class="field-label">Entertainment Rating:</label>
         <input #entertainmentRating="ngModel" [(ngModel)]="movie.personalRating.entertainment" max="10" min="0"
                name="entertainment"
                type="number">
       </div>
       <div>
-        <label>Recommended Rating:</label>
+        <label class="field-label">Recommended Rating:</label>
         <input #recommendedRating="ngModel" [(ngModel)]="movie.personalRating.recommended" max="10" min="0"
                name="recommended"
                type="number">
