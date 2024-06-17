@@ -11,6 +11,7 @@
                class="sub-form-input-text"
                maxlength="100"
                name="title"
+               placeholder="Enter original title"
                required
                type="text">
       </div>
@@ -21,6 +22,7 @@
                class="sub-form-input-text"
                maxlength="100"
                name="titleEN"
+               placeholder="Enter title in english"
                required>
       </div>
       <div class="sub-form">
@@ -30,6 +32,7 @@
                class="sub-form-input-text"
                maxlength="100"
                name="titleES"
+               placeholder="Enter title in spanish"
                required>
       </div>
       <div class="sub-form">
@@ -38,6 +41,7 @@
                [(ngModel)]="movie.directedBy"
                class="sub-form-input-text"
                name="directedBy"
+               placeholder="Enter list of directors"
                required>
       </div>
       <div class="sub-form">
@@ -45,49 +49,56 @@
         <input #screenplayBy="ngModel"
                [(ngModel)]="movie.screenplayBy"
                class="sub-form-input-text"
-               name="screenplayBy">
+               name="screenplayBy"
+               placeholder="Enter list of screenwriters">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Producers:</label>
         <input #producedBy="ngModel"
                [(ngModel)]="movie.producedBy"
                class="sub-form-input-text"
-               name="producedBy">
+               name="producedBy"
+               placeholder="Enter list of producers">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Starring:</label>
         <input #starring="ngModel"
                [(ngModel)]="movie.starring"
                class="sub-form-input-text"
-               name="starring">
+               name="starring"
+               placeholder="Enter list of actors">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Cinematography:</label>
         <input #cinematography="ngModel"
                [(ngModel)]="movie.cinematography"
                class="sub-form-input-text"
-               name="cinematography">
+               name="cinematography"
+               placeholder="Enter list of directors of photography">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Edited By:</label>
         <input #editedBy="ngModel"
                [(ngModel)]="movie.editedBy"
                class="sub-form-input-text"
-               name="editedBy">
+               name="editedBy"
+               placeholder="Enter list of editors">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Music By:</label>
         <input #musicBy="ngModel"
                [(ngModel)]="movie.musicBy"
                class="sub-form-input-text"
-               name="musicBy">
+               name="musicBy"
+               placeholder="Enter list of film composers">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Production Company:</label>
         <input #productionCompany="ngModel"
                [(ngModel)]="movie.productionCompany"
                class="sub-form-input-text"
-               name="productionCompany">
+               name="productionCompany"
+               placeholder="Enter list of film production companies">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Release Date:</label>
@@ -95,6 +106,7 @@
                [(ngModel)]="movie.releaseDate"
                class="sub-form-input-text"
                name="releaseDate"
+               placeholder="Enter release date"
                required
                type="date">
       </div>
@@ -128,14 +140,15 @@
       <div class="sub-form">
         <label class="sub-form-label">Running Time:</label>
         <input #runningTime="ngModel"
+               (keypress)="validateNumberInput($event)"
                [(ngModel)]="movie.runningTime"
                class="sub-form-input-text"
                name="runningTime"
-               required
-               type="text"
                pattern="[0-9]*"
-        title="Please enter only numbers"
-        (keypress)="validateNumberInput($event)">
+               placeholder="Enter running time in minutes"
+               required
+               title="Please enter only numbers"
+               type="text">
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Country:</label>
@@ -163,52 +176,54 @@
           }
         </div>
       </div>
-      <div class="sub-form">
-        <label class="sub-form-label">Screenplay Rating:</label>
-        <input #screenplayRating="ngModel"
-               [(ngModel)]="movie.personalRating.screenplay"
-               class="sub-form-input-number"
-               max="10" min="0"
-               name="screenplay"
-               type="number">
-      </div>
-      <div class="sub-form">
-        <label class="sub-form-label">Acting Rating:</label>
-        <input #actingRating="ngModel"
-               [(ngModel)]="movie.personalRating.acting"
-               class="sub-form-input-number"
-               max="10" min="0"
-               name="acting"
-               type="number">
-      </div>
-      <div class="sub-form">
-        <label class="sub-form-label">Photography Rating:</label>
-        <input #photographyRating="ngModel"
-               [(ngModel)]="movie.personalRating.photography"
-               class="sub-form-input-number"
-               max="10" min="0"
-               name="photography"
-               type="number">
-      </div>
-      <div class="sub-form">
-        <label class="sub-form-label">Entertainment Rating:</label>
-        <input #entertainmentRating="ngModel"
-               [(ngModel)]="movie.personalRating.entertainment"
-               class="sub-form-input-number"
-               max="10" min="0"
-               name="entertainment"
-               type="number">
-      </div>
-      <div class="sub-form">
-        <label class="sub-form-label">Recommended Rating:</label>
-        <input #recommendedRating="ngModel"
-               [(ngModel)]="movie.personalRating.recommended"
-               class="sub-form-input-number"
-               max="10" min="0"
-               name="recommended"
-               type="number">
+      <div class="sub-form-rating">
+        <div class="sub-form">
+          <label class="sub-form-label">Screenplay:</label>
+          <select [(ngModel)]="movie.personalRating.screenplay"
+                  name="screenplay"
+                  class="sub-form-input-rating">
+            @for (num of ratingOptions; track $index) {
+              <option [value]="num"> {{ num }}</option>
+            }
+          </select>
+        </div>
+        <div class="sub-form">
+          <label class="sub-form-label">Acting:</label>
+          <select [(ngModel)]="movie.personalRating.acting"
+                  name="acting"
+                  class="sub-form-input-rating">
+            @for (num of ratingOptions; track $index) {
+              <option [value]="num"> {{ num }}</option>
+            }
+          </select>
+        </div>
+        <div class="sub-form"><label class="sub-form-label">Photography:</label>
+          <select [(ngModel)]="movie.personalRating.photography"
+                  name="photography"
+                  class="sub-form-input-rating">
+            @for (num of ratingOptions; track $index) {
+              <option [value]="num"> {{ num }}</option>
+            }
+          </select></div>
+        <div class="sub-form"><label class="sub-form-label">Entertainment:</label>
+          <select [(ngModel)]="movie.personalRating.entertainment"
+                  name="entertainment"
+                  class="sub-form-input-rating">
+            @for (num of ratingOptions; track $index) {
+              <option [value]="num"> {{ num }}</option>
+            }
+          </select></div>
+        <div class="sub-form"><label class="sub-form-label">Recommended:</label>
+          <select [(ngModel)]="movie.personalRating.recommended"
+                  name="recommended"
+                  class="sub-form-input-rating">
+            @for (num of ratingOptions; track $index) {
+              <option [value]="num"> {{ num }}</option>
+            }
+          </select></div>
       </div>
     </form>
+    <button type="submit">SAVE</button>
   </div>
-  <button type="submit">Save</button>
+
 </div>
