@@ -5,7 +5,7 @@ import {MovieService} from "../movie.service";
 import {Genre, SubGenre} from '../enums/genre.enum';
 import {Country} from '../enums/country.enum';
 import {SubgenreValidatorService} from '../subgenre-validator.service';
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf} from "@angular/common";
 import {Language} from '../enums/language.enum';
 
 
@@ -15,19 +15,34 @@ import {Language} from '../enums/language.enum';
   imports: [
     FormsModule,
     NgForOf,
-    NgIf
   ],
   templateUrl: './movie-form.component.html',
   styleUrls: ['./movie-form.component.scss']
 })
 export class MovieFormComponent implements OnInit {
   movie: any = {
+    directedBy: [],
+    screenplayBy: [],
+    producedBy: [],
+    starring: [],
+    cinematography: [],
+    editedBy: [],
+    musicBy: [],
+    productionCompany: [],
     genres: [],
     subgenres: [],
     countries: [],
     languages: [],
-    personalRating: {}
+    personalRating: {
+      screenplay:0,
+      acting: 0,
+      photography: 0,
+      entertainment: 0,
+      recommended: 0
+    }
   };
+
+  ratingOptions: number[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
 
   genres = Object.values(Genre);
   subgenres = Object.values(SubGenre);
