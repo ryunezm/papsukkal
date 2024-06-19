@@ -65,15 +65,15 @@ h1 {
   margin-top: 0.1vw;
 }
 
-.sub-form:hover .sub-form-label {
-  background-color: #A35353;
-  color: #C5C9C7;
-}
-
 .sub-form-label {
   color: #A35353;
   font-weight: bold;
   width: 100%;
+}
+
+.sub-form:hover .sub-form-label {
+  background-color: #A35353;
+  color: #C5C9C7;
 }
 
 .sub-form-input-text,
@@ -98,12 +98,19 @@ h1 {
   justify-content: center;
   justify-items: center;
   gap: 0.1vw;
+  flex: 1;
 }
 
 .sub-form-rating > .sub-form, {
-  flex: 1;
-  width: auto;
+  //flex: 1;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  width: 13vw;
   gap: 0.1vw;
+  flex-direction: row;
+  flex-wrap: wrap;
   font-family: "Source Sans 3", sans-serif;
 }
 
