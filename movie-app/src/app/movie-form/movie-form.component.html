@@ -12,6 +12,7 @@
                maxlength="100"
                name="title"
                placeholder="Enter original title"
+               (ngModelChange)="onFieldChange('title', $event)"
                required
                type="text">
       </div>
@@ -19,6 +20,7 @@
         <label class="sub-form-label">Title (EN):</label>
         <input #titleEN="ngModel"
                [(ngModel)]="movie.titleEN"
+               (ngModelChange)="onFieldChange('titleEN', $event)"
                class="sub-form-input-text"
                maxlength="100"
                name="titleEN"
@@ -33,12 +35,14 @@
                maxlength="100"
                name="titleES"
                placeholder="Enter title in spanish"
+               (ngModelChange)="onFieldChange('titleES', $event)"
                required>
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Directors:</label>
         <input #directedBy="ngModel"
                [(ngModel)]="movie.directedBy"
+               (ngModelChange)="onFieldChange('directBy', $event)"
                class="sub-form-input-text"
                name="directedBy"
                placeholder="Enter list of directors"
@@ -48,6 +52,7 @@
         <label class="sub-form-label">Screenwriters:</label>
         <input #screenplayBy="ngModel"
                [(ngModel)]="movie.screenplayBy"
+               (ngModelChange)="onFieldChange('screenplayBy', $event)"
                class="sub-form-input-text"
                name="screenplayBy"
                placeholder="Enter list of screenwriters">
@@ -56,6 +61,7 @@
         <label class="sub-form-label">Producers:</label>
         <input #producedBy="ngModel"
                [(ngModel)]="movie.producedBy"
+               (ngModelChange)="onFieldChange('producedBy', $event)"
                class="sub-form-input-text"
                name="producedBy"
                placeholder="Enter list of producers">
@@ -64,6 +70,7 @@
         <label class="sub-form-label">Starring:</label>
         <input #starring="ngModel"
                [(ngModel)]="movie.starring"
+               (ngModelChange)="onFieldChange('starring', $event)"
                class="sub-form-input-text"
                name="starring"
                placeholder="Enter list of actors">
@@ -72,6 +79,7 @@
         <label class="sub-form-label">Cinematography:</label>
         <input #cinematography="ngModel"
                [(ngModel)]="movie.cinematography"
+               (ngModelChange)="onFieldChange('cinematography', $event)"
                class="sub-form-input-text"
                name="cinematography"
                placeholder="Enter list of directors of photography">
@@ -80,6 +88,7 @@
         <label class="sub-form-label">Edited By:</label>
         <input #editedBy="ngModel"
                [(ngModel)]="movie.editedBy"
+               (ngModelChange)="onFieldChange('editedBy', $event)"
                class="sub-form-input-text"
                name="editedBy"
                placeholder="Enter list of editors">
@@ -88,6 +97,7 @@
         <label class="sub-form-label">Music By:</label>
         <input #musicBy="ngModel"
                [(ngModel)]="movie.musicBy"
+               (ngModelChange)="onFieldChange('musicBy', $event)"
                class="sub-form-input-text"
                name="musicBy"
                placeholder="Enter list of film composers">
@@ -96,6 +106,7 @@
         <label class="sub-form-label">Production Company:</label>
         <input #productionCompany="ngModel"
                [(ngModel)]="movie.productionCompany"
+               (ngModelChange)="onFieldChange('productionCompany', $event)"
                class="sub-form-input-text"
                name="productionCompany"
                placeholder="Enter list of film production companies">
@@ -104,6 +115,7 @@
         <label class="sub-form-label">Release Date:</label>
         <input #releaseDate="ngModel"
                [(ngModel)]="movie.releaseDate"
+               (ngModelChange)="onFieldChange('releaseDate', $event)"
                class="sub-form-input-text"
                name="releaseDate"
                placeholder="Enter release date"
@@ -142,6 +154,7 @@
         <input #runningTime="ngModel"
                (keypress)="validateNumberInput($event)"
                [(ngModel)]="movie.runningTime"
+               (ngModelChange)="onFieldChange('runningTime', $event)"
                class="sub-form-input-text"
                name="runningTime"
                pattern="[0-9]*"
@@ -180,6 +193,7 @@
         <div class="sub-form">
           <label class="sub-form-label">Screenplay:</label>
           <select [(ngModel)]="movie.personalRating.screenplay"
+                  (ngModelChange)="onFieldChange('personalRating.screenplay', $event)"
                   name="screenplay"
                   class="sub-form-input-rating">
             @for (num of ratingOptions; track $index) {
@@ -190,6 +204,7 @@
         <div class="sub-form">
           <label class="sub-form-label">Acting:</label>
           <select [(ngModel)]="movie.personalRating.acting"
+                  (ngModelChange)="onFieldChange('personalRating.acting', $event)"
                   name="acting"
                   class="sub-form-input-rating">
             @for (num of ratingOptions; track $index) {
@@ -215,6 +230,7 @@
           </select></div>
         <div class="sub-form"><label class="sub-form-label">Recommended:</label>
           <select [(ngModel)]="movie.personalRating.recommended"
+                  (ngModelChange)="onFieldChange('personalRating.recommended', $event)"
                   name="recommended"
                   class="sub-form-input-rating">
             @for (num of ratingOptions; track $index) {
