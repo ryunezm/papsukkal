@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {FormsModule} from "@angular/forms";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FormsModule, NgForm} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../movie.service";
 import {Genre, SubGenre} from '../enums/genre.enum';
 import {Country} from '../enums/country.enum';
 import {SubgenreValidatorService} from '../subgenre-validator.service';
-import {NgForOf} from "@angular/common";
 import {Language} from '../enums/language.enum';
 
 
@@ -14,7 +13,6 @@ import {Language} from '../enums/language.enum';
   standalone: true,
   imports: [
     FormsModule,
-    NgForOf,
   ],
   templateUrl: './movie-form.component.html',
   styleUrls: ['./movie-form.component.scss']
@@ -42,6 +40,8 @@ export class MovieFormComponent implements OnInit {
     }
   };
 
+  @ViewChild('ngForm') form: NgForm | undefined;
+
   ratingOptions: number[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
 
   genres = Object.values(Genre);
@@ -68,6 +68,11 @@ export class MovieFormComponent implements OnInit {
       this.initializePersonalRating();
     }
   }
+
+  onFieldChange(fieldName: string, value: any): void {
+    console.log(`${fieldName} changed:`, value);
+  }
+
 
   saveMovie(): void {
     this.subgenreValidatorService.validateSubgenres(this.movie.subgenres, this.movie.genres);
