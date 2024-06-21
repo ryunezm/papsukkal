@@ -41,17 +41,17 @@
       <div class="sub-form">
         <label class="sub-form-label">Directors:</label>
         <input #directedBy="ngModel"
-               [(ngModel)]="movie.directedBy"
-               (ngModelChange)="onFieldChange('directBy', $event)"
+               [(ngModel)]="movie.directedByString"
+               (ngModelChange)="onFieldChange('directedBy', $event)"
                class="sub-form-input-text"
                name="directedBy"
-               placeholder="Enter list of directors"
+               placeholder="Enter list of directors separated by semicolons"
                required>
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Screenwriters:</label>
         <input #screenplayBy="ngModel"
-               [(ngModel)]="movie.screenplayBy"
+               [(ngModel)]="movie.screenplayByString"
                (ngModelChange)="onFieldChange('screenplayBy', $event)"
                class="sub-form-input-text"
                name="screenplayBy"
@@ -60,7 +60,7 @@
       <div class="sub-form">
         <label class="sub-form-label">Producers:</label>
         <input #producedBy="ngModel"
-               [(ngModel)]="movie.producedBy"
+               [(ngModel)]="movie.producedByString"
                (ngModelChange)="onFieldChange('producedBy', $event)"
                class="sub-form-input-text"
                name="producedBy"
@@ -69,7 +69,7 @@
       <div class="sub-form">
         <label class="sub-form-label">Starring:</label>
         <input #starring="ngModel"
-               [(ngModel)]="movie.starring"
+               [(ngModel)]="movie.starringString"
                (ngModelChange)="onFieldChange('starring', $event)"
                class="sub-form-input-text"
                name="starring"
@@ -78,7 +78,7 @@
       <div class="sub-form">
         <label class="sub-form-label">Cinematography:</label>
         <input #cinematography="ngModel"
-               [(ngModel)]="movie.cinematography"
+               [(ngModel)]="movie.cinematographyString"
                (ngModelChange)="onFieldChange('cinematography', $event)"
                class="sub-form-input-text"
                name="cinematography"
@@ -87,7 +87,7 @@
       <div class="sub-form">
         <label class="sub-form-label">Edited By:</label>
         <input #editedBy="ngModel"
-               [(ngModel)]="movie.editedBy"
+               [(ngModel)]="movie.editedByString"
                (ngModelChange)="onFieldChange('editedBy', $event)"
                class="sub-form-input-text"
                name="editedBy"
@@ -96,7 +96,7 @@
       <div class="sub-form">
         <label class="sub-form-label">Music By:</label>
         <input #musicBy="ngModel"
-               [(ngModel)]="movie.musicBy"
+               [(ngModel)]="movie.musicByString"
                (ngModelChange)="onFieldChange('musicBy', $event)"
                class="sub-form-input-text"
                name="musicBy"
@@ -105,7 +105,7 @@
       <div class="sub-form">
         <label class="sub-form-label">Production Company:</label>
         <input #productionCompany="ngModel"
-               [(ngModel)]="movie.productionCompany"
+               [(ngModel)]="movie.productionCompanyString"
                (ngModelChange)="onFieldChange('productionCompany', $event)"
                class="sub-form-input-text"
                name="productionCompany"
@@ -214,6 +214,7 @@
         </div>
         <div class="sub-form"><label class="sub-form-label">Photography:</label>
           <select [(ngModel)]="movie.personalRating.photography"
+                  (ngModelChange)="onFieldChange('personalRating.photography', $event)"
                   name="photography"
                   class="sub-form-input-rating">
             @for (num of ratingOptions; track $index) {
@@ -222,6 +223,7 @@
           </select></div>
         <div class="sub-form"><label class="sub-form-label">Entertainment:</label>
           <select [(ngModel)]="movie.personalRating.entertainment"
+                  (ngModelChange)="onFieldChange('personalRating.entertainment', $event)"
                   name="entertainment"
                   class="sub-form-input-rating">
             @for (num of ratingOptions; track $index) {
@@ -241,5 +243,4 @@
     </form>
     <button type="submit">SAVE</button>
   </div>
-
 </div>
