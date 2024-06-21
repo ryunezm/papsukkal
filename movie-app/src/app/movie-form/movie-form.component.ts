@@ -101,7 +101,7 @@ export class MovieFormComponent implements OnInit {
     ];
 
     fieldsToSplit.forEach(field => {
-      this.movie[field] = (this.movie[`${field}String`] || '').split(';').map((item: string) => item.trim());
+      this.movie[field] = Array.from(new Set((this.movie[`${field}String`] || '').split(';').map((item: string) => item.trim())));
     });
 
     if (this.movie.id) {
@@ -148,8 +148,8 @@ export class MovieFormComponent implements OnInit {
   }
 
   onFieldChange(fieldName: string, value: any): void {
-    const arrayValue = value.split(';').map((item: string) => item.trim());
-    this.movie[fieldName] = Array.from(new Set(arrayValue));
+    const arrayValue = Array.from(new Set(value.split(';').map((item: string) => item.trim())));
+    this.movie[fieldName.replace('String', '')] = arrayValue;
     console.log(`${fieldName} array:`, arrayValue);
   }
 
