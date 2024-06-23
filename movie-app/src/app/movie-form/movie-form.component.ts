@@ -48,12 +48,15 @@ export class MovieFormComponent implements OnInit {
     }
   };
 
-  @ViewChild('ngForm') form: NgForm | undefined;
+
+  @ViewChild('ngForm', {static: false}) form!: NgForm; //TODO
 
   ratingOptions: number[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
 
   genres = Object.values(Genre);
+  genreMap: { [key: string]: string } = {};
   subgenres = Object.values(SubGenre);
+  subGenreMap: { [key: string]: string } = {};
   countries = Object.values(Country);
   languages = Object.values(Language);
   filteredSubgenres: SubGenre[] = [];
@@ -83,12 +86,13 @@ export class MovieFormComponent implements OnInit {
     } else {
       this.initializePersonalRating();
     }
+
+    this.genreMap = this.createEnumMap(Genre);
+    this.subGenreMap = this.createEnumMap(SubGenre);
   }
 
   saveMovie(): void {
     this.subgenreValidatorService.validateSubgenres(this.movie.subgenres, this.movie.genres);
-    this.movie.directedBy = this.movie.directedByString.split(';').map((item: string) => item.trim());
-
     const fieldsToSplit = [
       'directedBy',
       'screenplayBy',
@@ -117,6 +121,36 @@ export class MovieFormComponent implements OnInit {
     }
   }
 
+  onFieldChange(fieldName: string, value: any): void {
+    // TODO
+    // Now prints everything as array, so it must be fixed this in future.
+    const arrayValue = Array.from(new Set(value.split(';').map((item: string) => item.trim())));
+    this.movie[fieldName.replace('String', '')] = arrayValue;
+    console.log(`${fieldName} array:`, arrayValue);
+  }
+
+  onCheckboxChange(event: Event, type: string): void {
+    const checkbox = event.target as HTMLInputElement;
+    const value = checkbox.value;
+    const transformedValue = (type === 'genres' ? this.genreMap[value] : this.subGenreMap[value]) || value;
+
+    if (checkbox.checked) {
+      this.movie[type].push(transformedValue);
+    } else {
+      const index = this.movie[type].indexOf(transformedValue);
+      if (index !== -1) {
+        this.movie[type].splice(index, 1);
+      }
+    }
+
+    console.log(`${type} current values:`, this.movie[type]);
+
+    if (type === 'genres') {
+      this.onGenresChange();
+      this.removeInvalidSubgenres();
+    }
+  }
+
   onGenresChange(): void {
     if (this.movie.genres.length > 0) {
       this.filteredSubgenres = this.subgenres.filter(subgenre => {
@@ -127,38 +161,44 @@ export class MovieFormComponent implements OnInit {
     }
   }
 
-  onCheckboxChange(event: Event, type: string): void {
-    const checkbox = event.target as HTMLInputElement;
-    const value = checkbox.value;
+  validateNumberInput(event: KeyboardEvent): void {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Backspace' || event.key === 'Delete') {
+      return;
+    }
 
-    if (checkbox.checked) {
-      this.movie[type].push(value);
-    } else {
-      const index = this.movie[type].indexOf(value);
-      if (index !== -1) {
-        this.movie[type].splice(index, 1);
+    if (event.target instanceof HTMLInputElement) {
+      const inputValue = event.target.value;
+      if (inputValue === '' && event.key === '0') {
+        event.preventDefault();
+        return;
+      }
+      if (inputValue === '' && !(/[1-9]/.test(event.key))) {
+        event.preventDefault();
+        return;
+      }
+      if (inputValue.length > 0 && !(/[0-9]/.test(event.key))) {
+        event.preventDefault();
+        return;
       }
     }
-
-    console.log(`${type} current values:`, this.movie[type]);
-
-    if (type === 'genres') {
-      this.onGenresChange();
-    }
   }
 
-  onFieldChange(fieldName: string, value: any): void {
-    const arrayValue = Array.from(new Set(value.split(';').map((item: string) => item.trim())));
-    this.movie[fieldName.replace('String', '')] = arrayValue;
-    console.log(`${fieldName} array:`, arrayValue);
+  private removeInvalidSubgenres(): void {
+    const validSubgenres = this.subgenres.filter(subgenre => {
+      return this.movie.genres.some((genre: any) => this.subgenreValidatorService.getGenreFromSubgenre(subgenre) === genre);
+    });
+
+    this.movie.subgenres = this.movie.subgenres.filter((subgenre: SubGenre) => validSubgenres.includes(subgenre));
   }
 
-  validateNumberInput(event: KeyboardEvent): void {
-    const pattern = /[0-9]/;
-    const inputChar = String.fromCharCode(event.charCode);
-    if (!pattern.test(inputChar)) {
-      event.preventDefault();
+  private createEnumMap(enumObject: object): { [key: string]: string } {
+    const enumMap: { [key: string]: string } = {};
+
+    for (const [key, value] of Object.entries(enumObject)) {
+      enumMap[value as string] = key;
     }
+
+    return enumMap;
   }
 
   private initializePersonalRating(): void {
