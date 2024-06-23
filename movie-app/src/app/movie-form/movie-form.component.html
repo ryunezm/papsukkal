@@ -152,7 +152,7 @@
       <div class="sub-form">
         <label class="sub-form-label">Running Time:</label>
         <input #runningTime="ngModel"
-               (keypress)="validateNumberInput($event)"
+               (keydown)="validateNumberInput($event)"
                [(ngModel)]="movie.runningTime"
                (ngModelChange)="onFieldChange('runningTime', $event)"
                class="sub-form-input-text"
@@ -240,7 +240,8 @@
             }
           </select></div>
       </div>
+      <button type="submit">SAVE</button>
     </form>
-    <button type="submit">SAVE</button>
+
   </div>
 </div>
