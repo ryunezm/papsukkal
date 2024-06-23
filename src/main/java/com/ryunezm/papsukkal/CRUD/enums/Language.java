@@ -15,6 +15,7 @@ public enum Language {
     JAPANESE,
     JAVANESE,
     KOREAN,
+    LATIN,
     MARATHI,
     MASRI,
     NAIJA,
@@ -29,6 +30,7 @@ public enum Language {
     TURKISH,
     SPANISH,
     URDU,
+    WELSH,
     YUE_CHINESE,
     YORUBA
 }

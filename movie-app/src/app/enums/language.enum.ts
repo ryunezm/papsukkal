@@ -13,6 +13,7 @@ export enum Language {
   JAPANESE = 'Japanese',
   JAVANESE = 'Javanese',
   KOREAN = 'Korean',
+  LATIN = 'Latin',
   MARATHI = 'Marathi',
   MASRI = 'Masri',
   NAIJA = 'Naija',
@@ -27,6 +28,7 @@ export enum Language {
   TURKISH = 'Turkish',
   SPANISH = 'Spanish',
   URDU = 'Urdu',
+  WELSH = 'Welsh',
   YUE_CHINESE = 'Yue Chinese',
   YORUBA = 'Yoruba'
 }
