@@ -1,4 +1,3 @@
-// genre.enum.ts
 export enum Genre {
   ACTION = 'Action',
   ADVENTURE = 'Adventure',
