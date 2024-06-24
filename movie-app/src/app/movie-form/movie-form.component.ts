@@ -115,12 +115,12 @@ export class MovieFormComponent implements OnInit {
 
     if (this.movie.id) {
       this.movieService.updateMovie(this.movie.id, this.movie).subscribe(() => {
-        this.router.navigate(['/movies']).then(r => {
+        this.router.navigate(['/movies']).then(() => {
         });
       });
     } else {
       this.movieService.createMovie(this.movie).subscribe(() => {
-        this.router.navigate(['/movies']).then(r => {
+        this.router.navigate(['/movies']).then(() => {
         });
       });
     }
@@ -160,13 +160,15 @@ export class MovieFormComponent implements OnInit {
 
   onGenresChange(): void {
     if (this.movie.genres.length > 0) {
+      const inverseGenreMap = Object.fromEntries(Object.entries(this.genreMap).map(([key, value]) => [value, key]));
+
       this.filteredSubgenres = this.subgenres.filter(subgenre => {
-        return this.movie.genres.some((genre: any) => this.subgenreValidatorService.getGenreFromSubgenre(subgenre) === genre);
+        const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+        return this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
       });
     } else {
       this.filteredSubgenres = [];
     }
-
     this.subgenres.sort();
   }
 
@@ -193,12 +195,16 @@ export class MovieFormComponent implements OnInit {
   }
 
   private removeInvalidSubgenres(): void {
+    const inverseGenreMap = Object.fromEntries(Object.entries(this.genreMap).map(([key, value]) => [value, key]));
+
     const validSubgenres = this.subgenres.filter(subgenre => {
-      return this.movie.genres.some((genre: any) => this.subgenreValidatorService.getGenreFromSubgenre(subgenre) === genre);
+      const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+      return this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
     });
 
     this.movie.subgenres = this.movie.subgenres.filter((subgenre: SubGenre) => validSubgenres.includes(subgenre));
   }
+
 
   private createEnumMap(enumObject: object): { [key: string]: string } {
     const enumMap: { [key: string]: string } = {};
