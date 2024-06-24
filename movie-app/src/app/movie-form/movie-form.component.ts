@@ -154,7 +154,6 @@ export class MovieFormComponent implements OnInit {
 
     if (type === 'genres') {
       this.onGenresChange();
-      this.removeInvalidSubgenres();
     }
   }
 
@@ -164,7 +163,9 @@ export class MovieFormComponent implements OnInit {
 
       this.filteredSubgenres = this.subgenres.filter(subgenre => {
         const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+        console.log(this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre));
         return this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
+
       });
     } else {
       this.filteredSubgenres = [];
@@ -193,18 +194,6 @@ export class MovieFormComponent implements OnInit {
       }
     }
   }
-
-  private removeInvalidSubgenres(): void {
-    const inverseGenreMap = Object.fromEntries(Object.entries(this.genreMap).map(([key, value]) => [value, key]));
-
-    const validSubgenres = this.subgenres.filter(subgenre => {
-      const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
-      return this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
-    });
-
-    this.movie.subgenres = this.movie.subgenres.filter((subgenre: SubGenre) => validSubgenres.includes(subgenre));
-  }
-
 
   private createEnumMap(enumObject: object): { [key: string]: string } {
     const enumMap: { [key: string]: string } = {};
