@@ -89,6 +89,8 @@ export class MovieFormComponent implements OnInit {
 
     this.genreMap = this.createEnumMap(Genre);
     this.subGenreMap = this.createEnumMap(SubGenre);
+    this.genres.sort();
+    this.subgenres.sort();
   }
 
   saveMovie(): void {
@@ -105,7 +107,10 @@ export class MovieFormComponent implements OnInit {
     ];
 
     fieldsToSplit.forEach(field => {
-      this.movie[field] = Array.from(new Set((this.movie[`${field}String`] || '').split(';').map((item: string) => item.trim())));
+      this.movie[field] = Array.from(new Set((this.movie[`${field}String`] || '')
+        .split(';')
+        .map((item: string) => item.trim())
+        .sort()));
     });
 
     if (this.movie.id) {
@@ -124,7 +129,7 @@ export class MovieFormComponent implements OnInit {
   onFieldChange(fieldName: string, value: any): void {
     // TODO
     // Now prints everything as array, so it must be fixed this in future.
-    const arrayValue = Array.from(new Set(value.split(';').map((item: string) => item.trim())));
+    const arrayValue = Array.from(new Set(value.split(';').map((item: string) => item.trim()).sort()));
     this.movie[fieldName.replace('String', '')] = arrayValue;
     console.log(`${fieldName} array:`, arrayValue);
   }
@@ -143,6 +148,8 @@ export class MovieFormComponent implements OnInit {
       }
     }
 
+    this.movie[type] = this.movie[type].sort();
+
     console.log(`${type} current values:`, this.movie[type]);
 
     if (type === 'genres') {
@@ -159,6 +166,8 @@ export class MovieFormComponent implements OnInit {
     } else {
       this.filteredSubgenres = [];
     }
+
+    this.subgenres.sort();
   }
 
   validateNumberInput(event: KeyboardEvent): void {
