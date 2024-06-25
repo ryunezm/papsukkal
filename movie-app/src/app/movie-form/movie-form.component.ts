@@ -56,7 +56,7 @@ export class MovieFormComponent implements OnInit {
   genres = Object.values(Genre);
   genreMap: { [key: string]: string } = {};
   subgenres = Object.values(SubGenre);
-  subGenreMap: { [key: string]: string } = {};
+  subgenreMap: { [key: string]: string } = {};
   countries = Object.values(Country);
   languages = Object.values(Language);
   filteredSubgenres: SubGenre[] = [];
@@ -88,7 +88,7 @@ export class MovieFormComponent implements OnInit {
     }
 
     this.genreMap = this.createEnumMap(Genre);
-    this.subGenreMap = this.createEnumMap(SubGenre);
+    this.subgenreMap = this.createEnumMap(SubGenre);
     this.genres.sort();
     this.subgenres.sort();
   }
@@ -137,14 +137,30 @@ export class MovieFormComponent implements OnInit {
   onCheckboxChange(event: Event, type: string): void {
     const checkbox = event.target as HTMLInputElement;
     const value = checkbox.value;
-    const transformedValue = (type === 'genres' ? this.genreMap[value] : this.subGenreMap[value]) || value;
+    let transformedValue: string;
 
-    if (checkbox.checked) {
-      this.movie[type].push(transformedValue);
-    } else {
+    if (type === 'genres') { transformedValue = this.genreMap[value] || value; }
+    else { transformedValue = this.subgenreMap[value] || value; }
+
+    if (checkbox.checked) { this.movie[type].push(transformedValue); }
+    else {
       const index = this.movie[type].indexOf(transformedValue);
       if (index !== -1) {
         this.movie[type].splice(index, 1);
+
+        // Remove subgenres belonging to the deselected genre
+        if (type === 'genres') {
+          const inverseGenreMap = Object.fromEntries(Object.entries(this.genreMap).map(([key, value]) => [value, key]));
+          const genreToRemove = this.genreMap[value] || value;
+
+          console.log(genreToRemove);
+          console.log("this.movie.subgenres: ",this.movie.subgenres);
+
+          this.movie.subgenres = this.movie.subgenres.filter((subgenre: SubGenre) => {
+            const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+            return inverseGenreMap[genre] !== genreToRemove;
+          });
+        }
       }
     }
 
@@ -163,12 +179,13 @@ export class MovieFormComponent implements OnInit {
 
       this.filteredSubgenres = this.subgenres.filter(subgenre => {
         const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
-        console.log(this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre));
-        return this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
-
+        const found = this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
+        if (found) { console.log(`Subgenre found for genre ${genre}:`, subgenre); }
+        return found;
       });
     } else {
       this.filteredSubgenres = [];
+      this.movie.subgenres = [];
     }
     this.subgenres.sort();
   }
