@@ -41,7 +41,7 @@ export class SubgenreValidatorService {
     const subgenreGenres = subgenres.map(subgenre => this.getGenreFromSubgenre(subgenre));
 
     if (!genres.some(genre => subgenreGenres.includes(genre))) {
-      throw new Error('The subgenres provided are not valid for the given genres.');
+      throw new Error('The genres provided are not valid for the given genres.');
     }
   }
 
