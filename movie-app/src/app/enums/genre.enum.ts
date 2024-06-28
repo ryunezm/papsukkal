@@ -44,7 +44,7 @@ export enum Genre {
   ZOMBIE = 'Zombie'
 }
 
-export enum SubGenre {
+export enum Subgenre {
   // ACTION subgenres
   ACTION_DISASTER = 'Disaster',
   ACTION_MARTIAL_ARTS = 'Martial Arts',
