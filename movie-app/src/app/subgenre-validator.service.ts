@@ -1,57 +1,68 @@
 import { Injectable } from '@angular/core';
-import {Genre, SubGenre} from './enums/genre.enum';
+import {Genre, Subgenre} from './enums/genre.enum';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubgenreValidatorService {
-  private genreSubgenreMap = new Map<Genre, SubGenre[]>([
-    [Genre.ACTION, [SubGenre.ACTION_DISASTER, SubGenre.ACTION_MARTIAL_ARTS, SubGenre.ACTION_VIDEO_GAME]],
-    [Genre.ADVENTURE, [SubGenre.ADVENTURE_PIRATE, SubGenre.ADVENTURE_SWASHBUCKLER]],
-    [Genre.ANIMAL_FILM, [SubGenre.ANIMAL_FILM_ANIMAL_RESCUE, SubGenre.ANIMAL_FILM_TALKING_ANIMALS]],
-    [Genre.ANIMATION, [SubGenre.ANIMATION_ANIME, SubGenre.ANIMATION_CGI_2D, SubGenre.ANIMATION_CGI_3D, SubGenre.ANIMATION_CLAYMATION, SubGenre.ANIMATION_CUTOUT, SubGenre.ANIMATION_LIVE_ACTION, SubGenre.ANIMATION_ROTOSCOPING]],
-    [Genre.COMEDY, [SubGenre.COMEDY_BLACK, SubGenre.COMEDY_PARODY, SubGenre.COMEDY_SCREWBALL, SubGenre.COMEDY_SLAPSTICK]],
-    [Genre.CRIME, [SubGenre.CRIME_DETECTIVE, SubGenre.CRIME_HEIST, SubGenre.CRIME_LEGAL, SubGenre.CRIME_GANGSTER]],
-    [Genre.DRAMA, [SubGenre.DRAMA_MELODRAMA, SubGenre.DRAMA_SOCIAL_PROBLEM]],
-    [Genre.EROTIC, [SubGenre.EROTIC_BDSM, SubGenre.EROTIC_ERO_GURO, SubGenre.EROTIC_FETISH, SubGenre.EROTIC_HARDCORE, SubGenre.EROTIC_LGBT, SubGenre.EROTIC_SOFTCORE]],
-    [Genre.EXISTENTIAL, [SubGenre.EXISTENTIAL_ABSURDIST, SubGenre.EXISTENTIAL_COMING_OF_AGE, SubGenre.EXISTENTIAL_PHILOSOPHICAL, SubGenre.EXISTENTIAL_PSYCHOLOGICAL, SubGenre.EXISTENTIAL_SURREALIST]],
-    [Genre.FANTASY, [SubGenre.FANTASY_CONTEMPORARY, SubGenre.FANTASY_DARK, SubGenre.FANTASY_FAIRY_TALE, SubGenre.FANTASY_HEROIC, SubGenre.FANTASY_URBAN]],
-    [Genre.HOLIDAY, [SubGenre.HOLIDAY_BIRTHDAY, SubGenre.HOLIDAY_CHRISTMAS, SubGenre.HOLIDAY_DAY_OF_THE_DEAD, SubGenre.HOLIDAY_EASTER, SubGenre.HOLIDAY_HALLOWEEN, SubGenre.HOLIDAY_INDEPENDENCE_DAY, SubGenre.HOLIDAY_NEW_YEAR, SubGenre.HOLIDAY_VALENTINES_DAY]],
-    [Genre.NOIR_FILM, [SubGenre.NOIR_FILM_NEO_NOIR]],
-    [Genre.HISTORICAL, [SubGenre.HISTORICAL_ALTERNATE_HISTORY, SubGenre.HISTORICAL_BIBLICAL, SubGenre.HISTORICAL_BIOGRAPHICAL, SubGenre.HISTORICAL_FICTION, SubGenre.HISTORICAL_PERIOD]],
-    [Genre.HORROR, [SubGenre.HORROR_DEMONIC, SubGenre.HORROR_FOUND_FOOTAGE, SubGenre.HORROR_GORE, SubGenre.HORROR_MONSTER, SubGenre.HORROR_PARANORMAL, SubGenre.HORROR_SLASHER, SubGenre.HORROR_WITCHCRAFT]],
-    [Genre.MUSIC, [SubGenre.MUSIC_BOLLYWOOD, SubGenre.MUSIC_CABARET, SubGenre.MUSIC_CLASSICAL, SubGenre.MUSIC_CONCERT, SubGenre.MUSIC_DANCE, SubGenre.MUSIC_DISNEY, SubGenre.MUSIC_HIP_HOP, SubGenre.MUSIC_JAZZ, SubGenre.MUSIC_JUKEBOX, SubGenre.MUSIC_MUSICAL, SubGenre.MUSIC_POP, SubGenre.MUSIC_ROCK]],
-    [Genre.RELIGIOUS, [SubGenre.RELIGIOUS_FAITH_BASED, SubGenre.RELIGIOUS_SPIRITUAL]],
-    [Genre.ROMANCE, [SubGenre.ROMANCE_CHICK_FLICK]],
-    [Genre.SCI_FI, [SubGenre.SCI_FI_APOCALYPTIC, SubGenre.SCI_FI_CYBERPUNK, SubGenre.SCI_FI_DYSTOPIAN, SubGenre.SCI_FI_KAIJU, SubGenre.SCI_FI_MILITARY, SubGenre.SCI_FI_SOLARPUNK, SubGenre.SCI_FI_SPACE_INVASION, SubGenre.SCI_FI_SPACE_OPERA, SubGenre.SCI_FI_SPECULATIVE, SubGenre.SCI_FI_STEAMPUNK]],
-    [Genre.SPORT, [SubGenre.SPORT_COLLEGIATE, SubGenre.SPORT_OLYMPIC, SubGenre.SPORT_UNDERDOG]],
-    [Genre.SUPERNATURAL, [SubGenre.SUPERNATURAL_GHOSTS, SubGenre.SUPERNATURAL_GODS, SubGenre.SUPERNATURAL_SPIRITS]],
-    [Genre.WAR, [SubGenre.WAR_ANTI_WAR, SubGenre.WAR_CIVIL_WAR, SubGenre.WAR_COLD_WAR, SubGenre.WAR_GUERRILLA_WARFARE, SubGenre.WAR_PROPAGANDA, SubGenre.WAR_VIETNAM_WAR, SubGenre.WAR_WORLD_WAR_I, SubGenre.WAR_WORLD_WAR_II]],
-    [Genre.WESTERN, [SubGenre.WESTERN_EMPIRE, SubGenre.WESTERN_MARSHAL, SubGenre.WESTERN_CONTEMPORARY, SubGenre.WESTERN_OUTLAW, SubGenre.WESTERN_SPAGHETTI]],
+  private genreSubgenreMap = new Map<Genre, Subgenre[]>([
+    [Genre.ACTION, [Subgenre.ACTION_DISASTER, Subgenre.ACTION_MARTIAL_ARTS, Subgenre.ACTION_VIDEO_GAME]],
+    [Genre.ADVENTURE, [Subgenre.ADVENTURE_PIRATE, Subgenre.ADVENTURE_SWASHBUCKLER]],
+    [Genre.ANIMAL_FILM, [Subgenre.ANIMAL_FILM_ANIMAL_RESCUE, Subgenre.ANIMAL_FILM_TALKING_ANIMALS]],
+    [Genre.ANIMATION, [Subgenre.ANIMATION_ANIME, Subgenre.ANIMATION_CGI_2D, Subgenre.ANIMATION_CGI_3D, Subgenre.ANIMATION_CLAYMATION, Subgenre.ANIMATION_CUTOUT, Subgenre.ANIMATION_LIVE_ACTION, Subgenre.ANIMATION_ROTOSCOPING]],
+    [Genre.COMEDY, [Subgenre.COMEDY_BLACK, Subgenre.COMEDY_PARODY, Subgenre.COMEDY_SCREWBALL, Subgenre.COMEDY_SLAPSTICK]],
+    [Genre.CRIME, [Subgenre.CRIME_DETECTIVE, Subgenre.CRIME_HEIST, Subgenre.CRIME_LEGAL, Subgenre.CRIME_GANGSTER]],
+    [Genre.DRAMA, [Subgenre.DRAMA_MELODRAMA, Subgenre.DRAMA_SOCIAL_PROBLEM]],
+    [Genre.EROTIC, [Subgenre.EROTIC_BDSM, Subgenre.EROTIC_ERO_GURO, Subgenre.EROTIC_FETISH, Subgenre.EROTIC_HARDCORE, Subgenre.EROTIC_LGBT, Subgenre.EROTIC_SOFTCORE]],
+    [Genre.EXISTENTIAL, [Subgenre.EXISTENTIAL_ABSURDIST, Subgenre.EXISTENTIAL_COMING_OF_AGE, Subgenre.EXISTENTIAL_PHILOSOPHICAL, Subgenre.EXISTENTIAL_PSYCHOLOGICAL, Subgenre.EXISTENTIAL_SURREALIST]],
+    [Genre.FANTASY, [Subgenre.FANTASY_CONTEMPORARY, Subgenre.FANTASY_DARK, Subgenre.FANTASY_FAIRY_TALE, Subgenre.FANTASY_HEROIC, Subgenre.FANTASY_URBAN]],
+    [Genre.HOLIDAY, [Subgenre.HOLIDAY_BIRTHDAY, Subgenre.HOLIDAY_CHRISTMAS, Subgenre.HOLIDAY_DAY_OF_THE_DEAD, Subgenre.HOLIDAY_EASTER, Subgenre.HOLIDAY_HALLOWEEN, Subgenre.HOLIDAY_INDEPENDENCE_DAY, Subgenre.HOLIDAY_NEW_YEAR, Subgenre.HOLIDAY_VALENTINES_DAY]],
+    [Genre.NOIR_FILM, [Subgenre.NOIR_FILM_NEO_NOIR]],
+    [Genre.HISTORICAL, [Subgenre.HISTORICAL_ALTERNATE_HISTORY, Subgenre.HISTORICAL_BIBLICAL, Subgenre.HISTORICAL_BIOGRAPHICAL, Subgenre.HISTORICAL_FICTION, Subgenre.HISTORICAL_PERIOD]],
+    [Genre.HORROR, [Subgenre.HORROR_DEMONIC, Subgenre.HORROR_FOUND_FOOTAGE, Subgenre.HORROR_GORE, Subgenre.HORROR_MONSTER, Subgenre.HORROR_PARANORMAL, Subgenre.HORROR_SLASHER, Subgenre.HORROR_WITCHCRAFT]],
+    [Genre.MUSIC, [Subgenre.MUSIC_BOLLYWOOD, Subgenre.MUSIC_CABARET, Subgenre.MUSIC_CLASSICAL, Subgenre.MUSIC_CONCERT, Subgenre.MUSIC_DANCE, Subgenre.MUSIC_DISNEY, Subgenre.MUSIC_HIP_HOP, Subgenre.MUSIC_JAZZ, Subgenre.MUSIC_JUKEBOX, Subgenre.MUSIC_MUSICAL, Subgenre.MUSIC_POP, Subgenre.MUSIC_ROCK]],
+    [Genre.RELIGIOUS, [Subgenre.RELIGIOUS_FAITH_BASED, Subgenre.RELIGIOUS_SPIRITUAL]],
+    [Genre.ROMANCE, [Subgenre.ROMANCE_CHICK_FLICK]],
+    [Genre.SCI_FI, [Subgenre.SCI_FI_APOCALYPTIC, Subgenre.SCI_FI_CYBERPUNK, Subgenre.SCI_FI_DYSTOPIAN, Subgenre.SCI_FI_KAIJU, Subgenre.SCI_FI_MILITARY, Subgenre.SCI_FI_SOLARPUNK, Subgenre.SCI_FI_SPACE_INVASION, Subgenre.SCI_FI_SPACE_OPERA, Subgenre.SCI_FI_SPECULATIVE, Subgenre.SCI_FI_STEAMPUNK]],
+    [Genre.SPORT, [Subgenre.SPORT_COLLEGIATE, Subgenre.SPORT_OLYMPIC, Subgenre.SPORT_UNDERDOG]],
+    [Genre.SUPERNATURAL, [Subgenre.SUPERNATURAL_GHOSTS, Subgenre.SUPERNATURAL_GODS, Subgenre.SUPERNATURAL_SPIRITS]],
+    [Genre.WAR, [Subgenre.WAR_ANTI_WAR, Subgenre.WAR_CIVIL_WAR, Subgenre.WAR_COLD_WAR, Subgenre.WAR_GUERRILLA_WARFARE, Subgenre.WAR_PROPAGANDA, Subgenre.WAR_VIETNAM_WAR, Subgenre.WAR_WORLD_WAR_I, Subgenre.WAR_WORLD_WAR_II]],
+    [Genre.WESTERN, [Subgenre.WESTERN_EMPIRE, Subgenre.WESTERN_MARSHAL, Subgenre.WESTERN_CONTEMPORARY, Subgenre.WESTERN_OUTLAW, Subgenre.WESTERN_SPAGHETTI]],
   ]);
 
-  validateSubgenres(subgenres: SubGenre[], genres: Genre[]): void {
+  validateSubgenres(Subgenres: Subgenre[], genres: Genre[]): void {
     const allowedSubgenres = genres
       .flatMap(genre => this.genreSubgenreMap.get(genre) || []);
 
-    if (!subgenres.every(subgenre => allowedSubgenres.includes(subgenre))) {
-      throw new Error('The subgenres provided are not valid for the given genres.');
+    if (!Subgenres.every(Subgenre => allowedSubgenres.includes(Subgenre))) {
+      throw new Error('The Subgenres provided are not valid for the given genres.');
     }
 
-    const subgenreGenres = subgenres.map(subgenre => this.getGenreFromSubgenre(subgenre));
+    const SubgenreGenres = Subgenres.map(Subgenre => this.getGenreFromSubgenre(Subgenre));
 
-    if (!genres.some(genre => subgenreGenres.includes(genre))) {
+    if (!genres.some(genre => SubgenreGenres.includes(genre))) {
       throw new Error('The genres provided are not valid for the given genres.');
     }
   }
 
-  getGenreFromSubgenre(subgenre: SubGenre): Genre {
+  getGenreFromSubgenre(subgenre: Subgenre): Genre {
+    //console.log('Subgenre passed:', subgenre); // Log para depurar
+
     for (const [genre, subgenres] of this.genreSubgenreMap.entries()) {
+      //console.log('Checking genre:', genre, 'with subgenres:', subgenres); // Log para depurar
+
       if (subgenres.includes(subgenre)) {
+        //console.log('Match found for subgenre:', subgenre, 'in genre:', genre); // Log para depurar
         return genre;
       }
     }
+
     throw new Error('A genre could not be found for the subgenre provided.');
+  }
+
+
+  getSubgenresForGenre(genre: Genre): Subgenre[] {
+    return this.genreSubgenreMap.get(genre) || [];
   }
 
   constructor() { }
