@@ -2,7 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../movie.service";
-import {Genre, SubGenre} from '../enums/genre.enum';
+import {Genre, Subgenre} from '../enums/genre.enum';
 import {Country} from '../enums/country.enum';
 import {SubgenreValidatorService} from '../subgenre-validator.service';
 import {Language} from '../enums/language.enum';
@@ -55,11 +55,11 @@ export class MovieFormComponent implements OnInit {
 
   genres = Object.values(Genre);
   genreMap: { [key: string]: string } = {};
-  subgenres = Object.values(SubGenre);
+  subgenres = Object.values(Subgenre);
   subgenreMap: { [key: string]: string } = {};
   countries = Object.values(Country);
   languages = Object.values(Language);
-  filteredSubgenres: SubGenre[] = [];
+  filteredSubgenres: Subgenre[] = [];
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
@@ -88,7 +88,7 @@ export class MovieFormComponent implements OnInit {
     }
 
     this.genreMap = this.createEnumMap(Genre);
-    this.subgenreMap = this.createEnumMap(SubGenre);
+    this.subgenreMap = this.createEnumMap(Subgenre);
     this.genres.sort();
     this.subgenres.sort();
   }
@@ -147,20 +147,6 @@ export class MovieFormComponent implements OnInit {
       const index = this.movie[type].indexOf(transformedValue);
       if (index !== -1) {
         this.movie[type].splice(index, 1);
-
-        // Remove subgenres belonging to the deselected genre
-        if (type === 'genres') {
-          const inverseGenreMap = Object.fromEntries(Object.entries(this.genreMap).map(([key, value]) => [value, key]));
-          const genreToRemove = this.genreMap[value] || value;
-
-          console.log(genreToRemove);
-          console.log("this.movie.subgenres: ",this.movie.subgenres);
-
-          this.movie.subgenres = this.movie.subgenres.filter((subgenre: SubGenre) => {
-            const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
-            return inverseGenreMap[genre] !== genreToRemove;
-          });
-        }
       }
     }
 
@@ -176,17 +162,42 @@ export class MovieFormComponent implements OnInit {
   onGenresChange(): void {
     if (this.movie.genres.length > 0) {
       const inverseGenreMap = Object.fromEntries(Object.entries(this.genreMap).map(([key, value]) => [value, key]));
+      const inverseSubgenreMap = Object.fromEntries(Object.entries(this.subgenreMap).map(([key, value]) => [value, key]));
 
       this.filteredSubgenres = this.subgenres.filter(subgenre => {
-        const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
-        const found = this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
-        if (found) { console.log(`Subgenre found for genre ${genre}:`, subgenre); }
-        return found;
+        try {
+          const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+          return this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
+        } catch (error) {
+          // @ts-ignore
+          console.error('Invalid subgenre:', subgenre, error.message);
+          return false;
+        }
       });
+
+      console.log("List of valid subgenres (OnGenreChange): " + this.filteredSubgenres);
+
+      this.movie.subgenres = this.movie.subgenres.filter((subgenre: Subgenre) => {
+        try {
+          const subgenreKey = inverseSubgenreMap[subgenre as unknown as string] as Subgenre;
+          const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenreKey);
+          //const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+          return this.movie.genres.includes(genre);
+        } catch (error) {
+          // @ts-ignore
+          console.error('Invalid subgenre:', subgenre, "-", error.message);
+          return false;
+        }
+      });
+
+      console.log("List of selected subgenres: " + this.movie.subgenres);
+
     } else {
       this.filteredSubgenres = [];
       this.movie.subgenres = [];
     }
+
+    this.movie.subgenres = [...new Set(this.movie.subgenres)];
     this.subgenres.sort();
   }
 
