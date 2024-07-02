@@ -138,16 +138,17 @@
       <div class="sub-form">
         <label class="sub-form-label">Subgenres:</label>
         <div class="checkbox-container">
-          @for (subgenre of filteredSubgenres; track $index) {
+          @for (subgenre of getAvailableSubgenres(); track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'subgenres')"
                      [value]="subgenre"
+                     [disabled]="!isSubgenreEnabled(subgenre)"
+                     [checked]="movie.subgenres.includes(subgenre)"
                      type="checkbox">
               {{ subgenre }}
             </label>
           }
         </div>
-
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Running Time:</label>

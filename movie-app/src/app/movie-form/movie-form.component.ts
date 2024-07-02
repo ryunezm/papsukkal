@@ -48,7 +48,6 @@ export class MovieFormComponent implements OnInit {
     }
   };
 
-
   @ViewChild('ngForm', {static: false}) form!: NgForm; //TODO
 
   ratingOptions: number[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
@@ -59,13 +58,11 @@ export class MovieFormComponent implements OnInit {
   subgenreMap: { [key: string]: string } = {};
   countries = Object.values(Country);
   languages = Object.values(Language);
-  filteredSubgenres: Subgenre[] = [];
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
               private router: Router,
-              private subgenreValidatorService: SubgenreValidatorService) {
-  }
+              private subgenreValidatorService: SubgenreValidatorService) { }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -139,14 +136,35 @@ export class MovieFormComponent implements OnInit {
     const value = checkbox.value;
     let transformedValue: string;
 
-    if (type === 'genres') { transformedValue = this.genreMap[value] || value; }
-    else { transformedValue = this.subgenreMap[value] || value; }
-
-    if (checkbox.checked) { this.movie[type].push(transformedValue); }
-    else {
-      const index = this.movie[type].indexOf(transformedValue);
-      if (index !== -1) {
-        this.movie[type].splice(index, 1);
+    if (type === 'genres') {
+      transformedValue = this.genreMap[value] || value;
+      if (checkbox.checked) {
+        this.movie[type].push(transformedValue);
+      } else {
+        const index = this.movie[type].indexOf(transformedValue);
+        if (index !== -1) {
+          this.movie[type].splice(index, 1);
+        }
+        // Remove subgenres associated with the unchecked genre
+        this.movie.subgenres = this.movie.subgenres.filter((subgenre: Subgenre) => {
+          try {
+            const parentGenre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+            return parentGenre !== transformedValue;
+          } catch (error) {
+            console.error('Error getting parent genre for subgenre:', subgenre, error);
+            return false;
+          }
+        });
+      }
+    } else { // subgenres
+      transformedValue = this.subgenreMap[value] || value;
+      if (checkbox.checked && this.isSubgenreEnabled(transformedValue as Subgenre)) {
+        this.movie[type].push(transformedValue);
+      } else {
+        const index = this.movie[type].indexOf(transformedValue);
+        if (index !== -1) {
+          this.movie[type].splice(index, 1);
+        }
       }
     }
 
@@ -161,44 +179,36 @@ export class MovieFormComponent implements OnInit {
 
   onGenresChange(): void {
     if (this.movie.genres.length > 0) {
-      const inverseGenreMap = Object.fromEntries(Object.entries(this.genreMap).map(([key, value]) => [value, key]));
-      const inverseSubgenreMap = Object.fromEntries(Object.entries(this.subgenreMap).map(([key, value]) => [value, key]));
-
-      this.filteredSubgenres = this.subgenres.filter(subgenre => {
-        try {
-          const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
-          return this.movie.genres.some((selectedGenre: string) => inverseGenreMap[selectedGenre] === genre);
-        } catch (error) {
-          // @ts-ignore
-          console.error('Invalid subgenre:', subgenre, error.message);
-          return false;
-        }
-      });
-
-      console.log("List of valid subgenres (OnGenreChange): " + this.filteredSubgenres);
-
       this.movie.subgenres = this.movie.subgenres.filter((subgenre: Subgenre) => {
-        try {
-          const subgenreKey = inverseSubgenreMap[subgenre as unknown as string] as Subgenre;
-          const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenreKey);
-          //const genre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
-          return this.movie.genres.includes(genre);
-        } catch (error) {
-          // @ts-ignore
-          console.error('Invalid subgenre:', subgenre, "-", error.message);
-          return false;
-        }
+        return this.isSubgenreEnabled(subgenre);
       });
-
-      console.log("List of selected subgenres: " + this.movie.subgenres);
-
     } else {
-      this.filteredSubgenres = [];
       this.movie.subgenres = [];
     }
 
     this.movie.subgenres = [...new Set(this.movie.subgenres)];
     this.subgenres.sort();
+  }
+
+  isSubgenreEnabled(subgenre: Subgenre): boolean {
+    const parentGenre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+    return this.movie.genres.includes(parentGenre);
+  }
+
+  getAvailableSubgenres(): Subgenre[] {
+    return this.movie.genres.flatMap((genreString: string) => {
+      const genre = this.getGenreFromString(genreString);
+      return this.subgenreValidatorService.getSubgenresForGenre(genre);
+    });
+  }
+
+  private getGenreFromString(genreString: string): Genre {
+    for (const [key, value] of Object.entries(this.genreMap)) {
+      if (value === genreString) {
+        return key as Genre;
+      }
+    }
+    throw new Error(`Invalid genre string: ${genreString}`);
   }
 
   validateNumberInput(event: KeyboardEvent): void {
