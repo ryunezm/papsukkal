@@ -142,7 +142,7 @@
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'subgenres')"
                      [value]="subgenre"
-                     [disabled]="!isSubgenreEnabled(subgenre)"
+                     [disabled]="isSubgenreEnabled(subgenre)"
                      [checked]="movie.subgenres.includes(subgenre)"
                      type="checkbox">
               {{ subgenre }}
