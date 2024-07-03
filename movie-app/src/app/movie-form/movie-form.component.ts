@@ -54,9 +54,7 @@ export class MovieFormComponent implements OnInit {
   ratingOptions: number[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
 
   genres = Object.values(Genre);
-  genreMap: { [key: string]: string } = {};
   subgenres = Object.values(Subgenre);
-  subgenreMap: { [key: string]: string } = {};
   countries = Object.values(Country);
   languages = Object.values(Language);
 
@@ -84,9 +82,6 @@ export class MovieFormComponent implements OnInit {
     } else {
       this.initializePersonalRating();
     }
-
-    this.genreMap = this.createEnumMap(Genre);
-    this.subgenreMap = this.createEnumMap(Subgenre);
     this.genres.sort();
     this.subgenres.sort();
   }
@@ -135,14 +130,12 @@ export class MovieFormComponent implements OnInit {
   onCheckboxChange(event: Event, type: string): void {
     const checkbox = event.target as HTMLInputElement;
     const value = checkbox.value;
-    let transformedValue: string;
 
     if (type === 'genres') {
-      transformedValue = this.genreMap[value] || value;
       if (checkbox.checked) {
-        this.movie[type].push(transformedValue);
+        this.movie[type].push(value);
       } else {
-        const index = this.movie[type].indexOf(transformedValue);
+        const index = this.movie[type].indexOf(value);
         if (index !== -1) {
           this.movie[type].splice(index, 1);
         }
@@ -150,7 +143,7 @@ export class MovieFormComponent implements OnInit {
         this.movie.subgenres = this.movie.subgenres.filter((subgenre: Subgenre) => {
           try {
             const parentGenre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
-            return parentGenre !== transformedValue;
+            return parentGenre !== value;
           } catch (error) {
             console.error('Error getting parent genre for subgenre:', subgenre, error);
             return false;
@@ -158,11 +151,10 @@ export class MovieFormComponent implements OnInit {
         });
       }
     } else { // subgenres
-      transformedValue = this.subgenreMap[value] || value;
-      if (checkbox.checked && this.isSubgenreEnabled(transformedValue as Subgenre)) {
-        this.movie[type].push(transformedValue);
+      if (checkbox.checked && this.isSubgenreEnabled(value as Subgenre)) {
+        this.movie[type].push(value);
       } else {
-        const index = this.movie[type].indexOf(transformedValue);
+        const index = this.movie[type].indexOf(value);
         if (index !== -1) {
           this.movie[type].splice(index, 1);
         }
@@ -203,14 +195,7 @@ export class MovieFormComponent implements OnInit {
     });
   }
 
-  private getGenreFromString(genreString: string): Genre {
-    for (const [key, value] of Object.entries(this.genreMap)) {
-      if (value === genreString) {
-        return key as Genre;
-      }
-    }
-    throw new Error(`Invalid genre string: ${genreString}`);
-  }
+  private getGenreFromString(genreString: string): Genre { return genreString as Genre; }
 
   validateNumberInput(event: KeyboardEvent): void {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Backspace' || event.key === 'Delete') {
@@ -232,16 +217,6 @@ export class MovieFormComponent implements OnInit {
         return;
       }
     }
-  }
-
-  private createEnumMap(enumObject: object): { [key: string]: string } {
-    const enumMap: { [key: string]: string } = {};
-
-    for (const [key, value] of Object.entries(enumObject)) {
-      enumMap[value as string] = key;
-    }
-
-    return enumMap;
   }
 
   private initializePersonalRating(): void {
