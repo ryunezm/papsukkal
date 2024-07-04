@@ -128,9 +128,9 @@
           @for (genre of genres; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'genres')"
-                     [value]="genre"
+                     [value]="genre[0]"
                      type="checkbox">
-              {{ genre }}
+              {{ genre[1] }}
             </label>
           }
         </div>
@@ -141,11 +141,11 @@
           @for (subgenre of getAvailableSubgenres(); track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'subgenres')"
-                     [value]="subgenre"
+                     [value]="subgenre[0]"
                      [disabled]="!isSubgenreEnabled(subgenre)"
                      [checked]="movie.subgenres.includes(subgenre)"
                      type="checkbox">
-              {{ subgenre }}
+              {{ subgenre[1] }}
             </label>
           }
         </div>
@@ -170,9 +170,9 @@
           @for (country of countries; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'countries')"
-                     [value]="country"
+                     [value]="country[0]"
                      type="checkbox">
-              {{ country }}
+              {{ country[1] }}
             </label>
           }
         </div>
@@ -183,9 +183,9 @@
           @for (language of languages; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'languages')"
-                     [value]="language"
+                     [value]="language[0]"
                      type="checkbox">
-              {{ language }}
+              {{ language[1] }}
             </label>
           }
         </div>

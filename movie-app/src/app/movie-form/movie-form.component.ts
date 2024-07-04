@@ -53,10 +53,10 @@ export class MovieFormComponent implements OnInit {
 
   ratingOptions: number[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
 
-  genres = Object.values(Genre);
-  subgenres = Object.values(Subgenre);
-  countries = Object.values(Country);
-  languages = Object.values(Language);
+  genres = Object.entries(Genre);
+  subgenres = Object.entries(Subgenre);
+  countries = Object.entries(Country);
+  languages = Object.entries(Language);
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
@@ -131,6 +131,8 @@ export class MovieFormComponent implements OnInit {
     const checkbox = event.target as HTMLInputElement;
     const value = checkbox.value;
 
+    if (!this.movie[type]) { this.movie[type] = []; }
+
     if (type === 'genres') {
       if (checkbox.checked) {
         this.movie[type].push(value);
@@ -150,8 +152,17 @@ export class MovieFormComponent implements OnInit {
           }
         });
       }
-    } else { // subgenres
+    } else if (type === 'subgenres') {
       if (checkbox.checked && this.isSubgenreEnabled(value as Subgenre)) {
+        this.movie[type].push(value);
+      } else {
+        const index = this.movie[type].indexOf(value);
+        if (index !== -1) {
+          this.movie[type].splice(index, 1);
+        }
+      }
+    } else {
+      if (checkbox.checked) {
         this.movie[type].push(value);
       } else {
         const index = this.movie[type].indexOf(value);
@@ -162,7 +173,6 @@ export class MovieFormComponent implements OnInit {
     }
 
     this.movie[type] = this.movie[type].sort();
-
     console.log(`${type} current values:`, this.movie[type]);
 
     if (type === 'genres') {

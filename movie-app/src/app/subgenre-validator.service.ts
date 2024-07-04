@@ -46,7 +46,7 @@ export class SubgenreValidatorService {
   }
 
   getGenreFromSubgenre(subgenre: Subgenre): Genre {
-    console.log('Subgenre passed:', subgenre); // Log para depurar
+    //console.log('Subgenre passed:', subgenre); // Log para depurar
 
     for (const [genre, subgenres] of this.genreSubgenreMap.entries()) {
       //console.log('Checking genre:', genre, 'with subgenres:', subgenres); // Log para depurar
