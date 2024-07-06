@@ -144,7 +144,7 @@ export class MovieFormComponent implements OnInit {
         // Remove subgenres associated with the unchecked genre
         this.movie.subgenres = this.movie.subgenres.filter((subgenre: Subgenre) => {
           try {
-            const parentGenre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
+            const parentGenre = this.subgenreValidatorService.getGenreFromSubgenreValue(subgenre);
             return parentGenre !== value;
           } catch (error) {
             console.error('Error getting parent genre for subgenre:', subgenre, error);
@@ -200,12 +200,11 @@ export class MovieFormComponent implements OnInit {
 
   getAvailableSubgenres(): Subgenre[] {
     return this.movie.genres.flatMap((genreString: string) => {
-      const genre = this.getGenreFromString(genreString);
-      return this.subgenreValidatorService.getSubgenresForGenre(genre);
+      console.log("getAvailableSubgenres:"+this.subgenreValidatorService.getSubgenresForGenreValue(genreString));
+      return this.subgenreValidatorService.getSubgenresForGenreValue(genreString);
     });
   }
 
-  private getGenreFromString(genreString: string): Genre { return genreString as Genre; }
 
   validateNumberInput(event: KeyboardEvent): void {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Backspace' || event.key === 'Delete') {

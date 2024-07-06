@@ -65,5 +65,39 @@ export class SubgenreValidatorService {
     return this.genreSubgenreMap.get(genre) || [];
   }
 
+  validateSubgenresByKey(subgenreKeys: string[], genreKeys: string[]): void {
+    const subgenres = subgenreKeys.map(key => Subgenre[key as keyof typeof Subgenre]);
+    const genres = genreKeys.map(key => Genre[key as keyof typeof Genre]);
+    this.validateSubgenres(subgenres, genres);
+  }
+
+  getGenreFromSubgenreKey(subgenreKey: string): Genre {
+    const subgenre = Subgenre[subgenreKey as keyof typeof Subgenre];
+    return this.getGenreFromSubgenre(subgenre);
+  }
+
+  getSubgenresForGenreKey(genreKey: string): Subgenre[] {
+    const genre = Genre[genreKey as keyof typeof Genre];
+    return this.getSubgenresForGenre(genre);
+  }
+
+  validateSubgenresByValue(subgenreValues: string[], genreValues: string[]): void {
+    const subgenres = subgenreValues.map(value => Subgenre[value as keyof typeof Subgenre]);
+    const genres = genreValues.map(value => Genre[value as keyof typeof Genre]);
+    this.validateSubgenres(subgenres, genres);
+  }
+
+  getGenreFromSubgenreValue(subgenreValue: string): Genre {
+    const subgenre = Subgenre[subgenreValue as keyof typeof Subgenre];
+    console.log("Service_getGenreFromSubgenreValue: " + this.getGenreFromSubgenre(subgenre));
+    return this.getGenreFromSubgenre(subgenre);
+  }
+
+  getSubgenresForGenreValue(genreValue: string): Subgenre[] {
+    const genre = Genre[genreValue as keyof typeof Genre];
+    console.log("Service_getSubgenresForGenreValue: " + this.getSubgenresForGenre(genre));
+    return this.getSubgenresForGenre(genre);
+  }
+
   constructor() { }
 }
