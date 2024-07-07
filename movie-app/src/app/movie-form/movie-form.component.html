@@ -141,7 +141,7 @@
           @for (subgenre of getAvailableSubgenres(); track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'subgenres')"
-                     [value]="subgenre[0]"
+                     [value]="subgenre"
                      [disabled]="!isSubgenreEnabled(subgenre)"
                      [checked]="movie.subgenres.includes(subgenre)"
                      type="checkbox">
