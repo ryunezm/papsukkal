@@ -87,7 +87,7 @@ export class MovieFormComponent implements OnInit {
   }
 
   saveMovie(): void {
-    this.subgenreValidatorService.validateSubgenres(this.movie.subgenres, this.movie.genres);
+    this.subgenreValidatorService.validateSubgenresFlexible(this.movie.subgenres, this.movie.genres);
     const fieldsToSplit = [
       'directedBy',
       'screenplayBy',
@@ -144,7 +144,7 @@ export class MovieFormComponent implements OnInit {
         // Remove subgenres associated with the unchecked genre
         this.movie.subgenres = this.movie.subgenres.filter((subgenre: Subgenre) => {
           try {
-            const parentGenre = this.subgenreValidatorService.getGenreFromSubgenreValue(subgenre);
+            const parentGenre = this.subgenreValidatorService.getGenreFromSubgenreFlexible(subgenre);
             return parentGenre !== value;
           } catch (error) {
             console.error('Error getting parent genre for subgenre:', subgenre, error);
@@ -194,14 +194,14 @@ export class MovieFormComponent implements OnInit {
   }
 
   isSubgenreEnabled(subgenre: Subgenre): boolean {
-    const parentGenre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
-    return this.movie.genres.includes(parentGenre);
+    const parentGenre = this.subgenreValidatorService.getGenreFromSubgenreFlexible(subgenre);
+    const parentGenreKey = Object.entries(Genre).find(([, value]) => value === parentGenre)?.[0];
+    return this.movie.genres.includes(parentGenreKey);
   }
 
   getAvailableSubgenres(): Subgenre[] {
     return this.movie.genres.flatMap((genreString: string) => {
-      console.log("getAvailableSubgenres:"+this.subgenreValidatorService.getSubgenresForGenreValue(genreString));
-      return this.subgenreValidatorService.getSubgenresForGenreValue(genreString);
+      return this.subgenreValidatorService.getSubgenresForGenreFlexible(genreString);
     });
   }
 
