@@ -45,6 +45,28 @@ export class SubgenreValidatorService {
     }
   }
 
+  validateSubgenresFlexible(subgenreKeysOrValues: string[], genreKeysOrValues: string[]): void {
+    let subgenres: Subgenre[];
+    let genres: Genre[];
+
+    subgenres = subgenreKeysOrValues.map(keyOrValue => {
+      return Subgenre[keyOrValue as keyof typeof Subgenre] ??
+        Object.values(Subgenre).find(sub => sub === keyOrValue) as Subgenre;
+    });
+
+    genres = genreKeysOrValues.map(keyOrValue => {
+      return Genre[keyOrValue as keyof typeof Genre] ??
+        Object.values(Genre).find(genre => genre === keyOrValue) as Genre;
+    });
+
+    if (!subgenres.every(subgenre => subgenre !== undefined) ||
+      !genres.every(genre => genre !== undefined)) {
+      throw new Error('Invalid subgenre or genre keys/values provided.');
+    }
+
+    this.validateSubgenres(subgenres, genres);
+  }
+
   getGenreFromSubgenre(subgenre: Subgenre): Genre {
     //console.log('Subgenre passed:', subgenre); // Log para depurar
 
@@ -65,38 +87,22 @@ export class SubgenreValidatorService {
     return this.genreSubgenreMap.get(genre) || [];
   }
 
-  validateSubgenresByKey(subgenreKeys: string[], genreKeys: string[]): void {
-    const subgenres = subgenreKeys.map(key => Subgenre[key as keyof typeof Subgenre]);
-    const genres = genreKeys.map(key => Genre[key as keyof typeof Genre]);
-    this.validateSubgenres(subgenres, genres);
-  }
-
-  getGenreFromSubgenreKey(subgenreKey: string): Genre {
-    const subgenre = Subgenre[subgenreKey as keyof typeof Subgenre];
-    return this.getGenreFromSubgenre(subgenre);
-  }
-
-  getSubgenresForGenreKey(genreKey: string): Subgenre[] {
-    const genre = Genre[genreKey as keyof typeof Genre];
+  getSubgenresForGenreFlexible(genreKeyOrValue: string): Subgenre[] {
+    const genre = Genre[genreKeyOrValue as keyof typeof Genre] ??
+      Object.values(Genre).find(gen => gen === genreKeyOrValue) as Genre;
+    if (!genre) {
+      throw new Error(`Invalid genre key/value provided: ${genreKeyOrValue}`);
+    }
     return this.getSubgenresForGenre(genre);
   }
 
-  validateSubgenresByValue(subgenreValues: string[], genreValues: string[]): void {
-    const subgenres = subgenreValues.map(value => Subgenre[value as keyof typeof Subgenre]);
-    const genres = genreValues.map(value => Genre[value as keyof typeof Genre]);
-    this.validateSubgenres(subgenres, genres);
-  }
-
-  getGenreFromSubgenreValue(subgenreValue: string): Genre {
-    const subgenre = Subgenre[subgenreValue as keyof typeof Subgenre];
-    console.log("Service_getGenreFromSubgenreValue: " + this.getGenreFromSubgenre(subgenre));
+  getGenreFromSubgenreFlexible(subgenreKeyOrValue: string): Genre {
+    const subgenre = Subgenre[subgenreKeyOrValue as keyof typeof Subgenre] ??
+      Object.values(Subgenre).find(sub => sub === subgenreKeyOrValue) as Subgenre;
+    if (!subgenre) {
+      throw new Error(`Invalid subgenre key/value provided: ${subgenreKeyOrValue}`);
+    }
     return this.getGenreFromSubgenre(subgenre);
-  }
-
-  getSubgenresForGenreValue(genreValue: string): Subgenre[] {
-    const genre = Genre[genreValue as keyof typeof Genre];
-    console.log("Service_getSubgenresForGenreValue: " + this.getSubgenresForGenre(genre));
-    return this.getSubgenresForGenre(genre);
   }
 
   constructor() { }
