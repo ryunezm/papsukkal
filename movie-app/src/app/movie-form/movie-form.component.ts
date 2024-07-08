@@ -205,7 +205,6 @@ export class MovieFormComponent implements OnInit {
     });
   }
 
-
   validateNumberInput(event: KeyboardEvent): void {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Backspace' || event.key === 'Delete') {
       return;
