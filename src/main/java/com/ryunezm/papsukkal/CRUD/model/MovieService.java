@@ -48,11 +48,11 @@ public class MovieService {
                 movieDTO.getMusicBy(),
                 movieDTO.getProductionCompany(),
                 movieDTO.getReleaseDate(),
-                movieDTO.getGenre(),
+                movieDTO.getGenres(),
                 movieDTO.getSubgenres(),
                 movieDTO.getRunningTime(),
-                movieDTO.getCountry(),
-                movieDTO.getLanguage(),
+                movieDTO.getCountries(),
+                movieDTO.getLanguages(),
                 movieDTO.getPersonalRating());
 
         return movieRepository.save(movie);
@@ -83,11 +83,11 @@ public class MovieService {
         movie.setMusicBy(movieDTO.getMusicBy());
         movie.setProductionCompany(movieDTO.getProductionCompany());
         movie.setReleaseDate(movieDTO.getReleaseDate());
-        movie.setGenre(movieDTO.getGenre());
+        movie.setGenres(movieDTO.getGenres());
         movie.setSubgenres(movieDTO.getSubgenres());
         movie.setRunningTime(movieDTO.getRunningTime());
-        movie.setCountry(movieDTO.getCountry());
-        movie.setLanguage(movieDTO.getLanguage());
+        movie.setCountries(movieDTO.getCountries());
+        movie.setLanguages(movieDTO.getLanguages());
         movie.setPersonalRating(movieDTO.getPersonalRating());
 
         return movieRepository.save(movie);

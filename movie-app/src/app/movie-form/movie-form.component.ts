@@ -57,7 +57,7 @@ export class MovieFormComponent implements OnInit {
   subgenres = Object.entries(Subgenre);
   countries = Object.entries(Country);
   languages = Object.entries(Language);
-  availableSubgenres = Object.entries((this.getASO(this.movie.genres)));
+  availableSubgenres = Object.entries((this.getAvailableSubgenresObject(this.movie.genres)));
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
@@ -109,6 +109,9 @@ export class MovieFormComponent implements OnInit {
         .sort()));
     });
 
+    // Log the movie object to console
+    console.log(JSON.stringify(this.movie, null, 2));
+
     if (this.movie.id) {
       this.movieService.updateMovie(this.movie.id, this.movie).subscribe(() => {
         this.router.navigate(['/movies']).then(() => {
@@ -124,10 +127,10 @@ export class MovieFormComponent implements OnInit {
 
   onFieldChange(fieldName: string, value: any): void {
     // TODO
-    // Now prints everything as array, so it must be fixed this in future.
-    const arrayValue = Array.from(new Set(value.split(';').map((item: string) => item.trim()).sort()));
-    this.movie[fieldName.replace('String', '')] = arrayValue;
-    console.log(`${fieldName} array:`, arrayValue);
+    // For debugging purposes, so it must be fixed in future.
+    // const arrayValue = Array.from(new Set(value.split(';').map((item: string) => item.trim()).sort()));
+    // this.movie[fieldName.replace('String', '')] = arrayValue;
+    // console.log(`${fieldName} array:`, arrayValue);
   }
 
   onCheckboxChange(event: Event, type: string): void {
@@ -194,7 +197,7 @@ export class MovieFormComponent implements OnInit {
 
     this.movie.subgenres = [...new Set(this.movie.subgenres)];
     this.subgenres.sort();
-    this.availableSubgenres = Object.entries((this.getASO(this.movie.genres)));
+    this.availableSubgenres = Object.entries((this.getAvailableSubgenresObject(this.movie.genres)));
   }
 
   isSubgenreEnabled(subgenre: Subgenre): boolean {
@@ -203,7 +206,7 @@ export class MovieFormComponent implements OnInit {
     return this.movie.genres.includes(parentGenreKey);
   }
 
-  getASO(genres: string[]): { [key: string]: Subgenre } {
+  getAvailableSubgenresObject(genres: string[]): { [key: string]: Subgenre } {
     return this.subgenreValidatorService.getAvailableSubgenresObject(genres);
   }
 

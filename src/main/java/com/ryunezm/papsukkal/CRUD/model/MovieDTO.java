@@ -6,10 +6,7 @@ import com.ryunezm.papsukkal.CRUD.enums.Country;
 import com.ryunezm.papsukkal.CRUD.enums.Genre;
 import com.ryunezm.papsukkal.CRUD.enums.Language;
 import com.ryunezm.papsukkal.CRUD.utils.SubgenreValidator;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -48,15 +45,15 @@ public class MovieDTO {
     @NotNull
     private LocalDate releaseDate;
     @NotNull
-    private List<Genre> genre;
+    private List<Genre> genres;
     @JsonProperty("subgenres")
     private List<Genre.SubGenre> subgenres;
     @NotNull
     private int runningTime;
     @NotNull
-    private List<Country> country;
+    private List<Country> countries;
     @NotNull
-    private List<Language> language;
+    private List<Language> languages;
     private Movie.PersonalRating personalRating;
 
     @JsonCreator
@@ -73,11 +70,11 @@ public class MovieDTO {
             @JsonProperty("musicBy") List<String> musicBy,
             @JsonProperty("productionCompany") List<String> productionCompany,
             @JsonProperty("releaseDate") LocalDate releaseDate,
-            @JsonProperty("genre") List<Genre> genre,
+            @JsonProperty("genres") List<Genre> genres,
             @JsonProperty("subgenres") List<Genre.SubGenre> subgenres,
             @JsonProperty("runningTime") int runningTime,
-            @JsonProperty("country") List<Country> country,
-            @JsonProperty("language") List<Language> language,
+            @JsonProperty("countries") List<Country> countries,
+            @JsonProperty("languages") List<Language> languages,
             @JsonProperty("personalRating") Movie.PersonalRating personalRating) {
         this.title = title;
         this.titleEN = titleEN;
@@ -91,13 +88,13 @@ public class MovieDTO {
         this.musicBy = musicBy;
         this.productionCompany = productionCompany;
         this.releaseDate = releaseDate;
-        this.genre = genre;
+        this.genres = genres;
         this.runningTime = runningTime;
-        this.country = country;
-        this.language = language;
+        this.countries = countries;
+        this.languages = languages;
         this.personalRating = personalRating;
 
-        SubgenreValidator.validateSubgenres(subgenres, genre);
+        SubgenreValidator.validateSubgenres(subgenres, genres);
         this.subgenres = subgenres;
     }
 
@@ -108,20 +105,25 @@ public class MovieDTO {
 
     @Data
     public static class PersonalRating {
-        @Min(value = 0, message = "The rating should be between 0 and 10.")
-        @Max(value = 10, message = "The rating should be between 0 and 10.")
-        private int screenplay;
-        @Min(value = 0, message = "The rating should be between 0 and 10.")
-        @Max(value = 10, message = "The rating should be between 0 and 10.")
-        private int acting;
-        @Min(value = 0, message = "The rating should be between 0 and 10.")
-        @Max(value = 10, message = "The rating should be between 0 and 10.")
-        private int photography;
-        @Min(value = 0, message = "The rating should be between 0 and 10.")
-        @Max(value = 10, message = "The rating should be between 0 and 10.")
-        private int entertainment;
-        @Min(value = 0, message = "The rating should be between 0 and 10.")
-        @Max(value = 10, message = "The rating should be between 0 and 10.")
-        private int recommended;
+        @DecimalMin(value = "0.0", message = "The rating should be between 0 and 10.")
+        @DecimalMax(value = "10.0", message = "The rating should be between 0 and 10.")
+        private double screenplay;
+
+        @DecimalMin(value = "0.0", message = "The rating should be between 0 and 10.")
+        @DecimalMax(value = "10.0", message = "The rating should be between 0 and 10.")
+        private double acting;
+
+        @DecimalMin(value = "0.0", message = "The rating should be between 0 and 10.")
+        @DecimalMax(value = "10.0", message = "The rating should be between 0 and 10.")
+        private double photography;
+
+        @DecimalMin(value = "0.0", message = "The rating should be between 0 and 10.")
+        @DecimalMax(value = "10.0", message = "The rating should be between 0 and 10.")
+        private double entertainment;
+
+        @DecimalMin(value = "0.0", message = "The rating should be between 0 and 10.")
+        @DecimalMax(value = "10.0", message = "The rating should be between 0 and 10.")
+        private double recommended;
     }
+
 }
