@@ -203,38 +203,9 @@ export class MovieFormComponent implements OnInit {
     return this.movie.genres.includes(parentGenreKey);
   }
 
-  getAvailableSubgenres(): Subgenre[] {
-    return this.movie.genres.flatMap((genreString: string) => {
-      return this.subgenreValidatorService.getSubgenresForGenreFlexible(genreString);
-    });
-  }
-
   getASO(genres: string[]): { [key: string]: Subgenre } {
-    const subgenresObject = this.subgenreValidatorService.getAvailableSubgenresObject(genres);
-    console.log("getASO(): ", subgenresObject);
-    return subgenresObject;
+    return this.subgenreValidatorService.getAvailableSubgenresObject(genres);
   }
-
-  // getASO_keys(genres: string[]): { [key: string]: Subgenre[] } {
-  //   const subgenresObject: { [key: string]: Subgenre[] } = this.subgenreValidatorService.getAvailableSubgenresObject(genres);
-  //   const flattenedObject: { [key: string]: Subgenre[] } = {};
-  //
-  //   Object.keys(subgenresObject).forEach(key => {
-  //     flattenedObject[key] = subgenresObject[key].flatMap(subgenre => subgenre);
-  //   });
-  //
-  //   return flattenedObject;
-  // }
-
-  // getASO_values(genres: string[]): { [key: string]: Subgenre } {
-  //   const subgenresObject = this.subgenreValidatorService.getAvailableSubgenresObject(genres);
-  //   console.log("getASO(): ", subgenresObject);
-  //   return this.flatMap(Object.values(subgenresObject), subgenre => subgenre);
-  // }
-
-  objectKeys(obj: any): string[] { return Object.keys(obj); }
-
-  objectValues(obj: any): string[] { return Object.values(obj); }
 
   validateNumberInput(event: KeyboardEvent): void {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Backspace' || event.key === 'Delete') {
