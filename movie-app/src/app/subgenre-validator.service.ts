@@ -31,6 +31,8 @@ export class SubgenreValidatorService {
   ]);
 
   validateSubgenres(Subgenres: Subgenre[], genres: Genre[]): void {
+    if (Subgenres.length === 0) { return; }
+
     const allowedSubgenres = genres
       .flatMap(genre => this.genreSubgenreMap.get(genre) || []);
 
