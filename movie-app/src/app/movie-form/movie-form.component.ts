@@ -57,11 +57,13 @@ export class MovieFormComponent implements OnInit {
   subgenres = Object.entries(Subgenre);
   countries = Object.entries(Country);
   languages = Object.entries(Language);
+  availableSubgenres = Object.entries((this.getASO(this.movie.genres)));
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
               private router: Router,
-              private subgenreValidatorService: SubgenreValidatorService) { }
+              private subgenreValidatorService: SubgenreValidatorService) {
+  }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -84,6 +86,7 @@ export class MovieFormComponent implements OnInit {
     }
     this.genres.sort();
     this.subgenres.sort();
+    this.availableSubgenres.sort();
   }
 
   saveMovie(): void {
@@ -191,6 +194,7 @@ export class MovieFormComponent implements OnInit {
 
     this.movie.subgenres = [...new Set(this.movie.subgenres)];
     this.subgenres.sort();
+    this.availableSubgenres = Object.entries((this.getASO(this.movie.genres)));
   }
 
   isSubgenreEnabled(subgenre: Subgenre): boolean {
@@ -204,6 +208,33 @@ export class MovieFormComponent implements OnInit {
       return this.subgenreValidatorService.getSubgenresForGenreFlexible(genreString);
     });
   }
+
+  getASO(genres: string[]): { [key: string]: Subgenre } {
+    const subgenresObject = this.subgenreValidatorService.getAvailableSubgenresObject(genres);
+    console.log("getASO(): ", subgenresObject);
+    return subgenresObject;
+  }
+
+  // getASO_keys(genres: string[]): { [key: string]: Subgenre[] } {
+  //   const subgenresObject: { [key: string]: Subgenre[] } = this.subgenreValidatorService.getAvailableSubgenresObject(genres);
+  //   const flattenedObject: { [key: string]: Subgenre[] } = {};
+  //
+  //   Object.keys(subgenresObject).forEach(key => {
+  //     flattenedObject[key] = subgenresObject[key].flatMap(subgenre => subgenre);
+  //   });
+  //
+  //   return flattenedObject;
+  // }
+
+  // getASO_values(genres: string[]): { [key: string]: Subgenre } {
+  //   const subgenresObject = this.subgenreValidatorService.getAvailableSubgenresObject(genres);
+  //   console.log("getASO(): ", subgenresObject);
+  //   return this.flatMap(Object.values(subgenresObject), subgenre => subgenre);
+  // }
+
+  objectKeys(obj: any): string[] { return Object.keys(obj); }
+
+  objectValues(obj: any): string[] { return Object.values(obj); }
 
   validateNumberInput(event: KeyboardEvent): void {
     if (event.key === 'ArrowLeft' || event.key === 'ArrowRight' || event.key === 'Backspace' || event.key === 'Delete') {
