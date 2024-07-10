@@ -8,6 +8,8 @@ import java.util.List;
 
 public class SubgenreValidator {
     public static void validateSubgenres(List<Genre.SubGenre> subgenres, List<Genre> genres) {
+        if (subgenres.isEmpty()) { return; }
+
         List<Genre.SubGenre> allowedSubgenres = genres.stream()
                 .flatMap(g -> g.getSubGenres().stream())
                 .toList();
