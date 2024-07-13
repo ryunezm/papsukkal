@@ -1,5 +1,133 @@
-#new-movie{
+#container{
   display: flex;
-  margin: 100px;
-  background-color: purple;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  outline: 0.1vw solid #666666;
+  margin: 2vw 5vw;
+  background-color: #C5C9C7;
+  box-shadow: 1vw 1vw #666666;
+}
+
+#container-title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+h1 {
+  font-family: "Source Sans 3", sans-serif;
+  color: #A35353;
+}
+
+#container-actions{
+  width: 50vw;
+  display:flex;
+  justify-items: center;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#search-bar{
+  width: 30vw;
+  font-family: "Source Sans 3", sans-serif;
+}
+
+#search-bar:focus{
+  outline: none;
+}
+
+#container-movies {
+  width: 60vw;
+  display: flex;
+  flex-direction: column;
+  margin: 2vw 10vw;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+}
+
+button {
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: bold;
+  background-color: #C5C9C7;
+  color: #A35353;
+  box-shadow: 0.2vw 0.2vw #666666;
+  transition: box-shadow 0.1s ease;
+}
+
+button:active {
+  transform: translate(0.2vw, 0.2vw);
+  box-shadow: none;
+  border: none;
+  outline: 0.1vw solid black;
+}
+
+a {
+  text-decoration: none;
+}
+
+@keyframes eyeChange {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animated {
+  display: inline-block;
+  animation: eyeChange 0.3s ease-in-out;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0.1vw solid #A35353;
+  margin-bottom: 1vw;
+}
+
+th, td {
+  padding: 0.4vw;
+  text-align: left;
+  border-bottom: 0.1vw solid #A35353;
+  //border-right: 0.1vw solid #A35353;
+}
+
+th {
+  background-color: #bebebe;
+  font-weight: bold;
+  border-bottom: 0.4vw solid #A35353;
+  color: #A35353;
+}
+
+tr:hover {
+  background-color: #A35353;
+}
+
+label {
+  color: #A35353;
+  font-weight: bold;
+  width: 100%;
+}
+
+tr:hover label {
+  background-color: #A35353;
+  color: #C5C9C7;
+}
+
+thead th {
+  background-color: #bebebe;
+  font-weight: bold;
+  border-bottom: 0.4vw solid #A35353;
+  color: #A35353;
+  border-right: 0.1vw solid #A35353;
+}
+
+thead th:last-child {
+  border-right: none;
 }

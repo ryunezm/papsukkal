@@ -1,12 +1,45 @@
-<div>
-  <h2>Movies</h2>
-</div>
-<div>
-  <ul>
-    @for (movie of movies; track $index){
-      <a [routerLink]="['/movies', movie.id]">{{ movie.title }}</a>
-    }
-  </ul>
+<div id="container">
+  <div id="container-title">
+    <h1>Movies</h1>
+  </div>
+
+  <div id="container-actions">
+    <input id="search-bar" type="text" placeholder="Search movies..." (input)="onSearchChange($event)">
+    <button routerLink="/movies/new">Add Movie</button>
+  </div>
+
+  <br>
+
+  <div id="container-movies">
+    <table>
+      <thead>
+      <tr>
+        <th>RELEASE DATE</th>
+        <th>TITLE</th>
+        <th>DIRECTORS</th>
+        <th>  </th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (movie of filteredMovies; track $index) {
+          <tr>
+            <td> <label>{{ movie.releaseDate }}</label> </td>
+            <td> <label>{{ movie.title }}</label> </td>
+            <td> <label>{{ formatArray(movie.directedBy) }}</label> </td>
+            <td>
+              <a [routerLink]="['/movies', movie.id]"
+                 (mouseenter)="onMouseEnter(movie.id)"
+                 (mouseleave)="onMouseLeave()"
+                 (animationend)="onAnimationEnd(movie.id)"
+                 [class.animated]="animatingMovieId === movie.id">
+                <label>{{ hoveredMovieId === movie.id ? '👀' : '👁️' }}</label>
+              </a>
+            </td>
+
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<button routerLink="/movies/new">Add Movie</button>
