@@ -100,7 +100,7 @@ export enum Subgenre {
   EXISTENTIAL_SURREALIST = 'Surrealist',
 
   // FANTASY subgenres
-  FANTASY_CONTEMPORARY = 'Contemporary',
+  FANTASY_CONTEMPORARY = 'Contemporary Fantasy',
   FANTASY_DARK = 'Dark',
   FANTASY_FAIRY_TALE = 'Fairy Tale',
   FANTASY_HEROIC = 'Heroic',
