@@ -123,6 +123,10 @@ export class MovieFormComponent implements OnInit {
         });
       });
     }
+
+    console.log('Form validity:', this.ngForm.form.valid);
+    console.log('Form values:', this.ngForm.form.value);
+    console.log('Form errors:', this.ngForm.form.errors);
   }
 
   onCheckboxChange(event: Event, type: string): void {
@@ -222,12 +226,6 @@ export class MovieFormComponent implements OnInit {
         return;
       }
     }
-  }
-
-  onSubmit() {
-    console.log('Form validity:', this.ngForm.form.valid);
-    console.log('Form values:', this.ngForm.form.value);
-    console.log('Form errors:', this.ngForm.form.errors);
   }
 
   private initializePersonalRating(): void {
