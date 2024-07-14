@@ -125,14 +125,6 @@ export class MovieFormComponent implements OnInit {
     }
   }
 
-  onFieldChange(fieldName: string, value: any): void {
-    // TODO
-    // For debugging purposes, so it must be fixed in future.
-    // const arrayValue = Array.from(new Set(value.split(';').map((item: string) => item.trim()).sort()));
-    // this.movie[fieldName.replace('String', '')] = arrayValue;
-    // console.log(`${fieldName} array:`, arrayValue);
-  }
-
   onCheckboxChange(event: Event, type: string): void {
     const checkbox = event.target as HTMLInputElement;
     const value = checkbox.value;
