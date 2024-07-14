@@ -14,6 +14,9 @@
                placeholder="Enter original title"
                required
                type="text">
+        @if (title.invalid && (title.dirty || title.touched)) {
+          @if (title.errors?.['required']) { <div class="alert"> Title is required. </div> }
+        }
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Title (EN):</label>
@@ -24,6 +27,9 @@
                name="titleEN"
                placeholder="Enter title in english"
                required>
+        @if (title.invalid && (title.dirty || title.touched)) {
+          @if (title.errors?.['required']) { <div class="alert"> Title (EN) is required. </div> }
+        }
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Title (ES):</label>
@@ -34,6 +40,9 @@
                name="titleES"
                placeholder="Enter title in spanish"
                required>
+        @if (title.invalid && (title.dirty || title.touched)) {
+          @if (title.errors?.['required']) { <div class="alert"> Title (ES) is required. </div> }
+        }
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Directors:</label>
@@ -223,7 +232,7 @@
             }
           </select></div>
       </div>
-      <button type="submit">SAVE</button>
+      <button type="submit" [disabled]="ngForm.invalid">SAVE</button>
     </form>
   </div>
 </div>
