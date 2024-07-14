@@ -41,6 +41,7 @@ export enum Genre {
   TEEN_FILM = 'Teen Film',
   TERROR = 'Terror',
   THRILLER = 'Thriller',
+  VIGILANTE_FILM = 'Vigilante Film',
   ZOMBIE = 'Zombie'
 }
 

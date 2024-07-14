@@ -54,6 +54,7 @@ public enum Genre {
     TEEN_FILM(List.of()),
     TERROR(List.of()),
     THRILLER(List.of()),
+    VIGILANTE_FILM(List.of()),
     ZOMBIE(List.of());
 
     private final List<SubGenre> subGenres;
