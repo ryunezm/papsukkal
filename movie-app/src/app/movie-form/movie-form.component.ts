@@ -50,9 +50,7 @@ export class MovieFormComponent implements OnInit {
     }
   };
 
-
-  @ViewChild('ngForm', {static: false}) form!: NgForm; //TODO
-
+  @ViewChild('ngForm') ngForm!: NgForm;
   ratingOptions: number[] = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10];
 
   genres = Object.entries(Genre);
@@ -224,6 +222,12 @@ export class MovieFormComponent implements OnInit {
         return;
       }
     }
+  }
+
+  onSubmit() {
+    console.log('Form validity:', this.ngForm.form.valid);
+    console.log('Form values:', this.ngForm.form.value);
+    console.log('Form errors:', this.ngForm.form.errors);
   }
 
   private initializePersonalRating(): void {
