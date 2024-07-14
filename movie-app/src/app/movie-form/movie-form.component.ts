@@ -6,6 +6,7 @@ import {Genre, Subgenre} from '../enums/genre.enum';
 import {Country} from '../enums/country.enum';
 import {SubgenreValidatorService} from '../subgenre-validator.service';
 import {Language} from '../enums/language.enum';
+import {NgClass} from "@angular/common";
 
 
 @Component({
@@ -13,6 +14,7 @@ import {Language} from '../enums/language.enum';
   standalone: true,
   imports: [
     FormsModule,
+    NgClass,
   ],
   templateUrl: './movie-form.component.html',
   styleUrls: ['./movie-form.component.scss']

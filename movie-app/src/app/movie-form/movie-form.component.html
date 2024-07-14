@@ -8,46 +8,41 @@
         <label class="sub-form-label">Title:</label>
         <input #title="ngModel"
                [(ngModel)]="movie.title"
+               [ngClass]="{'invalid-input': title.invalid && (title.dirty || title.touched) && title.errors?.['required']}"
                class="sub-form-input-text"
                maxlength="100"
                name="title"
                placeholder="Enter original title"
                required
                type="text">
-        @if (title.invalid && (title.dirty || title.touched)) {
-          @if (title.errors?.['required']) { <div class="alert"> Title is required. </div> }
-        }
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Title (EN):</label>
         <input #titleEN="ngModel"
                [(ngModel)]="movie.titleEN"
+               [ngClass]="{'invalid-input': titleEN.invalid && (titleEN.dirty || titleEN.touched) && titleEN.errors?.['required']}"
                class="sub-form-input-text"
                maxlength="100"
                name="titleEN"
                placeholder="Enter title in english"
                required>
-        @if (title.invalid && (title.dirty || title.touched)) {
-          @if (title.errors?.['required']) { <div class="alert"> Title (EN) is required. </div> }
-        }
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Title (ES):</label>
         <input #titleES="ngModel"
                [(ngModel)]="movie.titleES"
+               [ngClass]="{'invalid-input': titleES.invalid && (titleES.dirty || titleES.touched) && titleES.errors?.['required']}"
                class="sub-form-input-text"
                maxlength="100"
                name="titleES"
                placeholder="Enter title in spanish"
                required>
-        @if (title.invalid && (title.dirty || title.touched)) {
-          @if (title.errors?.['required']) { <div class="alert"> Title (ES) is required. </div> }
-        }
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Directors:</label>
         <input #directedBy="ngModel"
                [(ngModel)]="movie.directedByString"
+               [ngClass]="{'invalid-input': directedBy.invalid && (directedBy.dirty || directedBy.touched) && directedBy.errors?.['required']}"
                class="sub-form-input-text"
                name="directedBy"
                placeholder="Enter list of directors separated by semicolons (;)"
@@ -113,6 +108,7 @@
         <label class="sub-form-label">Release Date:</label>
         <input #releaseDate="ngModel"
                [(ngModel)]="movie.releaseDate"
+               [ngClass]="{'invalid-input': releaseDate.invalid && (releaseDate.dirty || releaseDate.touched) && releaseDate.errors?.['required']}"
                class="sub-form-input-text"
                name="releaseDate"
                placeholder="Enter release date"
@@ -152,6 +148,7 @@
         <input #runningTime="ngModel"
                (keydown)="validateNumberInput($event)"
                [(ngModel)]="movie.runningTime"
+               [ngClass]="{'invalid-input': runningTime.invalid && (runningTime.dirty || runningTime.touched) && runningTime.errors?.['required']}"
                class="sub-form-input-text"
                name="runningTime"
                pattern="[0-9]*"
@@ -190,8 +187,8 @@
         <div class="sub-form">
           <label class="sub-form-label">Screenplay:</label>
           <select [(ngModel)]="movie.personalRating.screenplay"
-                  name="screenplay"
-                  class="sub-form-input-rating">
+                  class="sub-form-input-rating"
+                  name="screenplay">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -200,8 +197,8 @@
         <div class="sub-form">
           <label class="sub-form-label">Acting:</label>
           <select [(ngModel)]="movie.personalRating.acting"
-                  name="acting"
-                  class="sub-form-input-rating">
+                  class="sub-form-input-rating"
+                  name="acting">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -209,30 +206,30 @@
         </div>
         <div class="sub-form"><label class="sub-form-label">Photography:</label>
           <select [(ngModel)]="movie.personalRating.photography"
-                  name="photography"
-                  class="sub-form-input-rating">
+                  class="sub-form-input-rating"
+                  name="photography">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
           </select></div>
         <div class="sub-form"><label class="sub-form-label">Entertainment:</label>
           <select [(ngModel)]="movie.personalRating.entertainment"
-                  name="entertainment"
-                  class="sub-form-input-rating">
+                  class="sub-form-input-rating"
+                  name="entertainment">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
           </select></div>
         <div class="sub-form"><label class="sub-form-label">Recommended:</label>
           <select [(ngModel)]="movie.personalRating.recommended"
-                  name="recommended"
-                  class="sub-form-input-rating">
+                  class="sub-form-input-rating"
+                  name="recommended">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
           </select></div>
       </div>
-      <button type="submit" [disabled]="ngForm.invalid">SAVE</button>
+      <button [disabled]="ngForm.invalid" type="submit">SAVE</button>
     </form>
   </div>
 </div>
