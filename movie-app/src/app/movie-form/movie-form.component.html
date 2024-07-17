@@ -1,8 +1,8 @@
-<div id="container">
-  <div id="container-title">
+<div class="container">
+  <div class="container-title">
     <h1>{{ movie.id ? 'Edit Movie' : 'New Movie' }}</h1>
   </div>
-  <div id="container-form">
+  <div class="container-form">
     <form #ngForm="ngForm" (ngSubmit)="saveMovie()" novalidate>
       <div class="sub-form">
         <label class="sub-form-label">Title:</label>
@@ -204,7 +204,8 @@
             }
           </select>
         </div>
-        <div class="sub-form"><label class="sub-form-label">Photography:</label>
+        <div class="sub-form">
+          <label class="sub-form-label">Photography:</label>
           <select [(ngModel)]="movie.personalRating.photography"
                   class="sub-form-input-rating"
                   name="photography">
@@ -212,7 +213,8 @@
               <option [value]="num"> {{ num }}</option>
             }
           </select></div>
-        <div class="sub-form"><label class="sub-form-label">Entertainment:</label>
+        <div class="sub-form">
+          <label class="sub-form-label">Entertainment:</label>
           <select [(ngModel)]="movie.personalRating.entertainment"
                   class="sub-form-input-rating"
                   name="entertainment">
@@ -220,7 +222,8 @@
               <option [value]="num"> {{ num }}</option>
             }
           </select></div>
-        <div class="sub-form"><label class="sub-form-label">Recommended:</label>
+        <div class="sub-form">
+          <label class="sub-form-label">Recommended:</label>
           <select [(ngModel)]="movie.personalRating.recommended"
                   class="sub-form-input-rating"
                   name="recommended">
