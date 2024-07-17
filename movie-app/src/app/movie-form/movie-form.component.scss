@@ -1,4 +1,4 @@
-#container {
+.container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +10,7 @@
   box-shadow: 1vw 1vw #666666;
 }
 
-#container-title {
+.container-title {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -20,11 +20,7 @@
   justify-content: center;
 }
 
-h1 {
-  color: #A35353;
-}
-
-#container-form {
+.container-form {
   display: flex;
   flex-direction: column;
   margin: 2vw 10vw;
@@ -33,7 +29,7 @@ h1 {
   justify-content: center;
 }
 
-#container-form div {
+.container-form div {
   display: flex;
   justify-items: center;
   align-items: center;
@@ -79,57 +75,38 @@ h1 {
 .sub-form-input-text,
 .sub-form-input-rating {
   width: 100%;
-  border-radius: 0;
-  border: 0;
-  font-family: "Source Sans 3", sans-serif;
-}
-
-.sub-form-input-text:focus,
-.sub-form-input-rating:focus {
-  outline: none;
 }
 
 .sub-form-rating {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
   align-content: center;
   justify-content: center;
   justify-items: center;
-  gap: 0.1vw;
+  gap: 0.1vmax;
   flex: 1;
 }
 
-.sub-form-rating > .sub-form, {
+.sub-form-rating > .sub-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
   align-content: center;
   align-items: center;
   justify-items: center;
   justify-content: center;
-  width: 13vw;
-  gap: 0.1vw;
-  flex-direction: row;
-  flex-wrap: wrap;
+  min-width: 35vmax;
+  max-width: 55vw;
+  gap: 1vw;
   font-family: "Source Sans 3", sans-serif;
+}
+
+.sub-form-rating > .sub-form > select {
+  width: 10vmax;
 }
 
 button {
   margin-top: 1vw;
-  font-family: "Source Sans 3", sans-serif;
-  font-weight: bold;
-  background-color: #C5C9C7;
-  color: #A35353;
-  box-shadow: 0.2vw 0.2vw #666666;
-  transition: box-shadow 0.1s ease;
-}
-
-button:active {
-  transform: translate(0.2vw, 0.2vw);
-  box-shadow: none;
-  border: none;
-  outline: 0.1vw solid black;
-}
-
-.invalid-input{
-  outline: 0.2vw solid red;
 }
