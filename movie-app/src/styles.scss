@@ -1,40 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+$font_UI: "Source Sans 3", "Helvetica Neue", sans-serif;
+$color_background: #81A3BF;
+$color_indian_red: #A35353;
+$color_snow_white: #C5C9C7;
+$color_dim_gray: #666666;
+
 
 html, body {
   height: 100%;
-  background-color: #81A3BF;
+  background-color: $color_background;
 }
 
 body {
   margin: 0;
-  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
-}
-
-button {
-  font-family: "Source Sans 3", "Helvetica Neue",sans-serif;
-  font-weight: bold;
-  background-color: #C5C9C7;
-  color: #A35353;
-  box-shadow: 0.2vmax 0.2vmax #666666;
-  transition: box-shadow 0.1s ease;
-  padding: 0.2vmas 0.2vmax;
-}
-
-button:active {
-  transform: translate(0.2vmax, 0.2vmax);
-  box-shadow: none;
-  border: none;
-  outline: 0.1vw solid black;
+  font-family: $font_UI;
 }
 
 h1 {
-  color: #A35353;
+  font-family: $font_UI;
+  color: $color_indian_red;
 }
 
 input {
   border-radius: 0;
   border: 0;
-  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-family: $font_UI;
 }
 
 input:focus {
@@ -42,7 +32,7 @@ input:focus {
 }
 
 input[type='checkbox']:checked {
-  background-color: #A35353;
+  background-color: $color_indian_red;
 }
 
 input[type='checkbox']:checked:after {
@@ -55,13 +45,13 @@ input[type='checkbox']{
   height: 16px !important;
   appearance:none;
   border-radius: 0;
-  border: 1px solid #A35353;
+  border: 1px solid $color_indian_red;
   box-shadow: none;
   flex-shrink: 0
 }
 
 p {
-  font-family: "Source Sans 3", "Helvetica Neue",sans-serif;
+  font-family: $font_UI;
   margin: 0;
 }
 
@@ -69,18 +59,54 @@ select {
   align-items: center;
   text-align: center;
   outline: none;
-  border-bottom: 10px #C5C9C7;
-  background-color: #C5C9C7;
-  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  border: 1vmax $color_indian_red;
+  background-color: $color_snow_white;
+  font-family: $font_UI;
   font-weight: bolder;
-  color: #A35353;
+  color: $color_indian_red;
   width: 10vw;
 }
 
 // CLASSES
-
 .invalid-input{
   outline: 0.2vw solid red;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+// class --> button
+.button-actions-general {
+  font-family: $font_UI;
+  font-weight: bold;
+  font-size: large;
+  background-color: $color_snow_white;
+  color: $color_indian_red;
+  box-shadow: 0.2vmax 0.2vmax $color_dim_gray;
+  transition: box-shadow 0.1s ease;
+  padding: 0.2vmax 0.2vmax;
+}
+
+.button-actions-general:active {
+  transform: translate(0.2vmax, 0.2vmax);
+  box-shadow: none;
+  border: none;
+  outline: 0.1vw solid black;
+}
+
+.button-actions-specific {
+  font-family: $font_UI;
+  font-weight: bold;
+  background-color: $color_snow_white;
+  color: $color_indian_red;
+}
+
+.button-actions-specific:active {
+  box-shadow: none;
+  outline: 0.1vw solid black;
 }
 
 // class --> container
@@ -91,9 +117,9 @@ select {
   align-content: center;
   justify-content: center;
   margin: 2vw 5vw;
-  background-color: #C5C9C7;
-  outline: 0.1vw solid #666666;
-  box-shadow: 1vw 1vw #666666;
+  background-color: $color_snow_white;
+  outline: 0.1vw solid $color_dim_gray;
+  box-shadow: 1vw 1vw $color_dim_gray;
 }
 
 .container-title {
@@ -124,21 +150,37 @@ select {
   align-content: center;
   justify-content: center;
   width: 100%;
-  border: 0.1vmax solid #A35353;
-  margin-bottom: 0.2vmax;
-  margin-top: 0.2vmax;
+  outline: 0.1vmax solid $color_indian_red;
+  margin-bottom: 1vmax;
+  //margin-top: 0.5vmax;
 }
 
-.sub-form-label {
-  color: #A35353;
-  font-weight: bold;
+.sub-form-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 0.4vmax
+  gap: 5vmax;
+  align-content: center;
+  padding: 1vmax;
 }
 
 .sub-form:hover .sub-form-label {
-  background-color: #A35353;
-  color: #C5C9C7;
+  background-color: $color_indian_red;
+  color: $color_snow_white;
+}
+
+.sub-form-input-text,
+.sub-form-input-rating,
+.sub-form-text,{
+  width: 100%;
+}
+
+.sub-form-label {
+  color: $color_indian_red;
+  font-weight: bold;
+  width: 100%;
+  padding: 0.4vmax
 }
 
 .sub-form-rating {
@@ -161,14 +203,15 @@ select {
   align-items: center;
   justify-items: center;
   justify-content: center;
-  min-width: 35vmax;
-  max-width: 55vmax;
+  min-width: 55vmax;
+  max-width: 65vmax;
   gap: 1vmax;
-  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+  font-family: $font_UI;
 }
 
-.sub-form-text,
-.sub-form-input-text,
-.sub-form-input-rating {
-  width: 100%;
+.sub-form-rating > .sub-form > .sub-form-text {
+  text-align: center;
 }
+
+
+
