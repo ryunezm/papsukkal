@@ -114,9 +114,7 @@
           <p class="sub-form-text">{{ movie?.personalRating?.recommended ?? 'N/A' }}</p>
         </div>
       </div>
-
-
-
+      
       <div class="sub-form-buttons">
         <button (click)="deleteMovie()">Delete</button>
         <button routerLink="/movies/edit/{{ movie.id }}">Edit</button>
