@@ -62,6 +62,7 @@ input[type='checkbox']{
 
 p {
   font-family: "Source Sans 3", "Helvetica Neue",sans-serif;
+  margin: 0;
 }
 
 select {
@@ -108,33 +109,31 @@ select {
 .container-form {
   display: flex;
   flex-direction: column;
-  margin: 2vw 10vw;
+  margin: 2vmax 10vmax;
   align-items: center;
   align-content: center;
   justify-content: center;
-  outline: 1px solid olive;
 }
 
-.container-form div {
+// class --> sub-form
+.sub-form {
   display: flex;
+  flex-direction: row;
   justify-items: center;
   align-items: center;
   align-content: center;
   justify-content: center;
   width: 100%;
-}
-
-// class --> sub-form
-.sub-form {
-  border: 0.1vw solid #A35353;
-  margin-bottom: 0.1vw;
-  margin-top: 0.1vw;
+  border: 0.1vmax solid #A35353;
+  margin-bottom: 0.2vmax;
+  margin-top: 0.2vmax;
 }
 
 .sub-form-label {
   color: #A35353;
   font-weight: bold;
   width: 100%;
+  padding: 0.4vmax
 }
 
 .sub-form:hover .sub-form-label {
@@ -163,15 +162,12 @@ select {
   justify-items: center;
   justify-content: center;
   min-width: 35vmax;
-  max-width: 55vw;
-  gap: 1vw;
+  max-width: 55vmax;
+  gap: 1vmax;
   font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
 }
 
-.sub-form-text {
-  width: 100%;
-}
-
+.sub-form-text,
 .sub-form-input-text,
 .sub-form-input-rating {
   width: 100%;
