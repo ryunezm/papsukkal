@@ -1,30 +1,125 @@
-<div id="container">
+<div class="container">
 
-  <div id="container-title">
-    <h1>{{ movie.title }}</h1>
-  </div>
+  @if(movie$ | async; as movie){
+    <div class="container-title">
+      <h1>{{ movie?.title ?? 'N/A' }}</h1>
+    </div>
 
-  <p><strong>Title (EN):</strong> {{ movie.titleEN }}</p>
-  <p><strong>Title (ES):</strong> {{ movie.titleES }}</p>
-  <p><strong>Release Date:</strong> {{ movie.releaseDate }}</p>
-  <p><strong>Directors:</strong> {{ movie.directedBy }}</p>
-  <p><strong>Screenwriters:</strong> {{ movie.screenplayBy }}</p>
-  <p><strong>Producers:</strong> {{ movie.producedBy }}</p>
-  <p><strong>Starring:</strong> {{ movie.starring }}</p>
-  <p><strong>Cinematography:</strong> {{ movie.cinematography }}</p>
-  <p><strong>Edited By:</strong> {{ movie.editedBy }}</p>
-  <p><strong>Music By:</strong> {{ movie.musicBy }}</p>
-  <p><strong>Production Company:</strong> {{ movie.productionCompany }}</p>
-  <p><strong>Genres:</strong> {{ movie.genres.join(', ') }}</p>
-  <p><strong>Subgenres:</strong> {{ movie.subgenres.join(', ') }}</p>
-  <p><strong>Running Time:</strong> {{ movie.runningTime }} minutes</p>
-  <p><strong>Countries:</strong> {{ movie.countries.join(', ') }}</p>
-  <p><strong>Languages:</strong> {{ movie.languages.join(', ') }}</p>
-  <p><strong>Screenplay Rating:</strong> {{ movie.personalRating.screenplay }}</p>
-  <p><strong>Acting Rating:</strong> {{ movie.personalRating.acting }}</p>
-  <p><strong>Photography Rating:</strong> {{ movie.personalRating.photography }}</p>
-  <p><strong>Entertainment Rating:</strong> {{ movie.personalRating.entertainment }}</p>
-  <p><strong>Recommended Rating:</strong> {{ movie.personalRating.recommended }}</p>
-  <button routerLink="/movies/edit/{{ movie.id }}">Edit</button>
-  <button (click)="deleteMovie()">Delete</button>
+    <div class="container-form">
+      <div class="sub-form">
+        <label class="sub-form-label">Title (EN):</label>
+        <p class="sub-form-text"> {{ movie?.titleEN ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Title (ES):</label>
+        <p class="sub-form-text">{{ movie?.titleES ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Release Date:</label>
+        <p class="sub-form-text">{{ movie?.releaseDate ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Directors:</label>
+        <p class="sub-form-text">{{ movie?.directedBy?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Screenwriters:</label>
+        <p class="sub-form-text">{{ movie?.screenplayBy?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Producers:</label>
+        <p class="sub-form-text">{{ movie?.producedBy?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Starring:</label>
+        <p class="sub-form-text">{{ movie?.starring?.join(', ')  ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Cinematography:</label>
+        <p class="sub-form-text">{{ movie?.cinematography?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Edited By:</label>
+        <p class="sub-form-text">{{ movie?.editedBy?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Music By:</label>
+        <p class="sub-form-text">{{ movie?.musicBy?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Production Company:</label>
+        <p class="sub-form-text">{{ movie?.productionCompany?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Genres:</label>
+        <p class="sub-form-text">{{ movie?.genres?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Subgenres:</label>
+        <p class="sub-form-text">{{ movie?.subgenres?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Running Time:</label>
+        <p class="sub-form-text">{{ movie?.runningTime ? (movie.runningTime + ' minutes') : 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Countries:</label>
+        <p class="sub-form-text">{{ movie?.countries?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Languages:</label>
+        <p class="sub-form-text">{{ movie?.languages?.join(', ') ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Screenplay Rating:</label>
+        <p class="sub-form-text">{{ movie?.personalRating?.screenplay ?? 'N/A' }}</p>
+        <p><strong></strong> </p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Acting Rating:</label>
+        <p class="sub-form-text">{{ movie?.personalRating?.acting ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Photography Rating:</label>
+        <p class="sub-form-text">{{ movie?.personalRating?.photography ?? 'N/A' }}</p>
+
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Entertainment Rating:</label>
+        <p class="sub-form-text">{{ movie?.personalRating?.entertainment ?? 'N/A' }}</p>
+      </div>
+
+      <div class="sub-form">
+        <label class="sub-form-label">Recommended Rating:</label>
+        <p class="sub-form-text">{{ movie?.personalRating?.recommended ?? 'N/A'}}</p>
+      </div>
+
+      <div class="sub-form-buttons">
+        <button (click)="deleteMovie()">Delete</button>
+        <button routerLink="/movies/edit/{{ movie.id }}">Edit</button>
+      </div>
+
+    </div>
+
+  } @else { <app-not-found></app-not-found> }
+
 </div>
