@@ -15,12 +15,13 @@ button {
   font-weight: bold;
   background-color: #C5C9C7;
   color: #A35353;
-  box-shadow: 0.2vw 0.2vw #666666;
+  box-shadow: 0.2vmax 0.2vmax #666666;
   transition: box-shadow 0.1s ease;
+  padding: 0.2vmas 0.2vmax;
 }
 
 button:active {
-  transform: translate(0.2vw, 0.2vw);
+  transform: translate(0.2vmax, 0.2vmax);
   box-shadow: none;
   border: none;
   outline: 0.1vw solid black;
@@ -59,6 +60,10 @@ input[type='checkbox']{
   flex-shrink: 0
 }
 
+p {
+  font-family: "Source Sans 3", "Helvetica Neue",sans-serif;
+}
+
 select {
   align-items: center;
   text-align: center;
@@ -71,6 +76,103 @@ select {
   width: 10vw;
 }
 
+// CLASSES
+
 .invalid-input{
   outline: 0.2vw solid red;
+}
+
+// class --> container
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  margin: 2vw 5vw;
+  background-color: #C5C9C7;
+  outline: 0.1vw solid #666666;
+  box-shadow: 1vw 1vw #666666;
+}
+
+.container-title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+.container-form {
+  display: flex;
+  flex-direction: column;
+  margin: 2vw 10vw;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  outline: 1px solid olive;
+}
+
+.container-form div {
+  display: flex;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  width: 100%;
+}
+
+// class --> sub-form
+.sub-form {
+  border: 0.1vw solid #A35353;
+  margin-bottom: 0.1vw;
+  margin-top: 0.1vw;
+}
+
+.sub-form-label {
+  color: #A35353;
+  font-weight: bold;
+  width: 100%;
+}
+
+.sub-form:hover .sub-form-label {
+  background-color: #A35353;
+  color: #C5C9C7;
+}
+
+.sub-form-rating {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  justify-items: center;
+  gap: 0.1vmax;
+  flex: 1;
+}
+
+.sub-form-rating > .sub-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  min-width: 35vmax;
+  max-width: 55vw;
+  gap: 1vw;
+  font-family: "Source Sans 3", "Helvetica Neue", sans-serif;
+}
+
+.sub-form-text {
+  width: 100%;
+}
+
+.sub-form-input-text,
+.sub-form-input-rating {
+  width: 100%;
 }
