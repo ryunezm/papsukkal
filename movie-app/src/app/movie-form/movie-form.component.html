@@ -10,9 +10,9 @@
                [(ngModel)]="movie.title"
                [ngClass]="{'invalid-input': title.invalid && (title.dirty || title.touched) && title.errors?.['required']}"
                class="sub-form-input-text"
+               id="title"
                maxlength="100"
                name="title"
-               id="title"
                placeholder="Enter original title"
                required
                type="text">
@@ -23,9 +23,9 @@
                [(ngModel)]="movie.titleEN"
                [ngClass]="{'invalid-input': titleEN.invalid && (titleEN.dirty || titleEN.touched) && titleEN.errors?.['required']}"
                class="sub-form-input-text"
+               id="titleEN"
                maxlength="100"
                name="titleEN"
-               id="titleEN"
                placeholder="Enter title in english"
                required>
       </div>
@@ -35,9 +35,9 @@
                [(ngModel)]="movie.titleES"
                [ngClass]="{'invalid-input': titleES.invalid && (titleES.dirty || titleES.touched) && titleES.errors?.['required']}"
                class="sub-form-input-text"
+               id="titleES"
                maxlength="100"
                name="titleES"
-               id="titleES"
                placeholder="Enter title in spanish"
                required>
       </div>
@@ -47,8 +47,8 @@
                [(ngModel)]="movie.directedByString"
                [ngClass]="{'invalid-input': directedBy.invalid && (directedBy.dirty || directedBy.touched) && directedBy.errors?.['required']}"
                class="sub-form-input-text"
-               name="directedBy"
                id="directedBy"
+               name="directedBy"
                placeholder="Enter list of directors separated by semicolons (;)"
                required>
       </div>
@@ -57,8 +57,8 @@
         <input #screenplayBy="ngModel"
                [(ngModel)]="movie.screenplayByString"
                class="sub-form-input-text"
-               name="screenplayBy"
                id="screenplayBy"
+               name="screenplayBy"
                placeholder="Enter list of screenwriters separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -66,8 +66,8 @@
         <input #producedBy="ngModel"
                [(ngModel)]="movie.producedByString"
                class="sub-form-input-text"
-               name="producedBy"
                id="producedBy"
+               name="producedBy"
                placeholder="Enter list of producers separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -75,8 +75,8 @@
         <input #starring="ngModel"
                [(ngModel)]="movie.starringString"
                class="sub-form-input-text"
-               name="starring"
                id="starring"
+               name="starring"
                placeholder="Enter list of actors separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -84,8 +84,8 @@
         <input #cinematography="ngModel"
                [(ngModel)]="movie.cinematographyString"
                class="sub-form-input-text"
-               name="cinematography"
                id="cinematography"
+               name="cinematography"
                placeholder="Enter list of directors of photography separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -93,8 +93,8 @@
         <input #editedBy="ngModel"
                [(ngModel)]="movie.editedByString"
                class="sub-form-input-text"
-               name="editedBy"
                id="editedBy"
+               name="editedBy"
                placeholder="Enter list of editors separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -102,8 +102,8 @@
         <input #musicBy="ngModel"
                [(ngModel)]="movie.musicByString"
                class="sub-form-input-text"
-               name="musicBy"
                id="musicBy"
+               name="musicBy"
                placeholder="Enter list of film composers separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -111,8 +111,8 @@
         <input #productionCompany="ngModel"
                [(ngModel)]="movie.productionCompanyString"
                class="sub-form-input-text"
-               name="productionCompany"
                id="productionCompany"
+               name="productionCompany"
                placeholder="Enter list of film production companies separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -121,8 +121,8 @@
                [(ngModel)]="movie.releaseDate"
                [ngClass]="{'invalid-input': releaseDate.invalid && (releaseDate.dirty || releaseDate.touched) && releaseDate.errors?.['required']}"
                class="sub-form-input-text"
-               name="releaseDate"
                id="releaseDate"
+               name="releaseDate"
                placeholder="Enter release date"
                required
                type="date">
@@ -167,8 +167,8 @@
                [(ngModel)]="movie.runningTime"
                [ngClass]="{'invalid-input': runningTime.invalid && (runningTime.dirty || runningTime.touched) && runningTime.errors?.['required']}"
                class="sub-form-input-text"
-               name="runningTime"
                id="runningTime"
+               name="runningTime"
                pattern="[0-9]*"
                placeholder="Enter running time in minutes"
                required
@@ -210,8 +210,8 @@
           <label class="sub-form-label" for="screenplay">Screenplay:</label>
           <select [(ngModel)]="movie.personalRating.screenplay"
                   class="sub-form-input-rating"
-                  name="screenplay"
-                  id="screenplay">
+                  id="screenplay"
+                  name="screenplay">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -221,8 +221,8 @@
           <label class="sub-form-label" for="acting">Acting:</label>
           <select [(ngModel)]="movie.personalRating.acting"
                   class="sub-form-input-rating"
-                  name="acting"
-                  id="acting">
+                  id="acting"
+                  name="acting">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -232,8 +232,8 @@
           <label class="sub-form-label" for="photography">Photography:</label>
           <select [(ngModel)]="movie.personalRating.photography"
                   class="sub-form-input-rating"
-                  name="photography"
-                  id="photography">
+                  id="photography"
+                  name="photography">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -242,8 +242,8 @@
           <label class="sub-form-label" for="entertainment">Entertainment:</label>
           <select [(ngModel)]="movie.personalRating.entertainment"
                   class="sub-form-input-rating"
-                  name="entertainment"
-                  id="entertainment">
+                  id="entertainment"
+                  name="entertainment">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -252,17 +252,16 @@
           <label class="sub-form-label" for="recommended">Recommended:</label>
           <select [(ngModel)]="movie.personalRating.recommended"
                   class="sub-form-input-rating"
-                  name="recommended"
-                  id="recommended">
+                  id="recommended"
+                  name="recommended">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
           </select></div>
       </div>
       <div class="sub-form-buttons">
-        <button [disabled]="ngForm.invalid" type="submit">SAVE</button>
+        <button [disabled]="ngForm.invalid" class="button-actions-general" type="submit">SAVE</button>
       </div>
-
     </form>
   </div>
 </div>

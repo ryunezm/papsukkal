@@ -1,127 +1,100 @@
 <div class="container">
-
   @if (movie$ | async; as movie) {
     <div class="container-title">
       <h1>{{ movie?.title ?? 'N/A' }}</h1>
     </div>
-
     <div class="container-form">
       <div class="sub-form">
         <label class="sub-form-label">Title (EN):</label>
         <p class="sub-form-text"> {{ movie?.titleEN ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Title (ES):</label>
         <p class="sub-form-text">{{ movie?.titleES ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Release Date:</label>
         <p class="sub-form-text">{{ movie?.releaseDate ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Directors:</label>
         <p class="sub-form-text">{{ movie?.directedBy?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Screenwriters:</label>
         <p class="sub-form-text">{{ movie?.screenplayBy?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Producers:</label>
         <p class="sub-form-text">{{ movie?.producedBy?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Starring:</label>
         <p class="sub-form-text">{{ movie?.starring?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Cinematography:</label>
         <p class="sub-form-text">{{ movie?.cinematography?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Edited By:</label>
         <p class="sub-form-text">{{ movie?.editedBy?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Music By:</label>
         <p class="sub-form-text">{{ movie?.musicBy?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Production Company:</label>
         <p class="sub-form-text">{{ movie?.productionCompany?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Genres:</label>
         <p class="sub-form-text">{{ movie?.genres?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Subgenres:</label>
         <p class="sub-form-text">{{ movie?.subgenres?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Running Time:</label>
         <p class="sub-form-text">{{ movie?.runningTime ? (movie.runningTime + ' minutes') : 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Countries:</label>
         <p class="sub-form-text">{{ movie?.countries?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form">
         <label class="sub-form-label">Languages:</label>
         <p class="sub-form-text">{{ movie?.languages?.join(', ') ?? 'N/A' }}</p>
       </div>
-
       <div class="sub-form-rating">
         <div class="sub-form">
           <label class="sub-form-label">Screenplay:</label>
           <p class="sub-form-text">{{ movie?.personalRating?.screenplay ?? 'N/A' }}</p>
-          <p><strong></strong></p>
         </div>
-
         <div class="sub-form">
           <label class="sub-form-label">Acting:</label>
           <p class="sub-form-text">{{ movie?.personalRating?.acting ?? 'N/A' }}</p>
         </div>
-
         <div class="sub-form">
           <label class="sub-form-label">Photography:</label>
           <p class="sub-form-text">{{ movie?.personalRating?.photography ?? 'N/A' }}</p>
-
         </div>
-
         <div class="sub-form">
           <label class="sub-form-label">Entertainment:</label>
           <p class="sub-form-text">{{ movie?.personalRating?.entertainment ?? 'N/A' }}</p>
         </div>
-
         <div class="sub-form">
           <label class="sub-form-label">Recommended:</label>
           <p class="sub-form-text">{{ movie?.personalRating?.recommended ?? 'N/A' }}</p>
         </div>
       </div>
-      
       <div class="sub-form-buttons">
-        <button (click)="deleteMovie()">Delete</button>
-        <button routerLink="/movies/edit/{{ movie.id }}">Edit</button>
+        <button class="button-actions-general" (click)="deleteMovie()">Delete</button>
+        <button class="button-actions-general" routerLink="/movies/edit/{{ movie.id }}">Edit</button>
       </div>
-
     </div>
-
   } @else {
     <app-not-found></app-not-found>
   }
