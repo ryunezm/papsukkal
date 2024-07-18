@@ -5,7 +5,7 @@
 
   <div id="container-actions">
     <input id="search-bar" type="text" placeholder="Search movies..." (input)="onSearchChange($event)">
-    <button routerLink="/movies/new">Add Movie</button>
+    <button class="button-actions-general" routerLink="/movies/new">Add Movie</button>
   </div>
 
   <br>
@@ -14,9 +14,21 @@
     <table>
       <thead>
       <tr>
-        <th>RELEASE DATE</th>
-        <th>TITLE</th>
-        <th>DIRECTORS</th>
+        <th>
+          <div class="table-header">
+            <p>RELEASE DATE</p>
+            <button class="button-actions-specific" (click)="sortMovies('releaseDate')">⇅</button>
+          </div>
+        </th>
+        <th>
+          <div class="table-header">
+            <p>TITLE</p>
+            <button class="button-actions-specific" (click)="sortMovies('title')">⇅</button>
+          </div>
+        </th>
+        <th>
+          <p>DIRECTORS</p>
+        </th>
         <th>  </th>
       </tr>
       </thead>

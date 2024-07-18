@@ -18,6 +18,8 @@ export class MovieListComponent {
   hoveredMovieId: number | null = null;
   animatingMovieId: number | null = null;
   filteredMovies: any[] = [];
+  sortOrder: 'asc' | 'desc' = 'desc';
+  sortField: 'releaseDate' | 'title' = 'releaseDate';
 
   constructor(private movieService: MovieService) {}
 
@@ -25,6 +27,7 @@ export class MovieListComponent {
     this.movieService.getMovies().subscribe(data => {
       this.movies = data;
       this.filteredMovies = [...this.movies];
+      this.sortMovies(this.sortField);
     });
   }
 
@@ -34,11 +37,35 @@ export class MovieListComponent {
     if (!value) {
       this.filteredMovies = [...this.movies];
       return;
+    } else {
+      this.filteredMovies = this.movies.filter(movie =>
+        movie.title.toLowerCase().includes(value.toLowerCase())
+      );
     }
-    this.filteredMovies = this.movies.filter(movie =>
-      movie.title.toLowerCase().includes(value.toLowerCase())
-    );
+    this.sortMovies(this.sortField);
   }
+
+  sortMovies(field: 'releaseDate' | 'title') {
+    if (this.sortField === field) {
+      // If the field is the same, change the order.
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      // If it's a new field, set the default descending order.
+      this.sortField = field;
+      this.sortOrder = 'desc';
+    }
+
+    this.filteredMovies.sort((a, b) => {
+      let comparison = 0;
+      if (field === 'releaseDate') {
+        comparison = new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
+      } else if (field === 'title') {
+        comparison = b.title.localeCompare(a.title);
+      }
+      return this.sortOrder === 'asc' ? -comparison : comparison;
+    });
+  }
+
   formatArray(array: string[]): string {
     return array.join(' / ');
   }
