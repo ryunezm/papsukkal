@@ -12,6 +12,7 @@
                class="sub-form-input-text"
                maxlength="100"
                name="title"
+               id="title"
                placeholder="Enter original title"
                required
                type="text">
@@ -24,6 +25,7 @@
                class="sub-form-input-text"
                maxlength="100"
                name="titleEN"
+               id="titleEN"
                placeholder="Enter title in english"
                required>
       </div>
@@ -35,6 +37,7 @@
                class="sub-form-input-text"
                maxlength="100"
                name="titleES"
+               id="titleES"
                placeholder="Enter title in spanish"
                required>
       </div>
@@ -45,6 +48,7 @@
                [ngClass]="{'invalid-input': directedBy.invalid && (directedBy.dirty || directedBy.touched) && directedBy.errors?.['required']}"
                class="sub-form-input-text"
                name="directedBy"
+               id="directedBy"
                placeholder="Enter list of directors separated by semicolons (;)"
                required>
       </div>
@@ -54,6 +58,7 @@
                [(ngModel)]="movie.screenplayByString"
                class="sub-form-input-text"
                name="screenplayBy"
+               id="screenplayBy"
                placeholder="Enter list of screenwriters separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -62,6 +67,7 @@
                [(ngModel)]="movie.producedByString"
                class="sub-form-input-text"
                name="producedBy"
+               id="producedBy"
                placeholder="Enter list of producers separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -70,6 +76,7 @@
                [(ngModel)]="movie.starringString"
                class="sub-form-input-text"
                name="starring"
+               id="starring"
                placeholder="Enter list of actors separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -78,6 +85,7 @@
                [(ngModel)]="movie.cinematographyString"
                class="sub-form-input-text"
                name="cinematography"
+               id="cinematography"
                placeholder="Enter list of directors of photography separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -86,6 +94,7 @@
                [(ngModel)]="movie.editedByString"
                class="sub-form-input-text"
                name="editedBy"
+               id="editedBy"
                placeholder="Enter list of editors separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -94,6 +103,7 @@
                [(ngModel)]="movie.musicByString"
                class="sub-form-input-text"
                name="musicBy"
+               id="musicBy"
                placeholder="Enter list of film composers separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -102,6 +112,7 @@
                [(ngModel)]="movie.productionCompanyString"
                class="sub-form-input-text"
                name="productionCompany"
+               id="productionCompany"
                placeholder="Enter list of film production companies separated by semicolons (;)">
       </div>
       <div class="sub-form">
@@ -111,6 +122,7 @@
                [ngClass]="{'invalid-input': releaseDate.invalid && (releaseDate.dirty || releaseDate.touched) && releaseDate.errors?.['required']}"
                class="sub-form-input-text"
                name="releaseDate"
+               id="releaseDate"
                placeholder="Enter release date"
                required
                type="date">
@@ -124,6 +136,7 @@
                      [checked]="movie.genres.includes(genre[0])"
                      [value]="genre[0]"
                      name="genres"
+                     id="genres"
                      type="checkbox">
               {{ genre[1] }}
             </label>
@@ -140,6 +153,7 @@
                      [disabled]="!isSubgenreEnabled(subgenres[1])"
                      [checked]="movie.subgenres.includes(subgenres[0])"
                      name="subgenres"
+                     id="subgenres"
                      type="checkbox">
               {{ subgenres[1] }}
             </label>
@@ -154,6 +168,7 @@
                [ngClass]="{'invalid-input': runningTime.invalid && (runningTime.dirty || runningTime.touched) && runningTime.errors?.['required']}"
                class="sub-form-input-text"
                name="runningTime"
+               id="runningTime"
                pattern="[0-9]*"
                placeholder="Enter running time in minutes"
                required
@@ -168,6 +183,7 @@
               <input (change)="onCheckboxChange($event, 'countries')"
                      [value]="country[0]"
                      name="countries"
+                     id="countries"
                      type="checkbox">
               {{ country[1] }}
             </label>
@@ -182,6 +198,7 @@
               <input (change)="onCheckboxChange($event, 'languages')"
                      [value]="language[0]"
                      name="languages"
+                     id="languages"
                      type="checkbox">
               {{ language[1] }}
             </label>
@@ -193,7 +210,8 @@
           <label class="sub-form-label" for="screenplay">Screenplay:</label>
           <select [(ngModel)]="movie.personalRating.screenplay"
                   class="sub-form-input-rating"
-                  name="screenplay">
+                  name="screenplay"
+                  id="screenplay">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -203,7 +221,8 @@
           <label class="sub-form-label" for="acting">Acting:</label>
           <select [(ngModel)]="movie.personalRating.acting"
                   class="sub-form-input-rating"
-                  name="acting">
+                  name="acting"
+                  id="acting">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -213,7 +232,8 @@
           <label class="sub-form-label" for="photography">Photography:</label>
           <select [(ngModel)]="movie.personalRating.photography"
                   class="sub-form-input-rating"
-                  name="photography">
+                  name="photography"
+                  id="photography">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -222,7 +242,8 @@
           <label class="sub-form-label" for="entertainment">Entertainment:</label>
           <select [(ngModel)]="movie.personalRating.entertainment"
                   class="sub-form-input-rating"
-                  name="entertainment">
+                  name="entertainment"
+                  id="entertainment">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
@@ -231,7 +252,8 @@
           <label class="sub-form-label" for="recommended">Recommended:</label>
           <select [(ngModel)]="movie.personalRating.recommended"
                   class="sub-form-input-rating"
-                  name="recommended">
+                  name="recommended"
+                  id="recommended">
             @for (num of ratingOptions; track $index) {
               <option [value]="num"> {{ num }}</option>
             }
