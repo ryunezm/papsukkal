@@ -2,7 +2,7 @@ import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
 
-interface Movie {
+export interface Movie {
   id: string;
   title: string;
   titleEN?: string;
@@ -16,11 +16,11 @@ interface Movie {
   musicBy?: string[];
   productionCompany?: string[];
   releaseDate: string;
-  genre: string[];
+  genres: string[];
   subgenres?: string[];
   runningTime: number;
-  country: string[];
-  language: string[];
+  countries: string[];
+  languages: string[];
   personalRating?: {
     screenplay: number;
     acting: number;
