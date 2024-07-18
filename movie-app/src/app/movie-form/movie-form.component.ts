@@ -110,7 +110,7 @@ export class MovieFormComponent implements OnInit {
     });
 
     // Log the movie object to console
-    console.log(JSON.stringify(this.movie, null, 2));
+    // console.log(JSON.stringify(this.movie, null, 2));
 
     if (this.movie.id) {
       this.movieService.updateMovie(this.movie.id, this.movie).subscribe(() => {
