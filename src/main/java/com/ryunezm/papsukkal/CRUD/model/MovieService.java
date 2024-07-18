@@ -6,17 +6,15 @@ import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.UUID;
 
 @Service
 public class MovieService {
 
     private final MovieRepository movieRepository;
-    private final AtomicInteger idCounter;
 
     public MovieService(MovieRepository movieRepository) {
         this.movieRepository = movieRepository;
-        this.idCounter = new AtomicInteger((int) movieRepository.count());
     }
 
     public List<Movie> findAll() {
@@ -95,7 +93,7 @@ public class MovieService {
 
     @NotNull
     private String generateId() {
-        return String.valueOf(idCounter.incrementAndGet());
+        return UUID.randomUUID().toString();
     }
 
     public Movie deleteById(String id) throws ResourceNotFoundException {
