@@ -1,6 +1,6 @@
 <div class="container">
 
-  @if(movie$ | async; as movie){
+  @if (movie$ | async; as movie) {
     <div class="container-title">
       <h1>{{ movie?.title ?? 'N/A' }}</h1>
     </div>
@@ -38,7 +38,7 @@
 
       <div class="sub-form">
         <label class="sub-form-label">Starring:</label>
-        <p class="sub-form-text">{{ movie?.starring?.join(', ')  ?? 'N/A' }}</p>
+        <p class="sub-form-text">{{ movie?.starring?.join(', ') ?? 'N/A' }}</p>
       </div>
 
       <div class="sub-form">
@@ -89,7 +89,7 @@
       <div class="sub-form">
         <label class="sub-form-label">Screenplay Rating:</label>
         <p class="sub-form-text">{{ movie?.personalRating?.screenplay ?? 'N/A' }}</p>
-        <p><strong></strong> </p>
+        <p><strong></strong></p>
       </div>
 
       <div class="sub-form">
@@ -110,7 +110,7 @@
 
       <div class="sub-form">
         <label class="sub-form-label">Recommended Rating:</label>
-        <p class="sub-form-text">{{ movie?.personalRating?.recommended ?? 'N/A'}}</p>
+        <p class="sub-form-text">{{ movie?.personalRating?.recommended ?? 'N/A' }}</p>
       </div>
 
       <div class="sub-form-buttons">
@@ -120,6 +120,8 @@
 
     </div>
 
-  } @else { <app-not-found></app-not-found> }
+  } @else {
+    <app-not-found></app-not-found>
+  }
 
 </div>
