@@ -4,6 +4,9 @@ import {MovieService, Movie} from "../movie.service";
 import {NotFoundComponent} from "../static/not-found/not-found.component";
 import {catchError, Observable, of, switchMap, take, tap} from "rxjs";
 import {AsyncPipe} from "@angular/common";
+import {Genre, Subgenre} from "../enums/genre.enum";
+import {Language} from "../enums/language.enum";
+import {Country} from "../enums/country.enum";
 
 @Component({
   selector: 'app-movie-detail',
@@ -42,24 +45,51 @@ export class MovieDetailComponent {
     );
   }
 
+  getDisplayName(enumObj: any, key: string): string {
+    return enumObj[key as keyof typeof enumObj] || key;
+  }
+
+  getFormattedItems(enumObj: any, items: string[] | undefined): string {
+    if (!items || items.length === 0) return 'N/A';
+    return items.map(item => this.getDisplayName(enumObj, item)).join(', ');
+  }
+
+  getFormattedGenres(genres: string[] | undefined): string {
+    return this.getFormattedItems(Genre, genres);
+  }
+
+  getFormattedSubgenres(subgenres: string[] | undefined): string {
+    return this.getFormattedItems(Subgenre, subgenres);
+  }
+
+  getFormattedLanguages(languages: string[] | undefined): string {
+    return this.getFormattedItems(Language, languages);
+  }
+
+  getFormattedCountries(countries: string[] | undefined): string {
+    return this.getFormattedItems(Country, countries);
+  }
+
   deleteMovie(): void {
-    this.movie$.pipe(
-      take(1),
-      switchMap(movie => {
-        if (movie && movie.id) {
-          return this.movieService.deleteMovie(movie.id).pipe(
-            tap(() => {
-              this.router.navigate(['/movies']);
-            }),
-            catchError(error => {
-              console.error('Error deleting movie:', error);
-              //TODO: Handle the error by displaying a message to the user.
-              return of(null);
-            })
-          );
-        }
-        return of(null);
-      })
-    ).subscribe();
+    if (window.confirm('Are you sure you want to delete this movie?')) {
+      this.movie$.pipe(
+        take(1),
+        switchMap(movie => {
+          if (movie && movie.id) {
+            return this.movieService.deleteMovie(movie.id).pipe(
+              tap(() => {
+                this.router.navigate(['/movies']);
+              }),
+              catchError(error => {
+                console.error('Error deleting movie:', error);
+                //TODO: Handle the error by displaying a message to the user.
+                return of(null);
+              })
+            );
+          }
+          return of(null);
+        })
+      ).subscribe();
+    }
   }
 }

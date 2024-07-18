@@ -50,11 +50,11 @@
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Genres:</label>
-        <p class="sub-form-text">{{ movie?.genres?.join(', ') ?? 'N/A' }}</p>
+        <p class="sub-form-text">{{ getFormattedGenres(movie?.genres) }}</p>
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Subgenres:</label>
-        <p class="sub-form-text">{{ movie?.subgenres?.join(', ') ?? 'N/A' }}</p>
+        <p class="sub-form-text">{{ getFormattedSubgenres(movie?.subgenres) }}</p>
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Running Time:</label>
@@ -62,11 +62,11 @@
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Countries:</label>
-        <p class="sub-form-text">{{ movie?.countries?.join(', ') ?? 'N/A' }}</p>
+        <p class="sub-form-text">{{ getFormattedCountries(movie?.countries) }}</p>
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Languages:</label>
-        <p class="sub-form-text">{{ movie?.languages?.join(', ') ?? 'N/A' }}</p>
+        <p class="sub-form-text">{{ getFormattedLanguages(movie?.languages) }}</p>
       </div>
       <div class="sub-form-rating">
         <div class="sub-form">
