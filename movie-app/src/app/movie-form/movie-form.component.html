@@ -121,6 +121,7 @@
           @for (genre of genres; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'genres')"
+                     [checked]="movie.genres.includes(genre[0])"
                      [value]="genre[0]"
                      type="checkbox">
               {{ genre[1] }}
@@ -131,14 +132,14 @@
       <div class="sub-form">
         <label class="sub-form-label">Subgenres:</label>
         <div class="checkbox-container">
-          @for (subgenre of availableSubgenres; track $index) {
+          @for (subgenres of availableSubgenres; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'subgenres')"
-                     [value]="subgenre[0]"
-                     [disabled]="!isSubgenreEnabled(subgenre[1])"
-                     [checked]="movie.subgenres.includes(subgenre[1])"
+                     [value]="subgenres[0]"
+                     [disabled]="!isSubgenreEnabled(subgenres[1])"
+                     [checked]="movie.subgenres.includes(subgenres[0])"
                      type="checkbox">
-              {{ subgenre[1] }}
+              {{ subgenres[1] }}
             </label>
           }
         </div>
@@ -232,7 +233,10 @@
             }
           </select></div>
       </div>
-      <button [disabled]="ngForm.invalid" type="submit">SAVE</button>
+      <div class="sub-form-buttons">
+        <button [disabled]="ngForm.invalid" type="submit">SAVE</button>
+      </div>
+
     </form>
   </div>
 </div>
