@@ -86,32 +86,36 @@
         <p class="sub-form-text">{{ movie?.languages?.join(', ') ?? 'N/A' }}</p>
       </div>
 
-      <div class="sub-form">
-        <label class="sub-form-label">Screenplay Rating:</label>
-        <p class="sub-form-text">{{ movie?.personalRating?.screenplay ?? 'N/A' }}</p>
-        <p><strong></strong></p>
+      <div class="sub-form-rating">
+        <div class="sub-form">
+          <label class="sub-form-label">Screenplay:</label>
+          <p class="sub-form-text">{{ movie?.personalRating?.screenplay ?? 'N/A' }}</p>
+          <p><strong></strong></p>
+        </div>
+
+        <div class="sub-form">
+          <label class="sub-form-label">Acting:</label>
+          <p class="sub-form-text">{{ movie?.personalRating?.acting ?? 'N/A' }}</p>
+        </div>
+
+        <div class="sub-form">
+          <label class="sub-form-label">Photography:</label>
+          <p class="sub-form-text">{{ movie?.personalRating?.photography ?? 'N/A' }}</p>
+
+        </div>
+
+        <div class="sub-form">
+          <label class="sub-form-label">Entertainment:</label>
+          <p class="sub-form-text">{{ movie?.personalRating?.entertainment ?? 'N/A' }}</p>
+        </div>
+
+        <div class="sub-form">
+          <label class="sub-form-label">Recommended:</label>
+          <p class="sub-form-text">{{ movie?.personalRating?.recommended ?? 'N/A' }}</p>
+        </div>
       </div>
 
-      <div class="sub-form">
-        <label class="sub-form-label">Acting Rating:</label>
-        <p class="sub-form-text">{{ movie?.personalRating?.acting ?? 'N/A' }}</p>
-      </div>
 
-      <div class="sub-form">
-        <label class="sub-form-label">Photography Rating:</label>
-        <p class="sub-form-text">{{ movie?.personalRating?.photography ?? 'N/A' }}</p>
-
-      </div>
-
-      <div class="sub-form">
-        <label class="sub-form-label">Entertainment Rating:</label>
-        <p class="sub-form-text">{{ movie?.personalRating?.entertainment ?? 'N/A' }}</p>
-      </div>
-
-      <div class="sub-form">
-        <label class="sub-form-label">Recommended Rating:</label>
-        <p class="sub-form-text">{{ movie?.personalRating?.recommended ?? 'N/A' }}</p>
-      </div>
 
       <div class="sub-form-buttons">
         <button (click)="deleteMovie()">Delete</button>
