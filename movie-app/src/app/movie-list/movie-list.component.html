@@ -26,19 +26,29 @@
             <button class="button-actions-specific" (click)="sortMovies('title')">⇅</button>
           </div>
         </th>
-        <th>
-          <p>DIRECTORS</p>
-        </th>
+        <th> <div class="table-header"> <p>DIRECTORS</p> </div> </th>
+        <th> <div class="table-header"> <p>📜</p> </div>  </th>
+        <th> <div class="table-header"> <p>🎭</p> </div>  </th>
+        <th> <div class="table-header"> <p>📸</p> </div> </th>
+        <th> <div class="table-header"> <p>🎉</p> </div> </th>
+        <th> <div class="table-header"> <p>👍</p> </div> </th>
+        <th> <div class="table-header"> <p>⭐</p> </div> </th>
         <th>  </th>
       </tr>
       </thead>
       <tbody>
         @for (movie of filteredMovies; track $index) {
           <tr>
-            <td> <label>{{ movie.releaseDate }}</label> </td>
+            <td class="row-label-number"> <label>{{ movie.releaseDate }}</label> </td>
             <td> <label>{{ movie.title }}</label> </td>
             <td> <label>{{ formatArray(movie.directedBy) }}</label> </td>
-            <td>
+            <td class="row-label-number"> <label>{{ movie.personalRating.screenplay }}</label> </td>
+            <td class="row-label-number"> <label>{{ movie.personalRating.acting }}</label> </td>
+            <td class="row-label-number"> <label>{{ movie.personalRating.photography }}</label> </td>
+            <td class="row-label-number"> <label>{{ movie.personalRating.entertainment }}</label> </td>
+            <td class="row-label-number"> <label>{{ movie.personalRating.recommended }}</label> </td>
+            <td class="row-label-number"> <label></label> </td>
+            <td class="row-label-number">
               <a [routerLink]="['/movies', movie.id]"
                  (mouseenter)="onMouseEnter(movie.id)"
                  (mouseleave)="onMouseLeave()"
