@@ -75,7 +75,6 @@ th, td {
   padding: 0.4vw;
   text-align: left;
   border-bottom: 0.1vw solid #A35353;
-  //border-right: 0.1vw solid #A35353;
 }
 
 th {
@@ -110,4 +109,8 @@ thead th {
 
 thead th:last-child {
   border-right: none;
+}
+
+tbody > tr > .row-label-number {
+  text-align: center;
 }

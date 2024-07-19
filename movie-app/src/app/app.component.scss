@@ -7,10 +7,15 @@
   margin: 1vw 5vw;
   background-color: #C5C9C7;
   box-shadow: 1vw 1vw #666666;
+  height: 10vmax;
 }
 
 #title {
-  font-size: 40px;
+  font-size: 3vmax;
   color: #A35353;
   text-decoration: none;
+}
+
+.text-transition {
+  transition: color 0.5s ease, transform 0.5s ease;
 }
