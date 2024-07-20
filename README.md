@@ -93,4 +93,4 @@ The Angular application will be available at `http://localhost:4200`.
     DELETE /movies/{id}
 
 
-This `README.md` provides an overview of the project, installation instructions, API endpoints, model descriptions, validation rules, and additional information for contributors.
+This `README.md` just provides an overview of the project, installation instructions and API endpoints.
