@@ -10,5 +10,5 @@ import {HoverToggleTextDirective} from "./directives/hover-toggle-text.directive
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'movie-app';
+  title = 'papsukkal';
 }
