@@ -66,8 +66,28 @@ export class MovieListComponent {
     });
   }
 
-  formatArray(array: string[]): string {
-    return array.join(' / ');
+  calculateAverageRating(movie: any): number{
+    const ratings = [
+      movie.personalRating.screenplay,
+      movie.personalRating.acting,
+      movie.personalRating.photography,
+      movie.personalRating.entertainment,
+      movie.personalRating.recommended
+    ];
+
+    const validRatings = ratings.filter(rating => rating !== null && rating !== undefined);
+    if (validRatings.length === 0) { return 0; }
+
+    const sum = validRatings.reduce((acc, curr) => acc + curr, 0);
+    return sum / validRatings.length;
+  }
+
+
+  formatArray(array: string[]): string { return array.join(' / '); }
+
+  formatRating(rating: number): string {
+    if (rating === 10) { return '10'; }
+    return rating.toFixed(1);
   }
 
   onMouseEnter(movieId: number) { this.hoveredMovieId = movieId; }

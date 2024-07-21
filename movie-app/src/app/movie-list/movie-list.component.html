@@ -4,7 +4,7 @@
   </div>
 
   <div id="container-actions">
-    <input id="search-bar" type="text" placeholder="Search movies..." (input)="onSearchChange($event)">
+    <input id="search-bar" class="sub-form-input-text" type="text" placeholder="Search movies..." (input)="onSearchChange($event)">
     <button class="button-actions-general" routerLink="/movies/new">Add Movie</button>
   </div>
 
@@ -27,7 +27,7 @@
           </div>
         </th>
         <th> <div class="table-header"> <p>DIRECTORS</p> </div> </th>
-        <th> <div class="table-header"> <p>📜</p> </div>  </th>
+        <th> <div class="table-header"> <p>  📜  </p> </div>  </th>
         <th> <div class="table-header"> <p>🎭</p> </div>  </th>
         <th> <div class="table-header"> <p>📸</p> </div> </th>
         <th> <div class="table-header"> <p>🎉</p> </div> </th>
@@ -42,12 +42,12 @@
             <td class="row-label-number"> <label>{{ movie.releaseDate }}</label> </td>
             <td> <label>{{ movie.title }}</label> </td>
             <td> <label>{{ formatArray(movie.directedBy) }}</label> </td>
-            <td class="row-label-number"> <label>{{ movie.personalRating.screenplay }}</label> </td>
-            <td class="row-label-number"> <label>{{ movie.personalRating.acting }}</label> </td>
-            <td class="row-label-number"> <label>{{ movie.personalRating.photography }}</label> </td>
-            <td class="row-label-number"> <label>{{ movie.personalRating.entertainment }}</label> </td>
-            <td class="row-label-number"> <label>{{ movie.personalRating.recommended }}</label> </td>
-            <td class="row-label-number"> <label></label> </td>
+            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.screenplay) }}</label> </td>
+            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.acting) }}</label> </td>
+            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.photography) }}</label> </td>
+            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.entertainment) }}</label> </td>
+            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.recommended) }}</label> </td>
+            <td class="row-label-number"> <label>{{ formatRating(calculateAverageRating(movie)) }}</label> </td>
             <td class="row-label-number">
               <a [routerLink]="['/movies', movie.id]"
                  (mouseenter)="onMouseEnter(movie.id)"
