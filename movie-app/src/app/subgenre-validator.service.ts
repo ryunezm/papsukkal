@@ -30,24 +30,7 @@ export class SubgenreValidatorService {
     [Genre.WESTERN, [Subgenre.WESTERN_EMPIRE, Subgenre.WESTERN_MARSHAL, Subgenre.WESTERN_CONTEMPORARY, Subgenre.WESTERN_OUTLAW, Subgenre.WESTERN_SPAGHETTI]],
   ]);
 
-  validateSubgenres(Subgenres: Subgenre[], genres: Genre[]): void {
-    if (Subgenres.length === 0) { return; }
-
-    const allowedSubgenres = genres
-      .flatMap(genre => this.genreSubgenreMap.get(genre) || []);
-
-    if (!Subgenres.every(Subgenre => allowedSubgenres.includes(Subgenre))) {
-      throw new Error('The Subgenres provided are not valid for the given genres.');
-    }
-
-    const SubgenreGenres = Subgenres.map(Subgenre => this.getGenreFromSubgenre(Subgenre));
-
-    if (!genres.some(genre => SubgenreGenres.includes(genre))) {
-      throw new Error('The genres provided are not valid for the given genres.');
-    }
-  }
-
-  validateSubgenresFlexible(subgenreKeysOrValues: string[], genreKeysOrValues: string[]): void {
+  validateSubgenres(subgenreKeysOrValues: string[], genreKeysOrValues: string[]): void {
     let subgenres: Subgenre[];
     let genres: Genre[];
 
@@ -66,49 +49,48 @@ export class SubgenreValidatorService {
       throw new Error('Invalid subgenre or genre keys/values provided.');
     }
 
-    this.validateSubgenres(subgenres, genres);
-  }
+    if (subgenres.length === 0) { return; }
 
-  getGenreFromSubgenre(subgenre: Subgenre): Genre {
-    //console.log('Subgenre passed:', subgenre); // Log para depurar
+    const allowedSubgenres = genres
+      .flatMap(genre => this.genreSubgenreMap.get(genre) || []);
 
-    for (const [genre, subgenres] of this.genreSubgenreMap.entries()) {
-      //console.log('Checking genre:', genre, 'with subgenres:', subgenres); // Log para depurar
-
-      if (subgenres.includes(subgenre)) {
-        //console.log('Match found for subgenre:', subgenre, 'in genre:', genre); // Log para depurar
-        return genre;
-      }
+    if (!subgenres.every(Subgenre => allowedSubgenres.includes(Subgenre))) {
+      throw new Error('The Subgenres provided are not valid for the given genres.');
     }
 
-    throw new Error(`A genre could not be found for the subgenre provided: ${subgenre}`);
+    const SubgenreGenres = subgenres.map(Subgenre => this.getGenreFromSubgenre(Subgenre));
+
+    if (!genres.some(genre => SubgenreGenres.includes(genre))) {
+      throw new Error('The genres provided are not valid for the given genres.');
+    }
   }
 
-  getGenreFromSubgenreFlexible(subgenreKeyOrValue: string): Genre {
+  getGenreFromSubgenre(subgenreKeyOrValue: string): Genre {
     const subgenre = Subgenre[subgenreKeyOrValue as keyof typeof Subgenre] ??
       Object.values(Subgenre).find(sub => sub === subgenreKeyOrValue) as Subgenre;
     if (!subgenre) {
       throw new Error(`Invalid subgenre key/value provided: ${subgenreKeyOrValue}`);
     }
-    return this.getGenreFromSubgenre(subgenre);
+
+    for (const [genre, subgenres] of this.genreSubgenreMap.entries()) {
+      if (subgenres.includes(subgenre)) { return genre; }
+    }
+
+    throw new Error(`A genre could not be found for the subgenre provided: ${subgenre}`);
   }
 
-  getSubgenresForGenre(genre: Genre): Subgenre[] {
-    return this.genreSubgenreMap.get(genre) || [];
-  }
-
-  getSubgenresForGenreFlexible(genreKeyOrValue: string): Subgenre[] {
+  getSubgenresFromGenre(genreKeyOrValue: string): Subgenre[] {
     const genre = Genre[genreKeyOrValue as keyof typeof Genre] ??
       Object.values(Genre).find(gen => gen === genreKeyOrValue) as Genre;
     if (!genre) {
       throw new Error(`Invalid genre key/value provided: ${genreKeyOrValue}`);
     }
-    return this.getSubgenresForGenre(genre);
+    return this.genreSubgenreMap.get(genre) || [];
   }
 
   getAvailableSubgenresObject(genres: string[]): { [key: string]: Subgenre } {
     const subgenres = genres.flatMap((genreString: string) => {
-      return this.getSubgenresForGenreFlexible(genreString);
+      return this.getSubgenresFromGenre(genreString);
     });
 
     const subgenreObject: { [key: string]: Subgenre } = {};
@@ -122,7 +104,6 @@ export class SubgenreValidatorService {
 
     return subgenreObject;
   }
-
 
   constructor() { }
 }
