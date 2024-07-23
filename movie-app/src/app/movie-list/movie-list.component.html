@@ -1,5 +1,5 @@
-<div id="container">
-  <div id="container-title">
+<div class="container">
+  <div class="container-title">
     <h1>Movies</h1>
   </div>
 
@@ -7,8 +7,6 @@
     <input id="search-bar" class="sub-form-input-text" type="text" placeholder="Search movies..." (input)="onSearchChange($event)">
     <button class="button-actions-general" routerLink="/movies/new">Add Movie</button>
   </div>
-
-  <br>
 
   <div id="container-movies">
     <table>
@@ -26,14 +24,14 @@
             <button class="button-actions-specific" (click)="sortMovies('title')">⇅</button>
           </div>
         </th>
-        <th> <div class="table-header"> <p>DIRECTORS</p> </div> </th>
-        <th> <div class="table-header"> <p>  📜  </p> </div>  </th>
-        <th> <div class="table-header"> <p>🎭</p> </div>  </th>
-        <th> <div class="table-header"> <p>📸</p> </div> </th>
-        <th> <div class="table-header"> <p>🎉</p> </div> </th>
-        <th> <div class="table-header"> <p>👍</p> </div> </th>
-        <th> <div class="table-header"> <p>⭐</p> </div> </th>
-        <th>  </th>
+        <th id="th-directors"> <div class="table-header"> <p>DIRECTORS</p> </div> </th>
+        <th id="th-screenplay"> <div class="table-header"> <p>📜</p> </div>  </th>
+        <th id="th-acting"> <div class="table-header"> <p>🎭</p> </div>  </th>
+        <th id="th-photography"> <div class="table-header"> <p>📸</p> </div> </th>
+        <th id="th-entertainment"> <div class="table-header"> <p>🎉</p> </div> </th>
+        <th id="th-recommended"> <div class="table-header"> <p>👍</p> </div> </th>
+        <th id="th-average"> <div class="table-header"> <p>⭐</p> </div> </th>
+        <th id="th-details">  </th>
       </tr>
       </thead>
       <tbody>
@@ -57,7 +55,6 @@
                 <label>{{ hoveredMovieId === movie.id ? '👀' : '👁️' }}</label>
               </a>
             </td>
-
           </tr>
         }
       </tbody>
