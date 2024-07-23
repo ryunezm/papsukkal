@@ -178,31 +178,51 @@
       <div class="sub-form">
         <label class="sub-form-label" for="countries">Country:</label>
         <div class="checkbox-container">
-          @for (country of countries; track $index) {
-            <label class="checkbox-item">
-              <input (change)="onCheckboxChange($event, 'countries')"
-                     [value]="country[0]"
-                     name="countries"
-                     id="countries"
-                     type="checkbox">
-              {{ country[1] }}
-            </label>
-          }
+          <div class="container-actions">
+            <input (input)="onSearchChange($event, 'country')"
+                   class="sub-form-input-text"
+                   id="search-bar-country"
+                   placeholder="Search country..."
+                   type="text">
+          </div>
+          <div class="checkbox-container">
+            @for (country of filteredCountries; track $index) {
+              <label class="checkbox-item">
+                <input (change)="onCheckboxChange($event, 'countries')"
+                       [value]="country[0]"
+                       [checked]="movie.countries.includes(country[0])"
+                       name="countries"
+                       id="countries"
+                       type="checkbox">
+                {{ country[1] }}
+              </label>
+            }
+          </div>
         </div>
       </div>
       <div class="sub-form">
         <label class="sub-form-label" for="languages">Language:</label>
         <div class="checkbox-container">
-          @for (language of languages; track $index) {
+          <div class="container-actions">
+            <input (input)="onSearchChange($event, 'language')"
+                   class="sub-form-input-text"
+                   id="search-bar-languages"
+                   placeholder="Search language..."
+                   type="text">
+          </div>
+          <div class="checkbox-container">
+            @for (language of filteredLanguages; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'languages')"
                      [value]="language[0]"
+                     [checked]="movie.languages.includes(language[0])"
                      name="languages"
                      id="languages"
                      type="checkbox">
               {{ language[1] }}
             </label>
           }
+          </div>
         </div>
       </div>
       <div class="sub-form-rating">

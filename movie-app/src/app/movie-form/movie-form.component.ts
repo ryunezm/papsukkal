@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {MovieService} from "../movie.service";
 import {Genre, Subgenre} from '../enums/genre.enum';
 import {Country} from '../enums/country.enum';
@@ -15,6 +15,7 @@ import {NgClass} from "@angular/common";
   imports: [
     FormsModule,
     NgClass,
+    RouterLink,
   ],
   templateUrl: './movie-form.component.html',
   styleUrls: ['./movie-form.component.scss']
@@ -58,6 +59,8 @@ export class MovieFormComponent implements OnInit {
   countries = Object.entries(Country);
   languages = Object.entries(Language);
   availableSubgenres = Object.entries((this.getAvailableSubgenresObject(this.movie.genres)));
+  filteredCountries: any[] = [];
+  filteredLanguages: any[] = [];
 
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
@@ -81,16 +84,17 @@ export class MovieFormComponent implements OnInit {
         this.initializePersonalRating();
         this.onGenresChange();
       });
-    } else {
-      this.initializePersonalRating();
-    }
+    } else { this.initializePersonalRating(); }
+
     this.genres.sort();
     this.subgenres.sort();
     this.availableSubgenres.sort();
+    this.filteredCountries = [...this.countries];
+    this.filteredLanguages = [...this.languages];
   }
 
   saveMovie(): void {
-    this.subgenreValidatorService.validateSubgenresFlexible(this.movie.subgenres, this.movie.genres);
+    this.subgenreValidatorService.validateSubgenres(this.movie.subgenres, this.movie.genres);
     const fieldsToSplit = [
       'directedBy',
       'screenplayBy',
@@ -108,9 +112,6 @@ export class MovieFormComponent implements OnInit {
         .map((item: string) => item.trim())
         .sort()));
     });
-
-    // Log the movie object to console
-    // console.log(JSON.stringify(this.movie, null, 2));
 
     if (this.movie.id) {
       this.movieService.updateMovie(this.movie.id, this.movie).subscribe(() => {
@@ -146,7 +147,7 @@ export class MovieFormComponent implements OnInit {
         // Remove subgenres associated with the unchecked genre
         this.movie.subgenres = this.movie.subgenres.filter((subgenre: Subgenre) => {
           try {
-            const parentGenre = this.subgenreValidatorService.getGenreFromSubgenreFlexible(subgenre);
+            const parentGenre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
             return parentGenre !== value;
           } catch (error) {
             console.error('Error getting parent genre for subgenre:', subgenre, error);
@@ -197,7 +198,7 @@ export class MovieFormComponent implements OnInit {
   }
 
   isSubgenreEnabled(subgenre: Subgenre): boolean {
-    const parentGenre = this.subgenreValidatorService.getGenreFromSubgenreFlexible(subgenre);
+    const parentGenre = this.subgenreValidatorService.getGenreFromSubgenre(subgenre);
     const parentGenreKey = Object.entries(Genre).find(([, value]) => value === parentGenre)?.[0];
     return this.movie.genres.includes(parentGenreKey);
   }
@@ -237,6 +238,20 @@ export class MovieFormComponent implements OnInit {
         entertainment: 0,
         recommended: 0
       };
+    }
+  }
+
+  onSearchChange(event: Event, type: 'country' | 'language'): void {
+    const searchValue = (event.target as HTMLInputElement).value.toLowerCase();
+
+    if (type === 'country') {
+      this.filteredCountries = this.countries.filter(([, value]) =>
+        value.toLowerCase().includes(searchValue)
+      );
+    } else {
+      this.filteredLanguages = this.languages.filter(([, value]) =>
+        value.toLowerCase().includes(searchValue)
+      );
     }
   }
 }
