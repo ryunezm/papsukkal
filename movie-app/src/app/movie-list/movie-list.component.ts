@@ -82,7 +82,6 @@ export class MovieListComponent {
     return sum / validRatings.length;
   }
 
-
   formatArray(array: string[]): string { return array.join(' / '); }
 
   formatRating(rating: number): string {
