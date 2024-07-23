@@ -1,26 +1,3 @@
-#container{
-  display: flex;
-  flex-direction: column;
-  align-content: center;
-  align-items: center;
-  justify-content: center;
-  outline: 0.1vw solid #666666;
-  margin: 2vw 5vw;
-  background-color: #C5C9C7;
-  box-shadow: 1vw 1vw #666666;
-}
-
-#container-title {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-content: center;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-}
-
-
 #container-actions{
   width: 50vw;
   display:flex;
@@ -113,4 +90,15 @@ thead th:last-child {
 
 tbody > tr > .row-label-number {
   text-align: center;
+}
+
+#th-screenplay,
+#th-acting,
+#th-photography,
+#th-entertainment,
+#th-recommended,
+#th-average,
+#th-details {
+  width: 1vmax;
+  aspect-ratio: 1;
 }

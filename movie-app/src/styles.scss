@@ -142,6 +142,16 @@ select {
   justify-content: center;
 }
 
+.container-actions {
+  margin-top: 0.5vmax;
+  margin-bottom: 0.5vmax;
+
+  .sub-form-input-text{
+    background-color: rgba(0, 255, 125, 0.1);
+    outline: 1px dashed #666666;
+  }
+}
+
 // class --> sub-form
 .sub-form {
   display: flex;
@@ -172,16 +182,22 @@ select {
 
 .sub-form-input-text,
 .sub-form-input-rating,
-.sub-form-text,{
+.sub-form-text {
   width: 100%;
   background-color: $color_bridal_heath;
+}
+
+.sub-form-input-text:focus,
+.sub-form-input-rating:focus,
+.sub-form-text:focus {
+  outline: 0.1vmax dashed #666666;
 }
 
 .sub-form-label {
   color: $color_indian_red;
   font-weight: bold;
   width: 100%;
-  padding: 0.4vmax
+  padding: 0.25vmax;
 }
 
 .sub-form-rating {
