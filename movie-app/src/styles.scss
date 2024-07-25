@@ -163,6 +163,8 @@ select {
   width: 100%;
   outline: 0.1vmax solid $color_indian_red;
   margin-bottom: 0.5vmax;
+  padding-right: 0.3vmax;
+  padding-left: 0.3vmax;
 }
 
 .sub-form-buttons {
@@ -210,24 +212,23 @@ select {
   justify-items: center;
   gap: 0.1vmax;
   flex: 1;
-}
 
-.sub-form-rating > .sub-form {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  align-content: center;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
-  min-width: 55vmax;
-  max-width: 65vmax;
-  gap: 1vmax;
-  font-family: $font_UI;
-}
-
-.sub-form-rating > .sub-form > .sub-form-text {
-  text-align: center;
+  .sub-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-content: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    min-width: 55vmax;
+    max-width: 65vmax;
+    gap: 1vmax;
+    font-family: $font_UI;
+    .sub-form-text {
+      text-align: center;
+    }
+  }
 }
 
 
