@@ -6,6 +6,63 @@ $color_snow_white: #C5C9C7;
 $color_dim_gray: #666666;
 $color_bridal_heath: #F3F9FE;
 
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+@mixin input-focus {
+  &:focus {
+    outline: none;
+  }
+}
+
+@mixin button-base {
+  font-family: $font_UI;
+  font-weight: bold;
+  background-color: $color_snow_white;
+  color: $color_indian_red;
+}
+
+@mixin button-active {
+  &:active {
+    box-shadow: none;
+    outline: 0.1vw solid black;
+  }
+}
+
+@mixin container-base {
+  @include flex-column;
+  align-items: center;
+  background-color: $color_snow_white;
+  outline: 0.1vw solid $color_dim_gray;
+}
+
+@mixin sub-form-base {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  outline: 0.1vmax solid $color_indian_red;
+}
+
+@mixin sub-form-input {
+  width: 100%;
+  background-color: $color_bridal_heath;
+  &:focus {
+    outline: 0.1vmax dashed #666666;
+  }
+}
 
 html, body {
   height: 100%;
@@ -65,7 +122,6 @@ select {
   font-family: $font_UI;
   font-weight: bolder;
   color: $color_indian_red;
-  width: 10vw;
 }
 
 // CLASSES
@@ -74,35 +130,28 @@ select {
 }
 
 .table-header {
-  display: flex;
-  align-items: center;
+  @include flex-center;
   justify-content: space-around;
 }
 
 // class --> button
 .button-actions-general {
-  font-family: $font_UI;
-  font-weight: bold;
+  @include button-base;
   font-size: large;
-  background-color: $color_snow_white;
-  color: $color_indian_red;
   box-shadow: 0.2vmax 0.2vmax $color_dim_gray;
   transition: box-shadow 0.1s ease;
   padding: 0.2vmax 0.2vmax;
-}
 
-.button-actions-general:active {
-  transform: translate(0.2vmax, 0.2vmax);
-  box-shadow: none;
-  border: none;
-  outline: 0.1vw solid black;
+  @include button-active;
+  &:active {
+    transform: translate(0.2vmax, 0.2vmax);
+    border: none;
+  }
 }
 
 .button-actions-specific {
-  font-family: $font_UI;
-  font-weight: bold;
-  background-color: $color_snow_white;
-  color: $color_indian_red;
+  @include button-base;
+  @include button-active;
 }
 
 .button-actions-specific:active {
@@ -112,39 +161,28 @@ select {
 
 // class --> container
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  align-content: center;
+  @include container-base;
   justify-content: center;
   margin: 2vw 5vw;
-  background-color: $color_snow_white;
-  outline: 0.1vw solid $color_dim_gray;
   box-shadow: 1vw 1vw $color_dim_gray;
 }
 
 .container-title {
-  display: flex;
-  flex-direction: column;
+  @include flex-column;
+  @include flex-center;
   width: 100%;
-  align-content: center;
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
 }
 
 .container-form {
-  display: flex;
-  flex-direction: column;
-  margin: 2vmax 10vmax;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
+  @include flex-column;
+  @include flex-center;
+  margin: 0 10vmax;;
 }
 
 .container-actions {
   margin-top: 0.5vmax;
   margin-bottom: 0.5vmax;
+  width: 100%;
 
   .sub-form-input-text{
     background-color: rgba(0, 255, 125, 0.1);
@@ -154,26 +192,19 @@ select {
 
 // class --> sub-form
 .sub-form {
-  display: flex;
+  @include sub-form-base;
   flex-direction: row;
-  justify-items: center;
-  align-items: center;
-  align-content: center;
   justify-content: center;
-  width: 100%;
-  outline: 0.1vmax solid $color_indian_red;
   margin-bottom: 0.5vmax;
   padding-right: 0.3vmax;
   padding-left: 0.3vmax;
+  gap: 0.1vmax;
 }
 
 .sub-form-buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include flex-center;
   width: 100%;
   gap: 5vmax;
-  align-content: center;
   padding: 1vmax;
 }
 
@@ -185,8 +216,7 @@ select {
 .sub-form-input-text,
 .sub-form-input-rating,
 .sub-form-text {
-  width: 100%;
-  background-color: $color_bridal_heath;
+  @include sub-form-input;
 }
 
 .sub-form-input-text:focus,
@@ -203,33 +233,90 @@ select {
 }
 
 .sub-form-rating {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: center;
+  @include flex-column;
   justify-content: center;
-  justify-items: center;
-  gap: 0.1vmax;
-  flex: 1;
 
   .sub-form {
-    display: flex;
+    @include sub-form-base;
     flex-direction: row;
     flex-wrap: nowrap;
-    align-content: center;
-    align-items: center;
-    justify-items: center;
-    justify-content: center;
-    min-width: 55vmax;
-    max-width: 65vmax;
-    gap: 1vmax;
+    justify-content: space-between;
     font-family: $font_UI;
-    .sub-form-text {
-      text-align: center;
+    .sub-form-label {
+      width: 50%;
+    }
+    .sub-form-input-rating {
+      width: 10vmax;
     }
   }
 }
 
+// class --> checkbox
+.checkbox-main-container {
+  width: 300%;
+  display: flex;
+  flex-direction: column;
+  .sub-form-input-text {
+    width: 50%;
+    margin: 0 25%;
+  }
+}
 
+.checkbox-sub-container {
+  @include flex-wrap;
+  flex: 1 0 80%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
 
+.checkbox-item {
+  @include flex-center;
+  justify-content: flex-start;
+  width: 15vw;
+  margin-right: 10px;
+  margin-top: 0.1vw;
+}
+
+// @media
+@media (max-width: 600px) {
+  .sub-form {
+    flex-direction: column;
+  }
+
+  .sub-form-label {
+    color: $color_indian_red;
+    font-weight: bold;
+  }
+
+  .sub-form-rating {
+    width: 100%;
+    .sub-form {
+      flex-direction: column;
+      width: 100%;
+      .sub-form-label {
+        width: 100%;
+      }
+      .sub-form-input-rating {
+        text-align: center;
+        width: 100%
+      }
+    }
+  }
+
+  .checkbox-main-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: x-small;
+    input {
+      width: 100%;
+    }
+  }
+
+  .checkbox-sub-container {
+    font-size: x-small;
+  }
+
+}

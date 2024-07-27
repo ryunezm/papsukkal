@@ -129,7 +129,7 @@
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Genres:</label>
-        <div class="checkbox-container">
+        <div class="checkbox-sub-container">
           @for (genre of genres; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'genres')"
@@ -145,7 +145,7 @@
       </div>
       <div class="sub-form">
         <label class="sub-form-label">Subgenres:</label>
-        <div class="checkbox-container">
+        <div class="checkbox-sub-container">
           @for (subgenres of availableSubgenres; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'subgenres')"
@@ -177,7 +177,7 @@
       </div>
       <div class="sub-form">
         <label class="sub-form-label" for="countries">Country:</label>
-        <div class="checkbox-container">
+        <div class="checkbox-main-container">
           <div class="container-actions">
             <input (input)="onSearchChange($event, 'country')"
                    class="sub-form-input-text"
@@ -185,7 +185,7 @@
                    placeholder="Search country..."
                    type="text">
           </div>
-          <div class="checkbox-container">
+          <div class="checkbox-sub-container">
             @for (country of filteredCountries; track $index) {
               <label class="checkbox-item">
                 <input (change)="onCheckboxChange($event, 'countries')"
@@ -202,7 +202,7 @@
       </div>
       <div class="sub-form">
         <label class="sub-form-label" for="languages">Language:</label>
-        <div class="checkbox-container">
+        <div class="checkbox-main-container">
           <div class="container-actions">
             <input (input)="onSearchChange($event, 'language')"
                    class="sub-form-input-text"
@@ -210,7 +210,7 @@
                    placeholder="Search language..."
                    type="text">
           </div>
-          <div class="checkbox-container">
+          <div class="checkbox-sub-container">
             @for (language of filteredLanguages; track $index) {
             <label class="checkbox-item">
               <input (change)="onCheckboxChange($event, 'languages')"
