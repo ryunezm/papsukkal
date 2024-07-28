@@ -197,6 +197,12 @@ select {
   justify-content: center;
   margin-bottom: 0.5vmax;
   gap: 0.1vmax;
+
+  .sub-form-text {
+    padding: 0 0.1vmax;
+    margin-top: 0.2vmax;
+    margin-bottom: 0.2vmax;
+  }
 }
 
 .sub-form-buttons {
@@ -227,7 +233,7 @@ select {
   color: $color_indian_red;
   font-weight: bold;
   width: 100%;
-  padding: 0.25vmax;
+  padding: 0.4vmax 0.4vmax;
 }
 
 .sub-form-rating {
