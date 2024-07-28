@@ -196,8 +196,6 @@ select {
   flex-direction: row;
   justify-content: center;
   margin-bottom: 0.5vmax;
-  padding-right: 0.3vmax;
-  padding-left: 0.3vmax;
   gap: 0.1vmax;
 }
 
@@ -205,7 +203,7 @@ select {
   @include flex-center;
   width: 100%;
   gap: 5vmax;
-  padding: 1vmax;
+  padding: 1vmax 0;
 }
 
 .sub-form:hover .sub-form-label {
@@ -245,6 +243,11 @@ select {
     .sub-form-label {
       width: 50%;
     }
+    .sub-form-text {
+      width: 10vmax;
+      text-align: center;
+    }
+
     .sub-form-input-rating {
       width: 10vmax;
     }
@@ -297,6 +300,12 @@ select {
       .sub-form-label {
         width: 100%;
       }
+
+      .sub-form-text {
+        width: 100%;
+        text-align: center;
+      }
+
       .sub-form-input-rating {
         text-align: center;
         width: 100%
