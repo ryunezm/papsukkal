@@ -12,41 +12,41 @@
     <table>
       <thead>
       <tr>
-        <th id="th-releaseDate">
+        <th class="th-releaseDate">
           <div class="table-header">
             <p>RELEASE DATE</p>
             <button class="button-actions-specific" (click)="sortMovies('releaseDate')">⇅</button>
           </div>
         </th>
-        <th>
+        <th class="th-movie">
           <div class="table-header">
             <p>TITLE</p>
             <button class="button-actions-specific" (click)="sortMovies('title')">⇅</button>
           </div>
         </th>
-        <th id="th-directors"> <div class="table-header"> <p>DIRECTORS</p> </div> </th>
-        <th id="th-screenplay"> <div class="table-header"> <p>📜</p> </div>  </th>
-        <th id="th-acting"> <div class="table-header"> <p>🎭</p> </div>  </th>
-        <th id="th-photography"> <div class="table-header"> <p>📸</p> </div> </th>
-        <th id="th-entertainment"> <div class="table-header"> <p>🎉</p> </div> </th>
-        <th id="th-recommended"> <div class="table-header"> <p>👍</p> </div> </th>
-        <th id="th-average"> <div class="table-header"> <p>⭐</p> </div> </th>
-        <th id="th-details">  </th>
+        <th class="th-directors"> <div class="table-header"> <p>DIRECTORS</p> </div> </th>
+        <th class="th-screenplay"> <div class="table-header"> <p>📜</p> </div>  </th>
+        <th class="th-acting"> <div class="table-header"> <p>🎭</p> </div>  </th>
+        <th class="th-photography"> <div class="table-header"> <p>📸</p> </div> </th>
+        <th class="th-entertainment"> <div class="table-header"> <p>🎉</p> </div> </th>
+        <th class="th-recommended"> <div class="table-header"> <p>👍</p> </div> </th>
+        <th class="th-average"> <div class="table-header"> <p>⭐</p> </div> </th>
+        <th class="th-details">  </th>
       </tr>
       </thead>
       <tbody>
         @for (movie of filteredMovies; track $index) {
           <tr>
-            <td class="row-label-number"> <label>{{ movie.releaseDate }}</label> </td>
-            <td> <label>{{ movie.title }}</label> </td>
-            <td> <label>{{ formatArray(movie.directedBy) }}</label> </td>
-            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.screenplay) }}</label> </td>
-            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.acting) }}</label> </td>
-            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.photography) }}</label> </td>
-            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.entertainment) }}</label> </td>
-            <td class="row-label-number"> <label>{{ formatRating(movie.personalRating.recommended) }}</label> </td>
-            <td class="row-label-number"> <label>{{ formatRating(calculateAverageRating(movie)) }}</label> </td>
-            <td class="row-label-number">
+            <td class="th-releaseDate"> <label>{{ movie.releaseDate }}</label> </td>
+            <td class="th-movie"> <label>{{ movie.title }}</label> </td>
+            <td class="th-directors"> <label>{{ formatArray(movie.directedBy) }}</label> </td>
+            <td class="th-screenplay"> <label>{{ formatRating(movie.personalRating.screenplay) }}</label> </td>
+            <td class="th-acting"> <label>{{ formatRating(movie.personalRating.acting) }}</label> </td>
+            <td class="th-photography"> <label>{{ formatRating(movie.personalRating.photography) }}</label> </td>
+            <td class="th-entertainment"> <label>{{ formatRating(movie.personalRating.entertainment) }}</label> </td>
+            <td class="th-recommended"> <label>{{ formatRating(movie.personalRating.recommended) }}</label> </td>
+            <td class="th-average"> <label>{{ formatRating(calculateAverageRating(movie)) }}</label> </td>
+            <td class="th-details">
               <a [routerLink]="['/movies', movie.id]"
                  (mouseenter)="onMouseEnter(movie.id)"
                  (mouseleave)="onMouseLeave()"
