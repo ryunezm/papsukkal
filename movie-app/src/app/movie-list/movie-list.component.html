@@ -35,7 +35,7 @@
       </tr>
       </thead>
       <tbody>
-        @for (movie of filteredMovies; track $index) {
+        @for (movie of filteredMovies; track movie) {
           <tr>
             <td class="th-releaseDate"> <label>{{ movie.releaseDate }}</label> </td>
             <td class="th-movie"> <label>{{ movie.title }}</label> </td>
@@ -50,7 +50,6 @@
               <a [routerLink]="['/movies', movie.id]"
                  (mouseenter)="onMouseEnter(movie.id)"
                  (mouseleave)="onMouseLeave()"
-                 (animationend)="onAnimationEnd(movie.id)"
                  [class.animated]="animatingMovieId === movie.id">
                 <label>{{ hoveredMovieId === movie.id ? '👀' : '👁️' }}</label>
               </a>

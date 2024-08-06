@@ -105,6 +105,10 @@ tbody > tr > .th-releaseDate, .th-screenplay,
  width: 12vmax;
 }
 
+tr > td {
+  font-size: small;
+}
+
 @media (max-width: 768px) {
   .th-screenplay,
   .th-acting,
