@@ -1,69 +1,50 @@
-import {Component} from '@angular/core';
-import {MovieService} from "../movie.service";
+import {Component, ViewChild, OnInit} from '@angular/core';
+import {Movie, MovieService} from "../movie.service";
 import {RouterLink} from "@angular/router";
 import {MatButton} from "@angular/material/button";
+import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-movie-list',
   standalone: true,
   imports: [
+    CommonModule,
     RouterLink,
-    MatButton
+    MatButton,
+    MatSort,
+    MatSortHeader
   ],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss'
 })
 export class MovieListComponent {
-  movies: any[] = [];
-  hoveredMovieId: number | null = null;
-  animatingMovieId: number | null = null;
-  filteredMovies: any[] = [];
-  sortOrder: 'asc' | 'desc' = 'desc';
-  sortField: 'releaseDate' | 'title' = 'releaseDate';
 
-  constructor(private movieService: MovieService) {}
+  @ViewChild(MatSort) sort!: MatSort;
+  dataSource: MatTableDataSource<Movie>;
+  hoveredMovieId: string | null = null;
+  filteredMovies: Movie[] = [];
+
+  constructor(private movieService: MovieService) {
+    this.dataSource = new MatTableDataSource<Movie>();
+  }
 
   ngOnInit(): void {
-    this.movieService.getMovies().subscribe(data => {
-      this.movies = data;
-      this.filteredMovies = [...this.movies];
-      this.sortMovies(this.sortField);
+    this.movieService.getMovies().subscribe((data: Movie[]) => {
+      this.dataSource.data = data;
+      this.filteredMovies = data;
     });
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 
   onSearchChange(event: Event) {
     const target = event.target as HTMLInputElement;
-    const value = target.value;
-    if (!value) {
-      this.filteredMovies = [...this.movies];
-      return;
-    } else {
-      this.filteredMovies = this.movies.filter(movie =>
-        movie.title.toLowerCase().includes(value.toLowerCase())
-      );
-    }
-    this.sortMovies(this.sortField);
-  }
-
-  sortMovies(field: 'releaseDate' | 'title') {
-    if (this.sortField === field) {
-      // If the field is the same, change the order.
-      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
-    } else {
-      // If it's a new field, set the default descending order.
-      this.sortField = field;
-      this.sortOrder = 'desc';
-    }
-
-    this.filteredMovies.sort((a, b) => {
-      let comparison = 0;
-      if (field === 'releaseDate') {
-        comparison = new Date(b.releaseDate).getTime() - new Date(a.releaseDate).getTime();
-      } else if (field === 'title') {
-        comparison = b.title.localeCompare(a.title);
-      }
-      return this.sortOrder === 'asc' ? -comparison : comparison;
-    });
+    this.dataSource.filter = target.value.trim().toLowerCase();
+    this.filteredMovies = this.dataSource.filteredData;
   }
 
   calculateAverageRating(movie: any): number{
@@ -82,16 +63,54 @@ export class MovieListComponent {
     return sum / validRatings.length;
   }
 
-  formatArray(array: string[]): string { return array.join(' / '); }
+  formatArray(array: string[] | undefined): string {
+    return array ? array.join(' / ') : '';
+  }
 
-  formatRating(rating: number): string {
+  formatRating(rating: number | undefined): string {
+    if (rating === undefined) return '-';
     if (rating === 10) { return '10'; }
     return rating.toFixed(1);
   }
 
-  onMouseEnter(movieId: number) { this.hoveredMovieId = movieId; }
+  onMouseEnter(movieId: string) {
+    this.hoveredMovieId = movieId;
+  }
 
-  onMouseLeave() { this.hoveredMovieId = null; }
+  onMouseLeave() {
+    this.hoveredMovieId = null;
+  }
 
-  onAnimationEnd(movieId: number) { if (this.hoveredMovieId !== movieId) { this.animatingMovieId = null; } }
+  sortData(sort: Sort) {
+    const data = this.filteredMovies.slice();
+    if (!sort.active || sort.direction === '') {
+      this.filteredMovies = data;
+      return;
+    }
+
+    this.filteredMovies = data.sort((a, b) => {
+      const isAsc = sort.direction === 'asc';
+      switch (sort.active) {
+        case 'releaseDate': return compare(new Date(a.releaseDate), new Date(b.releaseDate), isAsc);
+        case 'title': return compare(a.title, b.title, isAsc);
+        case 'directors': return compare(a.directedBy, b.directedBy, isAsc);
+        case 'screenplay': return compare(a.personalRating?.screenplay, b.personalRating?.screenplay, isAsc);
+        case 'acting': return compare(a.personalRating?.acting, b.personalRating?.acting, isAsc);
+        case 'photography': return compare(a.personalRating?.photography, b.personalRating?.photography, isAsc);
+        case 'entertainment': return compare(a.personalRating?.entertainment, b.personalRating?.entertainment, isAsc);
+        case 'recommended': return compare(a.personalRating?.recommended, b.personalRating?.recommended, isAsc);
+        case 'average': return compare(this.calculateAverageRating(a), this.calculateAverageRating(b), isAsc);
+        default: return 0;
+      }
+    });
+  }
+}
+
+function compare(a: number | string | string[] | Date | undefined, b: number | string | string[] | Date | undefined, isAsc: boolean) {
+  if (a === undefined && b === undefined) return 0;
+  if (a === undefined) return isAsc ? -1 : 1;
+  if (b === undefined) return isAsc ? 1 : -1;
+  if (Array.isArray(a)) return isAsc ? 1 : -1;
+  if (Array.isArray(b)) return isAsc ? -1 : 1;
+  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }
