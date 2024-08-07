@@ -88,6 +88,13 @@ thead th:last-child {
   border-right: none;
 }
 
+thead > tr > .th-releaseDate, .th-screenplay,
+.th-acting, .th-photography, .th-entertainment,
+.th-recommended, .th-average, .th-details {
+  justify-content: space-around;
+  align-items: center;
+}
+
 tbody > tr > .th-releaseDate, .th-screenplay,
 .th-acting, .th-photography, .th-entertainment,
 .th-recommended, .th-average, .th-details {
@@ -98,7 +105,6 @@ tbody > tr > .th-releaseDate, .th-screenplay,
 .th-entertainment, .th-recommended, .th-average,
 .th-details {
   width: 1vmax;
-  aspect-ratio: 1;
 }
 
 #th-releaseDate {
