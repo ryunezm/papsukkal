@@ -5,8 +5,8 @@ import {Observable} from "rxjs";
 export interface Movie {
   id: string;
   title: string;
-  titleEN?: string;
-  titleES?: string;
+  titleEN: string;
+  titleES: string;
   directedBy?: string[];
   screenplayBy?: string[];
   producedBy?: string[];
