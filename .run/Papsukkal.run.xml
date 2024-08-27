@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Papsukkal" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <module name="papsukkal" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.ryunezm.papsukkal.PapsukkalApplication" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
