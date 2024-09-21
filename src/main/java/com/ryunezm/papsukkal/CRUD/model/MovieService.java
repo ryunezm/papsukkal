@@ -109,5 +109,4 @@ public class MovieService {
     public List<Movie> findMovieByAnyPerson(String keyword) {
         return movieRepository.findMovieByAnyPerson(keyword);
     }
-
 }
