@@ -48,6 +48,16 @@ public class MovieController {
         return ResponseEntity.ok(new MessageDTO(HttpStatus.OK, message));
     }
 
+    @PostMapping("/batch")
+    public ResponseEntity<MessageDTO> saveMovies(@Valid @RequestBody List<MovieDTO> movieDTOs) throws AttributeException {
+        for (MovieDTO movieDTO : movieDTOs) {
+            movieService.save(movieDTO);
+        }
+        String message = movieDTOs.size() + " movies have been saved.";
+        return ResponseEntity.ok(new MessageDTO(HttpStatus.OK, message));
+    }
+
+
     @PutMapping("/{id}")
     public ResponseEntity<MessageDTO> updateMovie(@PathVariable("id") String id, @Valid @RequestBody MovieDTO movieDTO) throws ResourceNotFoundException, AttributeException {
         ResponseEntity.ok(movieService.update(id, movieDTO));
