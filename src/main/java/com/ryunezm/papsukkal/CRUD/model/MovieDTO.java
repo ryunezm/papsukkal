@@ -32,7 +32,7 @@ public class MovieDTO {
     private List<String> screenplayBy;
     @Size(max = 10, message = "The list of producers cannot exceed 10.")
     private List<String> producedBy;
-    @Size(max = 50, message = "The list of starring actors cannot exceed 50.")
+    @Size(max = 150, message = "The list of starring actors cannot exceed 150.")
     private List<String> starring;
     @Size(max = 20, message = "The list of cinematographers cannot exceed 20.")
     private List<String> cinematography;
