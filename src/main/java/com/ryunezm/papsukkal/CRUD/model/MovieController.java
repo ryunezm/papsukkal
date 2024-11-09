@@ -4,6 +4,7 @@ import com.ryunezm.papsukkal.global.dto.MessageDTO;
 import com.ryunezm.papsukkal.global.exceptions.AttributeException;
 import com.ryunezm.papsukkal.global.exceptions.ResourceNotFoundException;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,13 +14,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/movies")
 @CrossOrigin(origins = "http://localhost:4200")
+@RequiredArgsConstructor
 public class MovieController {
 
     private final MovieService movieService;
-
-    public MovieController(MovieService movieService) {
-        this.movieService = movieService;
-    }
 
     @GetMapping
     public ResponseEntity<List<Movie>> findAll() {
@@ -56,7 +54,6 @@ public class MovieController {
         String message = movieDTOs.size() + " movies have been saved.";
         return ResponseEntity.ok(new MessageDTO(HttpStatus.OK, message));
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<MessageDTO> updateMovie(@PathVariable("id") String id, @Valid @RequestBody MovieDTO movieDTO) throws ResourceNotFoundException, AttributeException {
