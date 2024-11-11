@@ -4,50 +4,59 @@
   </div>
 
   <div id="container-actions">
-    <input (input)="onSearchChange($event)" class="sub-form-input-text" id="search-bar" placeholder="Search movies..."
+    <input (input)="onSearchChange($event)"
+           [formControl] = "searchControl"
+           class="sub-form-input-text"
+           id="search-bar"
+           placeholder="Search movies..."
            type="text">
     <button class="button-actions-general" routerLink="/movies/new">Add Movie</button>
   </div>
 
   <div id="container-movies">
-    <table (matSortChange)="sortData($event)" matSort>
-      <thead>
-      <tr>
-        <th class="th-releaseDate" mat-sort-header="releaseDate">RELEASE DATE</th>
-        <th class="th-movie" mat-sort-header="title">TITLE</th>
-        <th class="th-directors" mat-sort-header="directors">DIRECTORS</th>
-        <th class="th-screenplay" mat-sort-header="screenplay">📜</th>
-        <th class="th-acting" mat-sort-header="acting">🎭</th>
-        <th class="th-photography" mat-sort-header="photography">📸</th>
-        <th class="th-entertainment" mat-sort-header="entertainment">🎉</th>
-        <th class="th-recommended" mat-sort-header="recommended">👍</th>
-        <th class="th-average" mat-sort-header="average">⭐</th>
-        <th class="th-details"></th>
-      </tr>
-      </thead>
-      <tbody>
-        @for (movie of filteredMovies; track movie.id) {
-          <tr>
-            <td class="th-releaseDate"><label>{{ movie.releaseDate }}</label></td>
-            <td class="th-movie"><label>{{ movie.title }}</label></td>
-            <td class="th-directors"><label>{{ formatArray(movie.directedBy) }}</label></td>
-            <td class="th-screenplay"><label>{{ formatRating(movie.personalRating?.screenplay) }}</label></td>
-            <td class="th-acting"><label>{{ formatRating(movie.personalRating?.acting) }}</label></td>
-            <td class="th-photography"><label>{{ formatRating(movie.personalRating?.photography) }}</label></td>
-            <td class="th-entertainment"><label>{{ formatRating(movie.personalRating?.entertainment) }}</label></td>
-            <td class="th-recommended"><label>{{ formatRating(movie.personalRating?.recommended) }}</label></td>
-            <td class="th-average"><label>{{ formatRating(calculateAverageRating(movie)) }}</label></td>
-            <td class="th-details">
-              <a [routerLink]="['/movies', movie.id]"
-                 (mouseenter)="onMouseEnter(movie.id)"
-                 (mouseleave)="onMouseLeave()">
-                <label>{{ hoveredMovieId === movie.id ? '👀' : '👁️' }}</label>
-              </a>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
+    @if (movies$ | async; as movies) {
+      <table (matSortChange)="sortData($event)" matSort>
+        <thead>
+        <tr>
+          <th class="th-releaseDate" mat-sort-header="releaseDate">RELEASE DATE</th>
+          <th class="th-movie" mat-sort-header="title">TITLE</th>
+          <th class="th-directors" mat-sort-header="directors">DIRECTORS</th>
+          <th class="th-screenplay" mat-sort-header="screenplay">📜</th>
+          <th class="th-acting" mat-sort-header="acting">🎭</th>
+          <th class="th-photography" mat-sort-header="photography">📸</th>
+          <th class="th-entertainment" mat-sort-header="entertainment">🎉</th>
+          <th class="th-recommended" mat-sort-header="recommended">👍</th>
+          <th class="th-average" mat-sort-header="average">⭐</th>
+          <th class="th-details"></th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (movie of filteredMovies; track movie.id) {
+            <tr>
+              <td class="th-releaseDate"><label>{{ movie.releaseDate }}</label></td>
+              <td class="th-movie"><label>{{ movie.title }}</label></td>
+              <td class="th-directors"><label>{{ formatArray(movie.directedBy) }}</label></td>
+              <td class="th-screenplay"><label>{{ formatRating(movie.personalRating?.screenplay) }}</label></td>
+              <td class="th-acting"><label>{{ formatRating(movie.personalRating?.acting) }}</label></td>
+              <td class="th-photography"><label>{{ formatRating(movie.personalRating?.photography) }}</label></td>
+              <td class="th-entertainment"><label>{{ formatRating(movie.personalRating?.entertainment) }}</label></td>
+              <td class="th-recommended"><label>{{ formatRating(movie.personalRating?.recommended) }}</label></td>
+              <td class="th-average"><label>{{ formatRating(calculateAverageRating(movie)) }}</label></td>
+              <td class="th-details">
+                <a [routerLink]="['/movies', movie.id]"
+                   (mouseenter)="onMouseEnter(movie.id)"
+                   (mouseleave)="onMouseLeave()">
+                  <label>{{ hoveredMovieId === movie.id ? '👀' : '👁️' }}</label>
+                </a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    } @else {
+      <div class="loading">
+        <p>Loading movies...</p>
+      </div>
+    }
   </div>
 </div>
-

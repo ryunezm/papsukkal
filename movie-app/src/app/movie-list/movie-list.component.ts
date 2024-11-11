@@ -1,10 +1,12 @@
-import {Component, ViewChild, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Movie, MovieService} from "../movie.service";
 import {RouterLink} from "@angular/router";
-import {MatButton} from "@angular/material/button";
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
 import {CommonModule} from '@angular/common';
+import {catchError, of, tap} from "rxjs";
+import {Event as TypescriptEvent} from '@angular/router';
+import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-movie-list',
@@ -12,33 +14,38 @@ import {CommonModule} from '@angular/common';
   imports: [
     CommonModule,
     RouterLink,
-    MatButton,
     MatSort,
-    MatSortHeader
+    MatSortHeader,
+    ReactiveFormsModule
   ],
   templateUrl: './movie-list.component.html',
   styleUrl: './movie-list.component.scss'
 })
-export class MovieListComponent {
+export class MovieListComponent implements OnInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   dataSource: MatTableDataSource<Movie>;
   hoveredMovieId: string | null = null;
   filteredMovies: Movie[] = [];
+  searchControl = new FormControl('');
+
+  movies$ = this.movieService.getMovies().pipe(
+    tap(movies => {
+      this.dataSource.data = movies;
+      this.filteredMovies = movies;
+    }),
+    catchError(error => {
+      console.error('Error loading movies:', error);
+      return of([]);
+    })
+  );
 
   constructor(private movieService: MovieService) {
     this.dataSource = new MatTableDataSource<Movie>();
   }
 
   ngOnInit(): void {
-    this.movieService.getMovies().subscribe((data: Movie[]) => {
-      this.dataSource.data = data;
-      this.filteredMovies = data;
-    });
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    this.searchControl.reset();
   }
 
   onSearchChange(event: Event) {
@@ -47,7 +54,7 @@ export class MovieListComponent {
     this.filteredMovies = this.dataSource.filteredData;
   }
 
-  calculateAverageRating(movie: any): number{
+  calculateAverageRating(movie: any): number {
     const ratings = [
       movie.personalRating.screenplay,
       movie.personalRating.acting,
