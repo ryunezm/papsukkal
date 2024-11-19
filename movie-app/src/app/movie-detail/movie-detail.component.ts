@@ -9,15 +9,14 @@ import {Language} from "../enums/language.enum";
 import {Country} from "../enums/country.enum";
 
 @Component({
-  selector: 'app-movie-detail',
-  standalone: true,
-  imports: [
-    RouterLink,
-    NotFoundComponent,
-    AsyncPipe
-  ],
-  templateUrl: './movie-detail.component.html',
-  styleUrl: './movie-detail.component.scss'
+    selector: 'app-movie-detail',
+    imports: [
+        RouterLink,
+        NotFoundComponent,
+        AsyncPipe
+    ],
+    templateUrl: './movie-detail.component.html',
+    styleUrl: './movie-detail.component.scss'
 })
 export class MovieDetailComponent {
   movie$: Observable<Movie | null> = new Observable<Movie | null>();

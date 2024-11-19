@@ -10,15 +10,14 @@ import {NgClass} from "@angular/common";
 
 
 @Component({
-  selector: 'app-movie-form',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgClass,
-    RouterLink,
-  ],
-  templateUrl: './movie-form.component.html',
-  styleUrls: ['./movie-form.component.scss']
+    selector: 'app-movie-form',
+    imports: [
+        FormsModule,
+        NgClass,
+        RouterLink,
+    ],
+    templateUrl: './movie-form.component.html',
+    styleUrls: ['./movie-form.component.scss']
 })
 export class MovieFormComponent implements OnInit {
   movie: any = {

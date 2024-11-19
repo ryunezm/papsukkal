@@ -8,17 +8,16 @@ import {catchError, of, tap} from "rxjs";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
-  selector: 'app-movie-list',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RouterLink,
-    MatSort,
-    MatSortHeader,
-    ReactiveFormsModule
-  ],
-  templateUrl: './movie-list.component.html',
-  styleUrl: './movie-list.component.scss'
+    selector: 'app-movie-list',
+    imports: [
+        CommonModule,
+        RouterLink,
+        MatSort,
+        MatSortHeader,
+        ReactiveFormsModule
+    ],
+    templateUrl: './movie-list.component.html',
+    styleUrl: './movie-list.component.scss'
 })
 export class MovieListComponent implements OnInit {
 
