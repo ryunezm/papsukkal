@@ -6,6 +6,8 @@ $color_snow_white: #C5C9C7;
 $color_dim_gray: #666666;
 $color_bridal_heath: #F3F9FE;
 
+@use 'ngx-toastr';
+
 @mixin flex-center {
   display: flex;
   align-items: center;
