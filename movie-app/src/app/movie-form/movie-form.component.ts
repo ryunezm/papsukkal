@@ -14,7 +14,6 @@ import {NgClass} from "@angular/common";
     imports: [
         FormsModule,
         NgClass,
-        RouterLink,
     ],
     templateUrl: './movie-form.component.html',
     styleUrls: ['./movie-form.component.scss']
