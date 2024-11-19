@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../movie.service";
 import {Genre, Subgenre} from '../enums/genre.enum';
 import {Country} from '../enums/country.enum';
