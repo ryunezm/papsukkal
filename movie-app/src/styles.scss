@@ -1,12 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@use 'ngx-toastr/toastr';
+
 $font_UI: "Source Sans 3", "Helvetica Neue", sans-serif;
 $color_background: #81A3BF;
 $color_indian_red: #A35353;
 $color_snow_white: #C5C9C7;
 $color_dim_gray: #666666;
 $color_bridal_heath: #F3F9FE;
-
-@use 'ngx-toastr';
 
 @mixin flex-center {
   display: flex;

@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {MovieService, Movie} from "../movie.service";
+import {Movie, MovieService} from "../movie.service";
 import {NotFoundComponent} from "../static/not-found/not-found.component";
 import {catchError, Observable, of, switchMap, take, tap} from "rxjs";
 import {AsyncPipe} from "@angular/common";
@@ -9,14 +9,14 @@ import {Language} from "../enums/language.enum";
 import {Country} from "../enums/country.enum";
 
 @Component({
-    selector: 'app-movie-detail',
-    imports: [
-        RouterLink,
-        NotFoundComponent,
-        AsyncPipe
-    ],
-    templateUrl: './movie-detail.component.html',
-    styleUrl: './movie-detail.component.scss'
+  selector: 'app-movie-detail',
+  imports: [
+    RouterLink,
+    NotFoundComponent,
+    AsyncPipe
+  ],
+  templateUrl: './movie-detail.component.html',
+  styleUrl: './movie-detail.component.scss'
 })
 export class MovieDetailComponent {
   movie$: Observable<Movie | null> = new Observable<Movie | null>();
@@ -25,7 +25,8 @@ export class MovieDetailComponent {
     private route: ActivatedRoute,
     private movieService: MovieService,
     private router: Router
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.movie$ = this.route.paramMap.pipe(

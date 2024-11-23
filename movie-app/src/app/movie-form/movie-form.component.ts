@@ -7,6 +7,7 @@ import {Country} from '../enums/country.enum';
 import {SubgenreValidatorService} from '../subgenre-validator.service';
 import {Language} from '../enums/language.enum';
 import {NgClass} from "@angular/common";
+import {ToastrService} from "ngx-toastr";
 
 
 @Component({
@@ -63,7 +64,8 @@ export class MovieFormComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private movieService: MovieService,
               private router: Router,
-              private subgenreValidatorService: SubgenreValidatorService) {
+              private subgenreValidatorService: SubgenreValidatorService,
+              private toast: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -112,14 +114,24 @@ export class MovieFormComponent implements OnInit {
     });
 
     if (this.movie.id) {
-      this.movieService.updateMovie(this.movie.id, this.movie).subscribe(() => {
-        this.router.navigate(['/movies']).then(() => {
-        });
+      this.movieService.updateMovie(this.movie.id, this.movie).subscribe({
+        next:() => {
+          this.toast.success("Movie successfully updated", "Success");
+          this.router.navigate(['/movies']).then(() => {});
+        },
+         error:() => {
+          this.toast.error("Error updating the movie", "Error")
+         }
       });
     } else {
-      this.movieService.createMovie(this.movie).subscribe(() => {
-        this.router.navigate(['/movies']).then(() => {
-        });
+      this.movieService.createMovie(this.movie).subscribe({
+        next: () => {
+          this.toast.success("Movie successfully created","Success");
+          this.router.navigate(['/movies']).then(() => {});
+        },
+        error: () => {
+          this.toast.error("Error creating the movie", "Error")
+        }
       });
     }
 
