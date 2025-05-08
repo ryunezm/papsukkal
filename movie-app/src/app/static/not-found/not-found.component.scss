@@ -2,12 +2,12 @@
   width: 100%;
   position: absolute;
   z-index: 1;
-  outline: 1px solid red;
-  animation: moveMagnifier 3s infinite linear;
+  /*outline: 1px solid red;*/
+  /*animation: moveMagnifier 3s infinite linear;*/
 }
 
 .container_grid {
-  outline: 1px solid green;
+  /*outline: 1px solid green;*/
   display: grid;
   grid-template-columns: repeat(3, 30%);
   grid-gap: 1vmax;
@@ -21,7 +21,7 @@
   justify-content: center;
   transition: transform 0.1s;
 }
-
+/*
 @keyframes moveMagnifier {
   0%, 16.67% { transform: translate(0, 0); }
   33.33%, 50% { transform: translate(33.33%, 0); }
@@ -50,3 +50,4 @@
   0%, 66.67%, 100% { transform: scale(1); }
   75%, 91.67% { transform: scale(1.5); }
 }
+ */
