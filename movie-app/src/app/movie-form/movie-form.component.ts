@@ -11,13 +11,13 @@ import {ToastrService} from "ngx-toastr";
 
 
 @Component({
-    selector: 'app-movie-form',
-    imports: [
-        FormsModule,
-        NgClass,
-    ],
-    templateUrl: './movie-form.component.html',
-    styleUrls: ['./movie-form.component.scss']
+  selector: 'app-movie-form',
+  imports: [
+    FormsModule,
+    NgClass,
+  ],
+  templateUrl: './movie-form.component.html',
+  styleUrls: ['./movie-form.component.scss']
 })
 export class MovieFormComponent implements OnInit {
   movie: any = {
@@ -84,7 +84,9 @@ export class MovieFormComponent implements OnInit {
         this.initializePersonalRating();
         this.onGenresChange();
       });
-    } else { this.initializePersonalRating(); }
+    } else {
+      this.initializePersonalRating();
+    }
 
     this.genres.sort();
     this.subgenres.sort();
@@ -115,19 +117,21 @@ export class MovieFormComponent implements OnInit {
 
     if (this.movie.id) {
       this.movieService.updateMovie(this.movie.id, this.movie).subscribe({
-        next:() => {
+        next: () => {
           this.toast.success("Movie successfully updated", "Success");
-          this.router.navigate(['/movies']).then(() => {});
+          this.router.navigate(['/movies']).then(() => {
+          });
         },
-         error:() => {
+        error: () => {
           this.toast.error("Error updating the movie", "Error")
-         }
+        }
       });
     } else {
       this.movieService.createMovie(this.movie).subscribe({
         next: () => {
-          this.toast.success("Movie successfully created","Success");
-          this.router.navigate(['/movies']).then(() => {});
+          this.toast.success("Movie successfully created", "Success");
+          this.router.navigate(['/movies']).then(() => {
+          });
         },
         error: () => {
           this.toast.error("Error creating the movie", "Error")
@@ -144,7 +148,9 @@ export class MovieFormComponent implements OnInit {
     const checkbox = event.target as HTMLInputElement;
     const value = checkbox.value;
 
-    if (!this.movie[type]) { this.movie[type] = []; }
+    if (!this.movie[type]) {
+      this.movie[type] = [];
+    }
 
     if (type === 'genres') {
       if (checkbox.checked) {
@@ -239,18 +245,6 @@ export class MovieFormComponent implements OnInit {
     }
   }
 
-  private initializePersonalRating(): void {
-    if (!this.movie.personalRating) {
-      this.movie.personalRating = {
-        screenplay: 0,
-        acting: 0,
-        photography: 0,
-        entertainment: 0,
-        recommended: 0
-      };
-    }
-  }
-
   onSearchChange(event: Event, type: 'country' | 'language'): void {
     const searchValue = (event.target as HTMLInputElement).value.toLowerCase();
 
@@ -262,6 +256,18 @@ export class MovieFormComponent implements OnInit {
       this.filteredLanguages = this.languages.filter(([, value]) =>
         value.toLowerCase().includes(searchValue)
       );
+    }
+  }
+
+  private initializePersonalRating(): void {
+    if (!this.movie.personalRating) {
+      this.movie.personalRating = {
+        screenplay: 0,
+        acting: 0,
+        photography: 0,
+        entertainment: 0,
+        recommended: 0
+      };
     }
   }
 }
