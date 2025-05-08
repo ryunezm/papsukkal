@@ -99,11 +99,11 @@ input[type='checkbox']:checked:after {
   content: '';
 }
 
-input[type='checkbox']{
+input[type='checkbox'] {
   vertical-align: middle;
   width: 16px !important;
   height: 16px !important;
-  appearance:none;
+  appearance: none;
   border-radius: 0;
   border: 1px solid $color_indian_red;
   box-shadow: none;
@@ -127,7 +127,7 @@ select {
 }
 
 // CLASSES
-.invalid-input{
+.invalid-input {
   outline: 0.2vw solid red;
 }
 
@@ -145,6 +145,7 @@ select {
   padding: 0.2vmax 0.2vmax;
 
   @include button-active;
+
   &:active {
     transform: translate(0.2vmax, 0.2vmax);
     border: none;
@@ -186,7 +187,7 @@ select {
   margin-bottom: 0.5vmax;
   width: 100%;
 
-  .sub-form-input-text{
+  .sub-form-input-text {
     background-color: rgba(0, 255, 125, 0.1);
     outline: 1px dashed #666666;
   }
@@ -248,9 +249,11 @@ select {
     flex-wrap: nowrap;
     justify-content: space-between;
     font-family: $font_UI;
+
     .sub-form-label {
       width: 50%;
     }
+
     .sub-form-text {
       width: 10vmax;
       text-align: center;
@@ -267,6 +270,7 @@ select {
   width: 300%;
   display: flex;
   flex-direction: column;
+
   .sub-form-input-text {
     width: 50%;
     margin: 0 25%;
@@ -302,9 +306,11 @@ select {
 
   .sub-form-rating {
     width: 100%;
+
     .sub-form {
       flex-direction: column;
       width: 100%;
+
       .sub-form-label {
         width: 100%;
       }
@@ -327,6 +333,7 @@ select {
     flex-direction: column;
     align-items: center;
     font-size: x-small;
+
     input {
       width: 100%;
     }
