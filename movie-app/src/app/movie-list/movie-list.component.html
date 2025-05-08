@@ -5,7 +5,7 @@
 
   <div id="container-actions">
     <input (input)="onSearchChange($event)"
-           [formControl] = "searchControl"
+           [formControl]="searchControl"
            class="sub-form-input-text"
            id="search-bar"
            placeholder="Search movies..."

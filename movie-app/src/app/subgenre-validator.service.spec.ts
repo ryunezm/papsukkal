@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { SubgenreValidatorService } from './subgenre-validator.service';
+import {SubgenreValidatorService} from './subgenre-validator.service';
 
 describe('SubgenreValidatorService', () => {
   let service: SubgenreValidatorService;

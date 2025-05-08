@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Genre, Subgenre} from './enums/genre.enum';
 
 @Injectable({
@@ -30,6 +30,9 @@ export class SubgenreValidatorService {
     [Genre.WESTERN, [Subgenre.WESTERN_EMPIRE, Subgenre.WESTERN_MARSHAL, Subgenre.WESTERN_CONTEMPORARY, Subgenre.WESTERN_OUTLAW, Subgenre.WESTERN_SPAGHETTI]],
   ]);
 
+  constructor() {
+  }
+
   validateSubgenres(subgenreKeysOrValues: string[], genreKeysOrValues: string[]): void {
     let subgenres: Subgenre[];
     let genres: Genre[];
@@ -49,7 +52,9 @@ export class SubgenreValidatorService {
       throw new Error('Invalid subgenre or genre keys/values provided.');
     }
 
-    if (subgenres.length === 0) { return; }
+    if (subgenres.length === 0) {
+      return;
+    }
 
     const allowedSubgenres = genres
       .flatMap(genre => this.genreSubgenreMap.get(genre) || []);
@@ -73,7 +78,9 @@ export class SubgenreValidatorService {
     }
 
     for (const [genre, subgenres] of this.genreSubgenreMap.entries()) {
-      if (subgenres.includes(subgenre)) { return genre; }
+      if (subgenres.includes(subgenre)) {
+        return genre;
+      }
     }
 
     throw new Error(`A genre could not be found for the subgenre provided: ${subgenre}`);
@@ -104,6 +111,4 @@ export class SubgenreValidatorService {
 
     return subgenreObject;
   }
-
-  constructor() { }
 }

@@ -1,17 +1,17 @@
-#container-actions{
+#container-actions {
   width: 50vw;
-  display:flex;
+  display: flex;
   justify-items: center;
   align-items: center;
   justify-content: space-around;
 }
 
-#search-bar{
+#search-bar {
   width: 30vw;
   font-family: "Source Sans 3", sans-serif;
 }
 
-#search-bar:focus{
+#search-bar:focus {
   outline: none;
 }
 
@@ -30,9 +30,18 @@ a {
 }
 
 @keyframes eyeChange {
-  0% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.5); opacity: 0.5; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .animated {
@@ -108,7 +117,7 @@ tbody > tr > .th-releaseDate, .th-screenplay,
 }
 
 #th-releaseDate {
- width: 12vmax;
+  width: 12vmax;
 }
 
 tr > td {

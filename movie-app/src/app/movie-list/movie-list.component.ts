@@ -8,16 +8,16 @@ import {catchError, of, tap} from "rxjs";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
-    selector: 'app-movie-list',
-    imports: [
-        CommonModule,
-        RouterLink,
-        MatSort,
-        MatSortHeader,
-        ReactiveFormsModule
-    ],
-    templateUrl: './movie-list.component.html',
-    styleUrl: './movie-list.component.scss'
+  selector: 'app-movie-list',
+  imports: [
+    CommonModule,
+    RouterLink,
+    MatSort,
+    MatSortHeader,
+    ReactiveFormsModule
+  ],
+  templateUrl: './movie-list.component.html',
+  styleUrl: './movie-list.component.scss'
 })
 export class MovieListComponent implements OnInit {
 
@@ -62,7 +62,9 @@ export class MovieListComponent implements OnInit {
     ];
 
     const validRatings = ratings.filter(rating => rating !== null && rating !== undefined);
-    if (validRatings.length === 0) { return 0; }
+    if (validRatings.length === 0) {
+      return 0;
+    }
 
     const sum = validRatings.reduce((acc, curr) => acc + curr, 0);
     return sum / validRatings.length;
@@ -74,7 +76,9 @@ export class MovieListComponent implements OnInit {
 
   formatRating(rating: number | undefined): string {
     if (rating === undefined) return '-';
-    if (rating === 10) { return '10'; }
+    if (rating === 10) {
+      return '10';
+    }
     return rating.toFixed(1);
   }
 
@@ -96,16 +100,26 @@ export class MovieListComponent implements OnInit {
     this.filteredMovies = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
-        case 'releaseDate': return compare(new Date(a.releaseDate), new Date(b.releaseDate), isAsc);
-        case 'title': return compare(a.title, b.title, isAsc);
-        case 'directors': return compare(a.directedBy, b.directedBy, isAsc);
-        case 'screenplay': return compare(a.personalRating?.screenplay, b.personalRating?.screenplay, isAsc);
-        case 'acting': return compare(a.personalRating?.acting, b.personalRating?.acting, isAsc);
-        case 'photography': return compare(a.personalRating?.photography, b.personalRating?.photography, isAsc);
-        case 'entertainment': return compare(a.personalRating?.entertainment, b.personalRating?.entertainment, isAsc);
-        case 'recommended': return compare(a.personalRating?.recommended, b.personalRating?.recommended, isAsc);
-        case 'average': return compare(this.calculateAverageRating(a), this.calculateAverageRating(b), isAsc);
-        default: return 0;
+        case 'releaseDate':
+          return compare(new Date(a.releaseDate), new Date(b.releaseDate), isAsc);
+        case 'title':
+          return compare(a.title, b.title, isAsc);
+        case 'directors':
+          return compare(a.directedBy, b.directedBy, isAsc);
+        case 'screenplay':
+          return compare(a.personalRating?.screenplay, b.personalRating?.screenplay, isAsc);
+        case 'acting':
+          return compare(a.personalRating?.acting, b.personalRating?.acting, isAsc);
+        case 'photography':
+          return compare(a.personalRating?.photography, b.personalRating?.photography, isAsc);
+        case 'entertainment':
+          return compare(a.personalRating?.entertainment, b.personalRating?.entertainment, isAsc);
+        case 'recommended':
+          return compare(a.personalRating?.recommended, b.personalRating?.recommended, isAsc);
+        case 'average':
+          return compare(this.calculateAverageRating(a), this.calculateAverageRating(b), isAsc);
+        default:
+          return 0;
       }
     });
   }
