@@ -150,6 +150,14 @@ select {
     transform: translate(0.2vmax, 0.2vmax);
     border: none;
   }
+
+  &:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: default;
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 .button-actions-specific {
