@@ -6,7 +6,7 @@ $color_background: #81A3BF;
 $color_indian_red: #A35353;
 $color_snow_white: #C5C9C7;
 $color_dim_gray: #666666;
-$color_bridal_heath: #F3F9FE;
+$color_bridal_heath: #d7dee5;
 
 @mixin flex-center {
   display: flex;
@@ -126,28 +126,37 @@ select {
   color: $color_indian_red;
 }
 
+#container-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 0.5vmax;
+  margin-bottom: 0.5vmax;
+  width: 10vmax;
+  outline: 1px solid red;
+
+  #search-bar {
+    width: 50%;
+  }
+}
+
 // CLASSES
 .invalid-input {
   outline: 0.2vw solid red;
-}
-
-.table-header {
-  @include flex-center;
-  justify-content: space-around;
 }
 
 // class --> button
 .button-actions-general {
   @include button-base;
   font-size: large;
-  box-shadow: 0.2vmax 0.2vmax $color_dim_gray;
+  box-shadow: 0.1vmax 0.1vmax $color_dim_gray;
   transition: box-shadow 0.1s ease;
-  padding: 0.2vmax 0.2vmax;
+  padding: 0.5vmax 0.5vmax;
 
   @include button-active;
 
   &:active {
-    transform: translate(0.2vmax, 0.2vmax);
+    transform: translate(0.1vmax, 0.1vmax);
     border: none;
   }
 
@@ -190,17 +199,6 @@ select {
   margin: 0 10vmax;;
 }
 
-.container-actions {
-  margin-top: 0.5vmax;
-  margin-bottom: 0.5vmax;
-  width: 100%;
-
-  .sub-form-input-text {
-    background-color: rgba(0, 255, 125, 0.1);
-    outline: 1px dashed #666666;
-  }
-}
-
 // class --> sub-form
 .sub-form {
   @include sub-form-base;
@@ -211,8 +209,7 @@ select {
 
   .sub-form-text {
     padding: 0 0.1vmax;
-    margin-top: 0.2vmax;
-    margin-bottom: 0.2vmax;
+    margin: 0.1vmax;
   }
 }
 
