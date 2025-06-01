@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Deprecated
 @Component
 public class MovieEventListener extends AbstractMongoEventListener<Movie> {
     private final MongoClient mongoClient;
@@ -74,7 +75,5 @@ public class MovieEventListener extends AbstractMongoEventListener<Movie> {
             collection.updateOne(query, update, new com.mongodb.client.model.UpdateOptions().upsert(true));
         }
     }
-
-
 }
 
