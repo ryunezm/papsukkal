@@ -6,7 +6,10 @@ import com.ryunezm.papsukkal.CRUD.enums.Country;
 import com.ryunezm.papsukkal.CRUD.enums.Genre;
 import com.ryunezm.papsukkal.CRUD.enums.Language;
 import com.ryunezm.papsukkal.CRUD.utils.SubgenreValidator;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
