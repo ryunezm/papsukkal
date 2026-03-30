@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {Movie, MovieService} from "../movie.service";
 import {NotFoundComponent} from "../static/not-found/not-found.component";
@@ -16,6 +16,7 @@ import {Country} from "../enums/country.enum";
     AsyncPipe
   ],
   templateUrl: './movie-detail.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './movie-detail.component.scss'
 })
 export class MovieDetailComponent {

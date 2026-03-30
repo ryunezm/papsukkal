@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {Movie, MovieService} from "../movie.service";
 import {RouterLink} from "@angular/router";
 import {MatSort, MatSortHeader, Sort} from "@angular/material/sort";
@@ -17,6 +17,7 @@ import {FormControl, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule
   ],
   templateUrl: './movie-list.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './movie-list.component.scss'
 })
 export class MovieListComponent implements OnInit {

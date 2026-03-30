@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild, ChangeDetectionStrategy} from '@angular/core';
 import {FormsModule, NgForm} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {MovieService} from "../movie.service";
@@ -17,6 +17,7 @@ import {ToastrService} from "ngx-toastr";
     NgClass,
   ],
   templateUrl: './movie-form.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./movie-form.component.scss']
 })
 export class MovieFormComponent implements OnInit {
