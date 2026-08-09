@@ -25,7 +25,7 @@ public class MovieController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Movie> getMovieById(@PathVariable("id") String id) throws ResourceNotFoundException {
+    public ResponseEntity<Movie> getMovieById(@PathVariable String id) throws ResourceNotFoundException {
         return ResponseEntity.ok(movieService.findById(id));
     }
 
@@ -56,14 +56,14 @@ public class MovieController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MessageDTO> updateMovie(@PathVariable("id") String id, @Valid @RequestBody MovieDTO movieDTO) throws ResourceNotFoundException, AttributeException {
+    public ResponseEntity<MessageDTO> updateMovie(@PathVariable String id, @Valid @RequestBody MovieDTO movieDTO) throws ResourceNotFoundException, AttributeException {
         ResponseEntity.ok(movieService.update(id, movieDTO));
         String message = "Movie " + movieDTO.getTitle() + " " + movieDTO.getDirectedBy() + " have been updated";
         return ResponseEntity.ok(new MessageDTO(HttpStatus.OK, message));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<MessageDTO> deleteMovieById(@PathVariable("id") String id) throws ResourceNotFoundException {
+    public ResponseEntity<MessageDTO> deleteMovieById(@PathVariable String id) throws ResourceNotFoundException {
         String message = "Movie " + movieService.findById(id).getTitle() + " has been deleted";
         ResponseEntity.ok(movieService.deleteById(id));
         return ResponseEntity.ok(new MessageDTO(HttpStatus.OK, message));
